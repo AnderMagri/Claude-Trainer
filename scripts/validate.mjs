@@ -4,7 +4,7 @@ import vm from 'node:vm';
 const ctx = { window: {} };
 ctx.window.window = ctx.window;
 vm.createContext(ctx.window);
-for (const f of ['content/ui.js', 'content/m1.js', 'content/m2.js', 'content/m3.js', 'content/exam.js', 'content/glossary.js']) {
+for (const f of ['content/ui.js', 'content/m1.js', 'content/m2.js', 'content/m3.js', 'content/m4.js', 'content/m5.js', 'content/exam.js', 'content/glossary.js']) {
   vm.runInContext(readFileSync(f, 'utf8'), ctx.window, { filename: f });
 }
 const CT = ctx.window.CT;

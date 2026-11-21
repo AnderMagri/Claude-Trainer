@@ -19,7 +19,9 @@ The course is drawn as a transit map: each **line** is a module, each **station*
 | 1 | How AI like Claude works | What an LLM is · Tokens and the context window · How Claude was made · Apps, plans and models · Your first conversation · Prompting basics · Checking and improving answers · Using AI responsibly |
 | 2 | Power user | Projects · Artifacts · Advanced prompting and fixing prompts · Tools, connectors and Skills · MCP · Claude Code and agents · The right tool for each job · Workshop: an assistant for a small business |
 | 3 | FDE basics | What an FDE does · The terminal · Git and GitHub · How web apps work · The Claude API · Deploying · AI solutions clients can trust · Capstone |
-| Final stop | Practice exam | 60 questions weighted like the real exam's 7 domains, 120-minute timer, score by domain, retry-my-mistakes mode |
+| 4 | Design with Claude | Design basics (contrast, accessibility, RTL) · Design systems and tokens · Claude Design · Figma and MCP · Paper, Orca and agent-native tools · Reviewing AI-made designs · Workshop: brand kit and landing page |
+| 5 | Exam simulation | Know your exam · How to answer scenario questions · Domain review, one page each (+ 14-day plan) · The full exam simulation |
+| Final stop | Exam tab | Full simulation (60 questions weighted by the 7 domains, 120-minute timer, flags, review screen), quick 20, practice by domain, retry-my-mistakes |
 
 Every lesson has: a short summary, goals, key-idea cards, diagrams, an interactive exercise, a quick check, and a notes box.
 
@@ -31,6 +33,11 @@ Every lesson has: a short summary, goals, key-idea cards, diagrams, an interacti
 - Next-word predictor with a randomness slider, token counter, prompt builder, MCP config builder with a diagram,
   agent-loop walkthrough, API request builder with cost, monthly cost calculator, "spot the hallucination" checker,
   and card-sorting games.
+- Design tools: a WCAG **contrast checker**, a **design-token playground** that outputs CSS variables and
+  DTCG-format JSON, a **Figma-to-code mission** in simulated Claude Code (Figma MCP: design context, variables,
+  screenshot comparison), and a design-review spot-check.
+- Exam tools: an **answer-elimination drill**, and an **exam simulation** with a 2-hour timer, flags and an
+  exam-style review screen before you submit.
 - **Practice with real Claude:** inside claude.ai the chat and prompt-builder widgets send prompts to Claude
   (on the viewer's own account, after they allow it). Everywhere else they show a sample answer and an "Open in Claude" button.
 
@@ -68,7 +75,9 @@ content/ui.js       Interface text (EN + HE) and the exam domains with weights
 content/m1.js       Line 1 lessons
 content/m2.js       Line 2 lessons
 content/m3.js       Line 3 lessons
-content/exam.js     60-question practice exam bank
+content/m4.js       Line 4 lessons (design)
+content/m5.js       Line 5 lessons (exam simulation)
+content/exam.js     88-question bank (questions marked mock: false are design extras, kept out of mock exams)
 content/glossary.js Glossary
 scripts/validate.mjs  Checks every lesson and question has both languages and valid answers
 scripts/build.mjs     Builds dist/ for static hosting (Vercel, Netlify, GitHub Pages)
@@ -125,7 +134,8 @@ node scripts/validate.mjs
 ## Updating the live artifact
 
 The artifact is published from this repository. In a Claude session that has this repo, ask:
-*"Republish the Claude Trainer artifact at https://claude.ai/artifact/AYd37GNtmYY9t7m9sRAdhF from index.html with the js/ and content/ files."*
+*"Republish the Claude Trainer artifact at https://claude.ai/artifact/AYd37GNtmYY9t7m9sRAdhF from index.html with all the js/ and content/ files."*
+If you add a new content file, also add its `<script>` tag at the bottom of `index.html` and its name in `scripts/validate.mjs`.
 The link stays the same, and learners' saved progress is kept.
 
 ## Deploying elsewhere (optional)
@@ -142,3 +152,9 @@ Model names, prices and product features were checked in November 2026. The exam
 2026 study guides (Prompting 14%, Output Evaluation 21%, Solution Design 16%, Model Selection 12%, Configuration 12%,
 Responsible Use 15%, Troubleshooting 10%). Check Anthropic's official certification page and docs
 (platform.claude.com/docs) before relying on them.
+
+Design tools (Line 4) move fastest. Facts used: Claude Design launched April 2026 (Anthropic Labs research preview,
+team design systems, export to PDF/URL/PPTX/Canva); Figma's official MCP server (remote and desktop; tools such as
+`get_design_context`, `get_variable_defs`, `get_screenshot`, Code Connect); Paper (paper.design, HTML/CSS canvas with an
+MCP server via Paper Desktop); Orca (onorca.dev, desktop app for parallel coding agents in Git worktrees); DTCG design
+tokens format 2025.10. Re-check these before teaching a client.

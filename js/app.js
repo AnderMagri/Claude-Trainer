@@ -24,8 +24,8 @@
   const dir = () => (L === 'he' ? 'rtl' : 'ltr');
 
   /* ------------------------------------------------------------- indexing */
-  const LINE = { m1: 'l1', m2: 'l2', m3: 'l3', exam: 'lx' };
-  const lineVars = (line) => `--c:var(--${line});--ci:var(--${line}-ink);--cs:var(--${line}-soft);--accent:var(--${line});--accent-ink:var(--${line}-ink);--accent-soft:var(--${line}-soft)`;
+  const LINE = { m1: 'l1', m2: 'l2', m3: 'l3', m4: 'l4', m5: 'lx', exam: 'lx' };
+  const lineVars = (line) => `--c:var(--${line});--ci:var(--${line}-ink);--cs:var(--${line}-soft);--on-c:var(--on-${line});--accent:var(--${line});--accent-ink:var(--${line}-ink);--accent-soft:var(--${line}-soft);--on-accent:var(--on-${line})`;
   const MODS = CT.modules.slice().sort((a, b) => a.n - b.n);
   const MBY = {}; const LESSONS = []; const LBY = {};
   MODS.forEach((m) => {
@@ -211,7 +211,7 @@
     back.onclick = () => { if (parent) go(parent); };
     const accentLine = cur.view === 'lesson' ? LBY[cur.arg].mod.line : (cur.view === 'module' || cur.view === 'mquiz') ? MBY[cur.arg].line : cur.view === 'exam' ? 'lx' : 'l1';
     const rs = document.documentElement.style;
-    rs.setProperty('--accent', `var(--${accentLine})`); rs.setProperty('--accent-ink', `var(--${accentLine}-ink)`); rs.setProperty('--accent-soft', `var(--${accentLine}-soft)`);
+    rs.setProperty('--accent', `var(--${accentLine})`); rs.setProperty('--accent-ink', `var(--${accentLine}-ink)`); rs.setProperty('--accent-soft', `var(--${accentLine}-soft)`); rs.setProperty('--on-accent', `var(--on-${accentLine})`);
   }
   function backTarget() {
     switch (cur.view) {
@@ -526,7 +526,7 @@
 
   /* -------------------------------------------------------- lesson mount */
   function wctx(l, i) {
-    return { L, t, tx, md, esc, icon, Ext, lesson: l, index: i, toast, copyText, S: () => S, persist, uid };
+    return { L, t, tx, md, esc, icon, Ext, lesson: l, index: i, toast, copyText, S: () => S, persist, uid, go, startExam: startMode, fmtDate };
   }
   let ttsOn = false;
   function paintListen() {
@@ -885,16 +885,24 @@
     if (cur.view === 'exam') render(); else go('exam');
   }
   function pickExam(n) {
-    // weight by domain like the real exam
-    const pool = {}; DOMS.forEach((d) => { pool[d.id] = shuffle((CT.exam || []).filter((q) => q.d === d.id)); });
+    // weight by domain like the real exam; design-line extras (mock: false) stay out of mocks
+    const bank = (CT.exam || []).filter((q) => q.mock !== false);
+    const pool = {}; DOMS.forEach((d) => { pool[d.id] = shuffle(bank.filter((q) => q.d === d.id)); });
     const want = {}; let sum = 0;
     DOMS.forEach((d) => { want[d.id] = Math.round(n * d.w / 100); sum += want[d.id]; });
     while (sum > n) { const k = DOMS.slice().sort((a, b) => want[b.id] - want[a.id])[0].id; want[k]--; sum--; }
     while (sum < n) { const k = DOMS.slice().sort((a, b) => b.w - a.w)[0].id; want[k]++; sum++; }
     let ids = [];
     DOMS.forEach((d) => { ids = ids.concat(pool[d.id].slice(0, want[d.id]).map((q) => q.id)); });
-    if (ids.length < n) { const rest = shuffle((CT.exam || []).map((q) => q.id).filter((id) => ids.indexOf(id) < 0)); ids = ids.concat(rest.slice(0, n - ids.length)); }
+    if (ids.length < n) { const rest = shuffle(bank.map((q) => q.id).filter((id) => ids.indexOf(id) < 0)); ids = ids.concat(rest.slice(0, n - ids.length)); }
     return shuffle(ids);
+  }
+  // Start an exam mode from the Exam tab or from a lesson widget. An exam already in progress is resumed instead.
+  function startMode(m) {
+    if (S.draft && S.draft.back === 'exam' && (m === 'full' || m === 'quick')) { examView = 'run'; go('exam'); toast(t('resumingExam')); return; }
+    if (m === 'full') startRun({ mode: 'full', title: t('modeFull'), qids: pickExam(60), limit: 120 * 60000 });
+    if (m === 'quick') startRun({ mode: 'quick', title: t('modeQuick'), qids: pickExam(20) });
+    if (m === 'missed') { const ids = shuffle(Object.keys(S.missed).filter((id) => QBY[id])); if (ids.length) startRun({ mode: 'missed', title: t('modeMissed'), qids: ids, instant: true }); }
   }
   function elapsedMs() { const d = S.draft; if (!d) return 0; return d.elapsed + (resumedAt ? Date.now() - resumedAt : 0); }
   function leaveExam() {
@@ -903,16 +911,37 @@
   }
   function fmtClock(ms) { const s = Math.max(0, Math.round(ms / 1000)); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60; return (h ? h + ':' : '') + String(m).padStart(2, '0') + ':' + String(x).padStart(2, '0'); }
 
+  function examTop(d, answered) {
+    return `<div class="exam-top">
+        <div class="spread"><b>${esc(d.title)}</b><span class="row">${d.timed ? `<span class="chip">${icon('clock').replace('<svg', '<svg style="width:14px;height:14px"')}<span class="timer" id="timer">${fmtClock(d.limit - elapsedMs())}</span></span>` : ''}<span class="chip tnum">${answered}/${d.qids.length}</span></span></div>
+        ${d.review ? '' : `<div class="bar"><i style="width:${(d.cur + 1) / d.qids.length * 100}%"></i></div>`}
+      </div>`;
+  }
+  // Exam-style review screen: every question with its status, before you submit.
+  function reviewHTML(d) {
+    const answered = d.qids.filter((id) => (d.ans[id] || []).length).length;
+    const flagged = d.qids.filter((id) => d.flags[id]).length;
+    return `<div class="view" style="${lineVars('lx')}">
+      ${examTop(d, answered)}
+      <section class="card" style="display:grid;gap:12px">
+        <h2 style="font-size:1.3rem">${esc(t('reviewTitle'))}</h2>
+        <p class="muted">${esc(t('reviewIntro'))}</p>
+        <div class="rev-legend"><span><i style="background:var(--accent-soft);border-color:var(--accent)"></i>${esc(t('statusAnswered'))} · <b class="tnum">${answered}</b></span><span><i style="border-style:dashed;border-color:var(--bad)"></i>${esc(t('statusUnanswered'))} · <b class="tnum">${d.qids.length - answered}</b></span><span><i style="background:var(--lx);border-color:var(--lx);border-radius:50%"></i>${esc(t('statusFlagged'))} · <b class="tnum">${flagged}</b></span></div>
+        <div class="rev-grid">${d.qids.map((id, k) => `<button type="button" data-goto="${k}" class="${(d.ans[id] || []).length ? 'ans' : 'una'}${d.flags[id] ? ' flag' : ''}" aria-label="${esc(t('questionN', { n: k + 1, of: d.qids.length }))}${d.flags[id] ? ' · ' + esc(t('statusFlagged')) : ''}">${k + 1}</button>`).join('')}</div>
+      </section>
+      <div class="spread"><button type="button" class="btn" id="revBack">${icon('back', 'flip')}${esc(t('backToQuestions'))}</button><button type="button" class="btn primary" id="revSubmit">${esc(t('submitExam'))}</button></div>
+      <div id="finishConfirm"></div>
+      <button type="button" class="btn ghost small" id="qQuit" style="justify-self:start">${esc(t('saveAndExit'))}</button>
+    </div>`;
+  }
   function runHTML() {
     const d = S.draft; const q = QBY[d.qids[d.cur]];
     if (!q) { S.draft = null; return menuHTML(); }
+    if (d.review && !d.instant) return reviewHTML(d);
     const answered = d.qids.filter((id) => (d.ans[id] || []).length).length;
     const isLast = d.cur === d.qids.length - 1;
     return `<div class="view" style="${lineVars('lx')}">
-      <div class="exam-top">
-        <div class="spread"><b>${esc(d.title)}</b><span class="row">${d.timed ? `<span class="chip">${icon('clock').replace('<svg', '<svg style="width:14px;height:14px"')}<span class="timer" id="timer">${fmtClock(d.limit - elapsedMs())}</span></span>` : ''}<span class="chip tnum">${answered}/${d.qids.length}</span></span></div>
-        <div class="bar"><i style="width:${(d.cur + 1) / d.qids.length * 100}%"></i></div>
-      </div>
+      ${examTop(d, answered)}
       ${qHTML(q, { label: t('questionN', { n: d.cur + 1, of: d.qids.length }), sel: d.ans[q.id] || [], noCheck: !d.instant, hideDomain: !d.instant && d.mode === 'full' })}
       <div class="spread">
         <button type="button" class="btn" id="qPrev"${d.cur === 0 ? ' disabled' : ''}>${icon('back', 'flip')}${esc(t('previous'))}</button>
@@ -921,11 +950,40 @@
       </div>
       <details class="card"><summary style="cursor:pointer;font-weight:600">${esc(t('allQuestions'))}</summary><div class="qdots" style="margin-top:12px">${d.qids.map((id, k) => `<button type="button" data-goto="${k}" class="${(d.ans[id] || []).length ? 'ans ' : ''}${d.flags[id] ? 'flag ' : ''}${k === d.cur ? 'cur' : ''}" aria-label="${esc(t('questionN', { n: k + 1, of: d.qids.length }))}">${k + 1}</button>`).join('')}</div></details>
       <div id="finishConfirm"></div>
-      <button type="button" class="btn ghost small" id="qQuit" style="justify-self:start">${esc(t('saveAndExit'))}</button>
+      <div class="row">${d.instant ? '' : `<button type="button" class="btn small" id="qReview">${icon('list')}${esc(t('reviewTitle'))}</button>`}<button type="button" class="btn ghost small" id="qQuit">${esc(t('saveAndExit'))}</button></div>
     </div>`;
   }
+  function confirmSubmit(root, d) {
+    const left = d.qids.filter((id) => !(d.ans[id] || []).length).length;
+    const box = $('#finishConfirm', root);
+    box.innerHTML = `<div class="card" style="display:grid;gap:10px;border-color:var(--lx)"><b>${esc(left ? t('unansweredWarn', { n: left }) : t('readyToSubmit'))}</b><div class="row"><button type="button" class="btn" id="fcBack">${esc(t('keepWorking'))}</button><button type="button" class="btn primary" id="fcGo">${esc(t('submit'))}</button></div></div>`;
+    $('#fcBack', root).addEventListener('click', () => { box.innerHTML = ''; });
+    $('#fcGo', root).addEventListener('click', finishRun);
+    box.scrollIntoView({ block: 'center' });
+  }
+  function startTick(d) {
+    if (!resumedAt) resumedAt = Date.now();
+    if (tick) clearInterval(tick);
+    tick = setInterval(() => {
+      if (!S.draft) { clearInterval(tick); return; }
+      if (d.timed) {
+        const left = d.limit - elapsedMs();
+        const tm = $('#timer'); if (tm) tm.textContent = fmtClock(left);
+        if (left <= 0) { clearInterval(tick); toast(t('timeUp')); finishRun(); }
+      }
+    }, 1000);
+  }
   function mountRun(root) {
-    const d = S.draft; const q = QBY[d.qids[d.cur]]; const el = $('.quiz', root);
+    const d = S.draft;
+    if (d.review && !d.instant) {
+      startTick(d);
+      $$('[data-goto]', root).forEach((b) => b.addEventListener('click', () => { d.review = false; d.cur = +b.dataset.goto; persist({ quiet: true }); render({ noScroll: true }); window.scrollTo(0, 0); }));
+      $('#revBack', root).addEventListener('click', () => { d.review = false; persist({ quiet: true }); render({ noScroll: true }); window.scrollTo(0, 0); });
+      $('#revSubmit', root).addEventListener('click', () => confirmSubmit(root, d));
+      $('#qQuit', root).addEventListener('click', () => { leaveExam(); examView = 'menu'; render(); });
+      return;
+    }
+    const q = QBY[d.qids[d.cur]]; const el = $('.quiz', root);
     wireOptions(el, q, (sel) => { d.ans[q.id] = sel; persist({ quiet: true }); });
     if (d.instant) {
       if (d.checked[q.id]) revealQ(el, q, d.ans[q.id] || []);
@@ -941,25 +999,11 @@
     $$('[data-goto]', root).forEach((b) => b.addEventListener('click', () => goQ(+b.dataset.goto)));
     $('#qFlag', root).addEventListener('click', () => { d.flags[q.id] = !d.flags[q.id]; persist({ quiet: true }); render({ noScroll: true }); });
     $('#qQuit', root).addEventListener('click', () => { leaveExam(); examView = 'menu'; const back = d.back; if (back && back !== 'exam') go(back); else render(); });
+    const toReview = () => { d.review = true; persist({ quiet: true }); render({ noScroll: true }); window.scrollTo(0, 0); };
+    const rv = $('#qReview', root); if (rv) rv.addEventListener('click', toReview);
     const f = $('#qFinish', root);
-    if (f) f.addEventListener('click', () => {
-      const left = d.qids.filter((id) => !(d.ans[id] || []).length).length;
-      $('#finishConfirm', root).innerHTML = `<div class="card" style="display:grid;gap:10px;border-color:var(--lx)"><b>${esc(left ? t('unansweredWarn', { n: left }) : t('readyToSubmit'))}</b><div class="row"><button type="button" class="btn" id="fcBack">${esc(t('keepWorking'))}</button><button type="button" class="btn primary" id="fcGo">${esc(t('submit'))}</button></div></div>`;
-      $('#fcBack', root).addEventListener('click', () => { $('#finishConfirm', root).innerHTML = ''; });
-      $('#fcGo', root).addEventListener('click', finishRun);
-      $('#finishConfirm', root).scrollIntoView({ block: 'center' });
-    });
-    if (!resumedAt) resumedAt = Date.now();
-    if (tick) clearInterval(tick);
-    tick = setInterval(() => {
-      const tm = $('#timer');
-      if (!S.draft) { clearInterval(tick); return; }
-      if (d.timed) {
-        const left = d.limit - elapsedMs();
-        if (tm) tm.textContent = fmtClock(left);
-        if (left <= 0) { clearInterval(tick); toast(t('timeUp')); finishRun(); }
-      }
-    }, 1000);
+    if (f) f.addEventListener('click', () => { if (d.instant) confirmSubmit(root, d); else toReview(); });
+    startTick(d);
   }
   function finishRun() {
     const d = S.draft; if (!d) return;
@@ -1027,12 +1071,7 @@
   MOUNT.exam = (root) => {
     if (examView === 'run' && S.draft && S.draft.back === 'exam') return mountRun(root);
     if (examView === 'result' && lastResult && (!lastResult.back || lastResult.back === 'exam')) return mountResult(root);
-    $$('[data-mode]', root).forEach((b) => b.addEventListener('click', () => {
-      const m = b.dataset.mode;
-      if (m === 'full') startRun({ mode: 'full', title: t('modeFull'), qids: pickExam(Math.min(60, (CT.exam || []).length)), limit: 120 * 60000 });
-      if (m === 'quick') startRun({ mode: 'quick', title: t('modeQuick'), qids: pickExam(Math.min(20, (CT.exam || []).length)) });
-      if (m === 'missed') { const ids = shuffle(Object.keys(S.missed).filter((id) => QBY[id])); if (ids.length) startRun({ mode: 'missed', title: t('modeMissed'), qids: ids, instant: true }); }
-    }));
+    $$('[data-mode]', root).forEach((b) => b.addEventListener('click', () => startMode(b.dataset.mode)));
     $$('[data-dom]', root).forEach((b) => b.addEventListener('click', () => {
       const dm = DOM[b.dataset.dom];
       const ids = shuffle((CT.exam || []).filter((q) => q.d === dm.id).map((q) => q.id));
@@ -1045,8 +1084,7 @@
     $('#rAgain', root).addEventListener('click', () => {
       const r = lastResult.res; const back = lastResult.back;
       if (back && back !== 'exam' && MBY[back.slice(0, 2)]) { startModuleQuiz(MBY[back.slice(0, 2)]); return; }
-      if (r.mode === 'full') startRun({ mode: 'full', title: t('modeFull'), qids: pickExam(Math.min(60, CT.exam.length)), limit: 120 * 60000 });
-      else if (r.mode === 'quick') startRun({ mode: 'quick', title: t('modeQuick'), qids: pickExam(Math.min(20, CT.exam.length)) });
+      if (r.mode === 'full' || r.mode === 'quick') startMode(r.mode);
       else startRun({ mode: r.mode, title: r.title, qids: lastResult.review.map((x) => x.id), instant: true });
     });
     $('#rMenu', root).addEventListener('click', () => { examView = 'menu'; lastResult = null; render(); });

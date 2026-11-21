@@ -24,7 +24,11 @@
       apibuilder: 'API request builder', model: 'Model', system: 'System prompt', message: 'User message', maxTokens: 'max_tokens', sendSim: 'Send (simulated)', response: 'Response', cost: 'Cost of this call', apiNote: 'Simulated. A real call needs an API key and should run on a server, never in the browser.',
       costcalc: 'Monthly cost calculator', convs: 'Conversations per day', turns: 'Messages per conversation', inTok: 'Input tokens per message', outTok: 'Output tokens per message', perMonth: 'per month', perConv: 'per conversation', priceNote: 'Prices per million tokens, as listed in Nov 2026. Always check the current price list before you quote a client.', cheaper: 'Cheaper options',
       spot: 'Spot the problems', facts: 'The facts (source)', answer: 'Claude\'s draft answer — tap every sentence that is wrong or unsupported', checkIt: 'Check', found: 'Found', missed: 'Missed', falseAlarm: 'Not a problem', score: 'Score',
-      sorter: 'Sort it', cardOf: 'Card {n} of {of}', right: 'Right!', wrong: 'Not quite.', next: 'Next', done: 'Done! Score: {s} of {of}', again: 'Try again'
+      sorter: 'Sort it', cardOf: 'Card {n} of {of}', right: 'Right!', wrong: 'Not quite.', next: 'Next', done: 'Done! Score: {s} of {of}', again: 'Try again',
+      contrast: 'Contrast checker', textColor: 'Text', bgColor: 'Background', sample: 'Fresh bread every morning', sampleSmall: 'Small text like this must be easy to read too — for everyone.', ratioL: 'contrast ratio', aaNormal: 'Normal text · AA 4.5:1', aaLarge: 'Large text · AA 3:1', aaa: 'Enhanced · AAA 7:1', presets: 'Try these:', pGrey: 'Light grey on white', pBrand: 'Brand on cream', pYellow: 'White on yellow', pDark: 'Dark on light', contrastNote: 'Based on the WCAG contrast rules. Aim for at least 4.5:1 for normal text, 3:1 for large text and icons.',
+      tokens: 'Design token playground', brand: 'Brand colour', radius: 'Corner radius', spacing: 'Spacing unit', font: 'Font style', fSans: 'Sans', fSerif: 'Serif', fRound: 'Rounded', cssTab: 'CSS variables', jsonTab: 'Design tokens (JSON)', prevTitle: 'Bakery Nur', prevBody: 'Fresh sourdough and challah, baked every morning in Haifa.', prevTag: 'New today', prevBtn: 'Order now', prevBtn2: 'See the menu', onBrand: 'text on the brand colour', tokNote2: 'The JSON follows the Design Tokens Community Group format (2025.10). Check designtokens.org for the full specification.',
+      eliminate: 'Eliminate the wrong answers', elimHint: 'Tap every answer you can rule out. Keep the best one.', elimOut: 'Ruled out', elimCareful: 'Careful — this is the best answer. Keep it.', elimDone: 'Only the best answer is left. That is how you work through hard questions.', elimReset: 'Start over',
+      examsim: 'Exam simulation', simRules: 'Before you start (for a realistic run)', simStart: 'Start the 120-minute simulation', simQuick: 'Warm-up: quick 20', simResume: 'Resume your exam', simHistory: 'Your simulations', simNone: 'No simulations yet. Your results will appear here.', simTarget: 'Target: 80% or more, twice, on different days.'
     },
     he: {
       terminal: 'טרמינל לתרגול (סימולציה)', mission: 'המשימה שלך', tapHint: 'לוחצים על פקודה כדי להכניס אותה לתיבה, ואז לוחצים "הרץ".',
@@ -39,7 +43,11 @@
       apibuilder: 'בונה בקשת API', model: 'מודל', system: 'הנחיית מערכת (System prompt)', message: 'הודעת המשתמש', maxTokens: 'max_tokens', sendSim: 'שלח (סימולציה)', response: 'תשובה', cost: 'עלות הקריאה', apiNote: 'סימולציה. קריאה אמיתית צריכה מפתח API, וצריכה לרוץ על שרת — אף פעם לא בדפדפן.',
       costcalc: 'מחשבון עלות חודשית', convs: 'שיחות ביום', turns: 'הודעות בכל שיחה', inTok: 'טוקנים נכנסים להודעה', outTok: 'טוקנים יוצאים להודעה', perMonth: 'לחודש', perConv: 'לשיחה', priceNote: 'מחירים למיליון טוקנים, לפי המחירון של נובמבר 2026. תמיד בודקים מחיר עדכני לפני שנותנים הצעת מחיר ללקוח.', cheaper: 'אפשרויות זולות יותר',
       spot: 'מצאו את הטעויות', facts: 'העובדות (המקור)', answer: 'הטיוטה של Claude — לחצו על כל משפט שגוי או שאין לו בסיס', checkIt: 'בדוק', found: 'מצאתם', missed: 'פספסתם', falseAlarm: 'זה דווקא בסדר', score: 'ציון',
-      sorter: 'מיינו', cardOf: 'כרטיס {n} מתוך {of}', right: 'נכון!', wrong: 'לא בדיוק.', next: 'הבא', done: 'סיימתם! ציון: {s} מתוך {of}', again: 'שוב'
+      sorter: 'מיינו', cardOf: 'כרטיס {n} מתוך {of}', right: 'נכון!', wrong: 'לא בדיוק.', next: 'הבא', done: 'סיימתם! ציון: {s} מתוך {of}', again: 'שוב',
+      contrast: 'בודק ניגודיות', textColor: 'טקסט', bgColor: 'רקע', sample: 'לחם טרי כל בוקר', sampleSmall: 'גם טקסט קטן כמו זה צריך להיות קריא — לכולם.', ratioL: 'יחס ניגודיות', aaNormal: 'טקסט רגיל · AA ‏4.5:1', aaLarge: 'טקסט גדול · AA ‏3:1', aaa: 'משופר · AAA ‏7:1', presets: 'נסו:', pGrey: 'אפור בהיר על לבן', pBrand: 'צבע מותג על שמנת', pYellow: 'לבן על צהוב', pDark: 'כהה על בהיר', contrastNote: 'לפי כללי הניגודיות של WCAG. מכוונים ל-4.5:1 לפחות בטקסט רגיל, ו-3:1 בטקסט גדול ובאייקונים.',
+      tokens: 'מגרש משחקים לטוקנים', brand: 'צבע המותג', radius: 'עיגול פינות', spacing: 'יחידת ריווח', font: 'סגנון גופן', fSans: 'בלי תגים', fSerif: 'עם תגים', fRound: 'מעוגל', cssTab: 'משתני CSS', jsonTab: 'טוקנים (JSON)', prevTitle: 'מאפיית נור', prevBody: 'מחמצת וחלות טריות, נאפות כל בוקר בחיפה.', prevTag: 'חדש היום', prevBtn: 'להזמנה', prevBtn2: 'לתפריט', onBrand: 'טקסט על צבע המותג', tokNote2: 'ה-JSON בנוי לפי הפורמט של Design Tokens Community Group ‏(2025.10). את המפרט המלא בודקים ב-designtokens.org.',
+      eliminate: 'מוציאים תשובות לא נכונות', elimHint: 'לוחצים על כל תשובה שאפשר לפסול. משאירים את הטובה ביותר.', elimOut: 'נפסלה', elimCareful: 'זהירות — זו התשובה הטובה ביותר. משאירים אותה.', elimDone: 'נשארה רק התשובה הטובה ביותר. ככה עוברים על שאלות קשות.', elimReset: 'מההתחלה',
+      examsim: 'סימולציית מבחן', simRules: 'לפני שמתחילים (כדי שזה יהיה אמיתי)', simStart: 'מתחילים סימולציה של 120 דקות', simQuick: 'חימום: 20 שאלות', simResume: 'ממשיכים את המבחן', simHistory: 'הסימולציות שלכם', simNone: 'עוד אין סימולציות. התוצאות יופיעו כאן.', simTarget: 'יעד: 80% ומעלה, פעמיים, בימים שונים.'
     }
   };
   const ws = (ctx, k, v) => { let s = (WS[ctx.L] && WS[ctx.L][k]) || WS.en[k] || k; if (v) s = s.replace(/\{(\w+)\}/g, (m, n) => (v[n] != null ? v[n] : m)); return s; };
@@ -68,16 +76,17 @@
       f(r + '/index.html', SITE_HTML);
       f(r + '/style.css', 'body { font-family: sans-serif; margin: 2rem; }\nh1 { color: #8a4b08; }');
       f(r + '/README.md', '# Bakery Nur website\nA small site for a neighbourhood bakery.');
-      if (scn === 'api' || scn === 'deploy' || scn === 'claude') {
+      if (scn === 'api' || scn === 'deploy' || scn === 'claude' || scn === 'design') {
         f(r + '/.gitignore', 'node_modules/\n.env');
         f(r + '/.env', 'ANTHROPIC_API_KEY=sk-ant-REPLACE-ME');
       }
+      if (scn === 'design') { d(r + '/src'); d(r + '/src/components'); }
     }
     return fs;
   }
   function initTerm(scn) {
-    const st = { fs: baseFS(scn), cwd: scn === 'basics' ? HOME : HOME + '/bakery-site', env: { HOME: HOME, USER: 'you' }, ran: [], git: null, vercel: { login: false, linked: false, deployed: false, prod: false, env: {} }, api: { ok: 0, err: 0 }, claude: { ran: 0, mode: false, mcp: {} }, npm: {}, hist: [], hi: -1 };
-    if (scn === 'deploy' || scn === 'claude' || scn === 'api') {
+    const st = { fs: baseFS(scn), cwd: scn === 'basics' ? HOME : HOME + '/bakery-site', env: { HOME: HOME, USER: 'you' }, ran: [], git: null, vercel: { login: false, linked: false, deployed: false, prod: false, env: {} }, api: { ok: 0, err: 0 }, claude: { ran: 0, mode: false, mcp: {}, compared: false }, npm: {}, hist: [], hi: -1 };
+    if (scn === 'deploy' || scn === 'claude' || scn === 'api' || scn === 'design') {
       st.git = gitNew(st, HOME + '/bakery-site');
       gitAddAll(st); gitCommit(st, 'First version of the bakery site');
       if (scn === 'deploy') { st.git.remote = 'https://github.com/you/bakery-site.git'; st.git.rb.main = st.git.br.main; }
@@ -175,7 +184,9 @@
     'vercel env': { en: 'Secrets like API keys live in Vercel settings, not in your code.', he: 'סודות כמו מפתח API נשמרים בהגדרות של Vercel, לא בתוך הקוד.' },
     export: { en: 'export sets an environment variable for this terminal session.', he: 'export שומר "משתנה סביבה" לחלון הטרמינל הזה.' },
     curl: { en: 'curl sends a web request. Here it talked to the Claude API.', he: 'curl שולח בקשה לאינטרנט. כאן הוא דיבר עם ה-API של Claude.' },
-    claude: { en: 'Claude Code read your files, made a plan, changed code, and told you what it did.', he: 'Claude Code קרא את הקבצים, תכנן, שינה קוד, וסיפר מה עשה.' }
+    claude: { en: 'Claude Code read your files, made a plan, changed code, and told you what it did.', he: 'Claude Code קרא את הקבצים, תכנן, שינה קוד, וסיפר מה עשה.' },
+    figma: { en: 'Claude used Figma’s MCP tools: it read the frame and the design variables, then wrote code that uses your tokens.', he: 'Claude השתמש בכלים של Figma דרך MCP: קרא את המסגרת ואת משתני העיצוב, וכתב קוד שמשתמש בטוקנים שלכם.' },
+    compare: { en: 'Comparing a screenshot of the design with the result is how you check visual fidelity.', he: 'השוואה בין צילום של העיצוב לתוצאה — כך בודקים נאמנות לעיצוב.' }
   };
 
   function Terminal(el, cfg, ctx) {
@@ -219,7 +230,7 @@
           case 'vercel': return v === 'env' ? Object.keys(st.vercel.env).length > 0 : !!st.vercel[v];
           case 'env': return !!st.env[v];
           case 'api': return v === 'ok' ? st.api.ok > 0 : st.api.err > 0;
-          case 'claude': return v === 'ran' ? st.claude.ran > 0 : v === 'init' ? !!st.fs[HOME + '/bakery-site/CLAUDE.md'] : v === 'mcp' ? Object.keys(st.claude.mcp).length > 0 : false;
+          case 'claude': return v === 'ran' ? st.claude.ran > 0 : v === 'init' ? !!st.fs[HOME + '/bakery-site/CLAUDE.md'] : v === 'mcp' ? Object.keys(st.claude.mcp).length > 0 : v === 'compare' ? !!st.claude.compared : v.indexOf('mcp=') === 0 ? !!st.claude.mcp[v.slice(4)] : false;
           case 'npm': return !!st.npm[v];
           default: return false;
         }
@@ -569,6 +580,39 @@
       }
       if (p.trim() === '/mcp') { const ks = Object.keys(st.claude.mcp); push('ln-claude', ks.length ? '⏺ Connected MCP servers: ' + ks.join(', ') : '⏺ No MCP servers yet. Add one with: claude mcp add ...'); return; }
       if (p.trim() === '/help') { dim('  /init   write a CLAUDE.md file with project notes\n  /mcp    show connected MCP servers\n  /exit   leave Claude Code'); return; }
+      // Design tools through MCP (Figma, Paper)
+      if (/figma\.com/.test(p)) {
+        if (!st.claude.mcp.figma) { push('ln-claude', '⏺ I can’t open Figma links yet. Connect Figma’s MCP server first: type /exit, then run\n   claude mcp add --transport http figma https://mcp.figma.com/mcp'); return; }
+        const node = ((prompt.match(/node-id=([\w-]+)/) || [])[1] || '12-34').replace('-', ':');
+        push('ln-claude', '⏺ figma · get_design_context (node ' + node + ')');
+        dim('   ⎿ Frame "Menu card": photo, title, price, "Order" button. Uses variables color/brand, color/surface, radius/md, space/4');
+        push('ln-claude', '⏺ figma · get_variable_defs');
+        dim('   ⎿ color/brand #8A4B08 · color/surface #FFF8EE · radius/md 12 · space/4 16');
+        st.fs[st.cwd + '/src'] = st.fs[st.cwd + '/src'] || { d: true };
+        st.fs[st.cwd + '/src/components'] = st.fs[st.cwd + '/src/components'] || { d: true };
+        st.fs[st.cwd + '/src/tokens.css'] = { c: ':root {\n  --color-brand: #8a4b08;\n  --color-surface: #fff8ee;\n  --radius-md: 12px;\n  --space-4: 16px;\n}' };
+        st.fs[st.cwd + '/src/components/MenuCard.jsx'] = { c: 'export function MenuCard({ title, price, image }) {\n  return (\n    <article className="menu-card">\n      <img src={image} alt={title} />\n      <h3>{title}</h3>\n      <p className="price">₪{price}</p>\n      <button>Order</button>\n    </article>\n  );\n}\n/* styles use var(--color-brand), var(--radius-md), var(--space-4) */' };
+        push('ln-claude', '⏺ Write(src/tokens.css)'); ok('   ⎿ +6 lines: CSS variables made from the Figma variables');
+        push('ln-claude', '⏺ Write(src/components/MenuCard.jsx)'); ok('   ⎿ +11 lines, styled with your tokens — no hard-coded colours');
+        push('ln-claude', '⏺ Done. Shall I compare it with a Figma screenshot to check the details?');
+        explain('figma'); return;
+      }
+      if (/compare|screenshot|השוו|השווה|צילום/.test(p)) {
+        if (!st.fs[st.cwd + '/src/components/MenuCard.jsx']) { push('ln-claude', '⏺ There is nothing to compare yet. First build the component from the Figma frame.'); return; }
+        push('ln-claude', '⏺ figma · get_screenshot (node 12:34)'); dim('   ⎿ captured the design');
+        push('ln-claude', '⏺ Comparing the design with the rendered component…');
+        push('ln-warn', '   ⎿ 2 differences: button corners 8px (design 12px) · price weight 400 (design 700)');
+        push('ln-claude', '⏺ Edit(src/components/MenuCard.jsx)'); ok('   ⎿ fixed both: corners use var(--radius-md), price is bold');
+        push('ln-claude', '⏺ It now matches the frame.');
+        st.claude.compared = true; explain('compare'); return;
+      }
+      if (/\bpaper\b/.test(p)) {
+        if (!st.claude.mcp.paper) { push('ln-claude', '⏺ Paper is not connected. Open Paper Desktop (it runs Paper’s MCP server) and add it to Claude Code, following paper.design/docs/mcp.'); return; }
+        push('ln-claude', '⏺ paper · get_screenshot'); dim('   ⎿ read the selected frame on the Paper canvas');
+        push('ln-claude', '⏺ paper · write_html'); ok('   ⎿ a new frame "Landing v2" appeared on the canvas');
+        push('ln-claude', '⏺ Done. I kept your brand colours and made the hero shorter. Check the canvas.');
+        return;
+      }
       push('ln-claude', '⏺ Let me look at the project first.');
       dim('   ⎿ Read ' + (files.slice(0, 3).join(', ') || 'files') + (st.fs[st.cwd + '/CLAUDE.md'] ? ', CLAUDE.md' : ''));
       const idx = st.fs[st.cwd + '/index.html'];
@@ -1028,6 +1072,148 @@
     paint();
   }
 
+  /* ======================================================== colour helpers */
+  const hexToRgb = (h) => { h = String(h || '#000').replace('#', ''); if (h.length === 3) h = h.split('').map((c) => c + c).join(''); const n = parseInt(h, 16) || 0; return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
+  const rgbToHex = (r, g, b) => '#' + [r, g, b].map((x) => Math.round(Math.max(0, Math.min(255, x))).toString(16).padStart(2, '0')).join('');
+  const relLum = (rgb) => { const f = (c) => { c /= 255; return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); }; return 0.2126 * f(rgb[0]) + 0.7152 * f(rgb[1]) + 0.0722 * f(rgb[2]); };
+  const ratioOf = (a, b) => { const x = relLum(hexToRgb(a)), y = relLum(hexToRgb(b)); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+  const mixHex = (a, b, t) => { const A = hexToRgb(a), B = hexToRgb(b); return rgbToHex(A[0] + (B[0] - A[0]) * t, A[1] + (B[1] - A[1]) * t, A[2] + (B[2] - A[2]) * t); };
+
+  /* ======================================================== CONTRAST */
+  function contrastHTML(b, ctx) {
+    const c = Object.assign({ fg: '#9aa0a6', bg: '#ffffff' }, b.cfg || {});
+    const presets = [['pGrey', '#9aa0a6', '#ffffff'], ['pBrand', '#8a4b08', '#fff8ee'], ['pYellow', '#ffffff', '#f2c230'], ['pDark', '#13203a', '#f1f4f8']];
+    return `<div class="widget">${head(ctx, 'eye', ws(ctx, 'contrast'))}<div class="w-body">
+      <div class="swatch-row"><label>${esc(ws(ctx, 'textColor'))}<input type="color" class="ct-fg" value="${c.fg}"></label><label>${esc(ws(ctx, 'bgColor'))}<input type="color" class="ct-bg" value="${c.bg}"></label>
+      <div><div class="result-num tnum ct-ratio"></div><span class="muted">${esc(ws(ctx, 'ratioL'))}</span></div></div>
+      <div class="contrast-demo ct-demo" dir="auto"><b>${esc(ws(ctx, 'sample'))}</b><span style="font-size:.9rem">${esc(ws(ctx, 'sampleSmall'))}</span></div>
+      <div class="passfail ct-pf"></div>
+      <div class="row"><span class="muted" style="font-size:.88rem">${esc(ws(ctx, 'presets'))}</span>${presets.map(([k, fg, bg]) => `<button type="button" class="btn small" data-fg="${fg}" data-bg="${bg}"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;background:${bg};box-shadow:inset 0 0 0 4px ${fg},0 0 0 1px var(--rule)"></span>${esc(ws(ctx, k))}</button>`).join('')}</div>
+      <p class="w-note">${esc(ws(ctx, 'contrastNote'))}</p></div></div>`;
+  }
+  function contrastMount(el, b, ctx) {
+    const fg = $('.ct-fg', el), bg = $('.ct-bg', el);
+    function paint() {
+      const r = ratioOf(fg.value, bg.value);
+      $('.ct-ratio', el).textContent = r.toFixed(2) + ' : 1';
+      const demo = $('.ct-demo', el); demo.style.color = fg.value; demo.style.background = bg.value;
+      const chip = (okv, lab) => `<span class="${okv ? 'ok' : 'no'}">${okv ? '✓' : '✗'} ${esc(lab)}</span>`;
+      $('.ct-pf', el).innerHTML = chip(r >= 4.5, ws(ctx, 'aaNormal')) + chip(r >= 3, ws(ctx, 'aaLarge')) + chip(r >= 7, ws(ctx, 'aaa'));
+    }
+    fg.addEventListener('input', paint); bg.addEventListener('input', paint);
+    $$('[data-fg]', el).forEach((bt) => bt.addEventListener('click', () => { fg.value = bt.dataset.fg; bg.value = bt.dataset.bg; paint(); }));
+    paint();
+  }
+
+  /* ======================================================== DESIGN TOKENS */
+  const FONTS = { sans: '"IBM Plex Sans", "IBM Plex Sans Hebrew", system-ui, sans-serif', serif: 'Georgia, "Times New Roman", serif', round: '"Rubik", system-ui, sans-serif' };
+  function tokensHTML(b, ctx) {
+    return `<div class="widget">${head(ctx, 'layers', ws(ctx, 'tokens'))}<div class="w-body">
+      <div class="swatch-row">
+        <label>${esc(ws(ctx, 'brand'))}<input type="color" class="tk-brand" value="#8a4b08"></label>
+        <label style="flex:1;min-width:150px">${esc(ws(ctx, 'radius'))} · <span class="tnum tk-rv"></span><input type="range" class="tk-radius" min="0" max="24" step="2" value="12"></label>
+        <label>${esc(ws(ctx, 'spacing'))}<select class="tk-space"><option value="4">4px</option><option value="8">8px</option></select></label>
+        <label>${esc(ws(ctx, 'font'))}<select class="tk-font"><option value="sans">${esc(ws(ctx, 'fSans'))}</option><option value="serif">${esc(ws(ctx, 'fSerif'))}</option><option value="round">${esc(ws(ctx, 'fRound'))}</option></select></label>
+      </div>
+      <div class="tok-preview" dir="auto"><span class="t-tag" style="justify-self:start">${esc(ws(ctx, 'prevTag'))}</span><h4>${esc(ws(ctx, 'prevTitle'))}</h4><p>${esc(ws(ctx, 'prevBody'))}</p><div class="t-row"><button type="button" class="t-btn">${esc(ws(ctx, 'prevBtn'))}</button><button type="button" class="t-btn sec">${esc(ws(ctx, 'prevBtn2'))}</button></div></div>
+      <p class="tk-on muted" style="font-size:.88rem"></p>
+      <div class="tabs" role="tablist"><button type="button" role="tab" data-tab="css" aria-selected="true">${esc(ws(ctx, 'cssTab'))}</button><button type="button" role="tab" data-tab="json" aria-selected="false">${esc(ws(ctx, 'jsonTab'))}</button></div>
+      <div class="codebox" dir="ltr"><div class="cb-head"><span class="tk-fname">tokens.css</span><button type="button" class="tk-copy">${esc(ws(ctx, 'copy'))}</button></div><pre><code class="tk-code"></code></pre></div>
+      <p class="w-note">${esc(ws(ctx, 'tokNote2'))}</p></div></div>`;
+  }
+  function tokensMount(el, b, ctx) {
+    let tab = 'css';
+    const get = () => {
+      const brand = $('.tk-brand', el).value.toLowerCase();
+      const r = +$('.tk-radius', el).value, sp = +$('.tk-space', el).value, font = $('.tk-font', el).value;
+      const b700 = mixHex(brand, '#000000', 0.3), b100 = mixHex(brand, '#ffffff', 0.85), surface = mixHex(brand, '#ffffff', 0.95);
+      const ink = ratioOf(brand, surface) >= 4.5 ? brand : b700;
+      const on = ratioOf('#ffffff', brand) >= 4.5 ? '#ffffff' : '#1a1a1a';
+      return { brand, b700, b100, surface, ink, on, r, sp, font };
+    };
+    const css = (v) => `:root {\n  /* primitive tokens: raw values */\n  --color-brand-100: ${v.b100};\n  --color-brand-500: ${v.brand};\n  --color-brand-700: ${v.b700};\n  --radius-md: ${v.r}px;\n  --space-1: ${v.sp}px;\n  --space-2: ${v.sp * 2}px;\n  --space-4: ${v.sp * 4}px;\n  --font-body: ${FONTS[v.font]};\n\n  /* semantic tokens: what each value is FOR */\n  --color-action-primary: var(--color-brand-500);\n  --color-on-action: ${v.on};\n  --color-text-accent: ${v.ink === v.brand ? 'var(--color-brand-500)' : 'var(--color-brand-700)'};\n  --color-surface-highlight: var(--color-brand-100);\n  --radius-control: var(--radius-md);\n}`;
+    const comp = (hex) => hexToRgb(hex).map((x) => Math.round(x / 255 * 1000) / 1000);
+    const col = (hex) => ({ $type: 'color', $value: { colorSpace: 'srgb', components: comp(hex), hex } });
+    const dim = (n) => ({ $type: 'dimension', $value: { value: n, unit: 'px' } });
+    const json = (v) => JSON.stringify({
+      color: {
+        brand: { 100: col(v.b100), 500: col(v.brand), 700: col(v.b700) },
+        action: { primary: { $type: 'color', $value: '{color.brand.500}' } },
+        surface: { highlight: { $type: 'color', $value: '{color.brand.100}' } }
+      },
+      radius: { md: dim(v.r), control: { $type: 'dimension', $value: '{radius.md}' } },
+      space: { 1: dim(v.sp), 2: dim(v.sp * 2), 4: dim(v.sp * 4) },
+      font: { body: { $type: 'fontFamily', $value: FONTS[v.font].split(',').map((s) => s.trim().replace(/"/g, '')) } }
+    }, null, 2);
+    function paint() {
+      const v = get();
+      const pv = $('.tok-preview', el);
+      pv.style.setProperty('--t-brand', v.brand); pv.style.setProperty('--t-brand-ink', v.ink); pv.style.setProperty('--t-on-brand', v.on);
+      pv.style.setProperty('--t-tint', v.b100); pv.style.setProperty('--t-surface', v.surface);
+      pv.style.setProperty('--t-radius', v.r + 'px'); pv.style.setProperty('--t-space', v.sp + 'px'); pv.style.setProperty('--t-font', FONTS[v.font]);
+      $('.tk-rv', el).textContent = v.r + 'px';
+      $('.tk-on', el).textContent = (ctx.L === 'he' ? 'ניגודיות של ' : 'Contrast of ') + ws(ctx, 'onBrand') + ': ' + ratioOf(v.on, v.brand).toFixed(2) + ':1';
+      $('.tk-code', el).textContent = tab === 'css' ? css(v) : json(v);
+      $('.tk-fname', el).textContent = tab === 'css' ? 'tokens.css' : 'tokens.json';
+      $$('[data-tab]', el).forEach((bt) => bt.setAttribute('aria-selected', String(bt.dataset.tab === tab)));
+    }
+    $$('input,select', el).forEach((x) => x.addEventListener('input', paint));
+    $$('[data-tab]', el).forEach((bt) => bt.addEventListener('click', () => { tab = bt.dataset.tab; paint(); }));
+    $('.tk-copy', el).addEventListener('click', async () => { const ok = await ctx.copyText($('.tk-code', el).textContent); ctx.toast(ok ? ctx.t('copied') : ctx.t('copyFailed')); });
+    paint();
+  }
+
+  /* ======================================================== ELIMINATE */
+  function elimHTML(b, ctx) {
+    const cfg = b.cfg || {};
+    return `<div class="widget">${head(ctx, 'target', ws(ctx, 'eliminate'))}<div class="w-body">
+      <p class="qtext" style="font-weight:600" dir="auto">${md(ctx.tx(cfg.q))}</p>
+      <p class="w-note">${esc(ws(ctx, 'elimHint'))}</p>
+      <div class="elim">${(cfg.opts || []).map((o, j) => `<div><button type="button" class="opt" data-j="${j}"><span class="box">${'ABCDEFG'[j]}</span><span dir="auto">${md(ctx.tx(o))}</span></button><p class="note" hidden></p></div>`).join('')}</div>
+      <div class="callout tip el-done" hidden>${icon('check')}<div class="ct"><b class="lbl">${esc(ws(ctx, 'elimDone'))}</b><div class="el-why"></div></div></div>
+      <div class="row"><button type="button" class="btn small el-reset">${icon('reset')}${esc(ws(ctx, 'elimReset'))}</button></div></div></div>`;
+  }
+  function elimMount(el, b, ctx) {
+    const opts = (b.cfg && b.cfg.opts) || [];
+    const check = () => {
+      const left = $$('.opt', el).filter((x) => !x.classList.contains('out'));
+      const done = left.length === 1 && opts[+left[0].dataset.j].ok;
+      $('.el-done', el).hidden = !done;
+      if (done) { left[0].classList.add('right'); $('.el-why', el).innerHTML = md(ctx.tx(opts[+left[0].dataset.j].why) || ''); }
+    };
+    $$('.opt', el).forEach((bt) => bt.addEventListener('click', () => {
+      const o = opts[+bt.dataset.j]; const note = bt.parentNode.querySelector('.note');
+      note.hidden = false;
+      if (o.ok) { note.innerHTML = `<b style="color:var(--warn)">${esc(ws(ctx, 'elimCareful'))}</b>`; bt.classList.add('right'); return; }
+      bt.classList.add('out'); bt.disabled = true;
+      note.innerHTML = `<b style="color:var(--bad)">${esc(ws(ctx, 'elimOut'))}:</b> ${md(ctx.tx(o.why) || '')}`;
+      check();
+    }));
+    $('.el-reset', el).addEventListener('click', () => {
+      $$('.opt', el).forEach((x) => { x.classList.remove('out', 'right'); x.disabled = false; });
+      $$('.note', el).forEach((n) => { n.hidden = true; n.innerHTML = ''; });
+      $('.el-done', el).hidden = true;
+    });
+  }
+
+  /* ======================================================== EXAM SIMULATION LAUNCHER */
+  function examsimHTML(b, ctx) {
+    const rules = ctx.tx((b.cfg || {}).rules) || [];
+    return `<div class="widget">${head(ctx, 'exam', ws(ctx, 'examsim'))}<div class="w-body">
+      ${rules.length ? `<span class="eyebrow">${esc(ws(ctx, 'simRules'))}</span><ul class="check-list">${rules.map((r) => `<li><label><input type="checkbox"><span>${md(r)}</span></label></li>`).join('')}</ul>` : ''}
+      <div class="row"><button type="button" class="btn primary es-start">${icon('play')}<span class="es-lab">${esc(ws(ctx, 'simStart'))}</span></button><button type="button" class="btn es-quick">${esc(ws(ctx, 'simQuick'))}</button></div>
+      <p class="w-note">${esc(ws(ctx, 'simTarget'))}</p>
+      <div><span class="eyebrow">${esc(ws(ctx, 'simHistory'))}</span><div class="es-hist" style="margin-top:8px"></div></div></div></div>`;
+  }
+  function examsimMount(el, b, ctx) {
+    const S = ctx.S();
+    if (S.draft && S.draft.back === 'exam') $('.es-lab', el).textContent = ws(ctx, 'simResume');
+    const hist = (S.exams || []).filter((e) => e.mode === 'full').slice(-5).reverse();
+    $('.es-hist', el).innerHTML = hist.length ? hist.map((h) => `<div class="spread" style="border-bottom:1px dashed var(--rule);padding-block:6px"><span class="muted">${esc(ctx.fmtDate(h.at))}</span><b class="tnum" style="color:${h.pct >= 80 ? 'var(--good)' : h.pct >= 65 ? 'var(--warn)' : 'var(--bad)'}">${h.pct}%</b></div>`).join('') : `<p class="w-note">${esc(ws(ctx, 'simNone'))}</p>`;
+    $('.es-start', el).addEventListener('click', () => ctx.startExam('full'));
+    $('.es-quick', el).addEventListener('click', () => ctx.startExam('quick'));
+  }
+
   /* ======================================================== registry */
   const REG = {
     terminal: [terminalHTML, (el, b, ctx) => Terminal(el, b.cfg || {}, ctx)],
@@ -1040,7 +1226,11 @@
     apibuilder: [apibuilderHTML, apibuilderMount],
     costcalc: [costcalcHTML, costcalcMount],
     spotcheck: [spotcheckHTML, spotcheckMount],
-    sorter: [sorterHTML, sorterMount]
+    sorter: [sorterHTML, sorterMount],
+    contrast: [contrastHTML, contrastMount],
+    tokens: [tokensHTML, tokensMount],
+    eliminate: [elimHTML, elimMount],
+    examsim: [examsimHTML, examsimMount]
   };
   window.W = {
     html(b, ctx) { const r = REG[b.name]; return r ? r[0](b, ctx) : `<div class="card muted">Unknown widget: ${esc(b.name)}</div>`; },
