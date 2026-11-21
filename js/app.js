@@ -24,7 +24,7 @@
   const dir = () => (L === 'he' ? 'rtl' : 'ltr');
 
   /* ------------------------------------------------------------- indexing */
-  const LINE = { m1: 'l1', m2: 'l2', m3: 'l3', m4: 'l4', m5: 'lx', exam: 'lx' };
+  const LINE = { m1: 'l1', m2: 'l2', m3: 'l3', m4: 'l4', m5: 'lx', m6: 'l5', m7: 'l6', exam: 'lx' };
   const lineVars = (line) => `--c:var(--${line});--ci:var(--${line}-ink);--cs:var(--${line}-soft);--on-c:var(--on-${line});--accent:var(--${line});--accent-ink:var(--${line}-ink);--accent-soft:var(--${line}-soft);--on-accent:var(--on-${line})`;
   const MODS = CT.modules.slice().sort((a, b) => a.n - b.n);
   const MBY = {}; const LESSONS = []; const LBY = {};
@@ -38,6 +38,8 @@
     (l.blocks || []).forEach((b) => { if (b.t === 'quiz' && b.q) { b.q.lesson = l.id; QBY[b.q.id] = b.q; } });
   });
   const DOM = {}; (CT.domains || []).forEach((d) => { DOM[d.id] = d; });
+  // [[m1-l7]] → "1.7", [[m3]] → "Line 4": labels follow the current order of lines and lessons
+  window.CTK.setRef((id) => (LBY[id] ? LBY[id].mod.n + '.' + (LBY[id].idx + 1) : MBY[id] ? t('lineN', { n: MBY[id].n }) : null));
 
   /* ---------------------------------------------------------------- state */
   const KEY = 'claude-trainer.state.v1';
@@ -171,7 +173,7 @@
     if (Array.isArray(c)) return c.map((x) => (typeof x === 'string' ? x : (x.t || x.title || ''))).join(' ');
     return [c.title, c.body].filter(Boolean).join(' — ');
   }
-  const stripMd = (s) => String(s || '').replace(/\*\*|`|\*/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+  const stripMd = (s) => String(s || '').replace(/\[\[(m\d+(?:-l\d+)?)\]\]/g, (m, id) => window.CTK.refText(id)).replace(/\*\*|`|\*/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
 
   /* ------------------------------------------------------------- routing */
   let cur = { view: 'home', arg: null };

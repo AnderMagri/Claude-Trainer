@@ -7,7 +7,13 @@
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
-  /* Inline markdown for course text: **bold**, *italic*, `code`, [text](https://link).
+  /* Cross-references: write [[m1-l7]] (a lesson) or [[m3]] (a line) in course text.
+     The app supplies the current label ("1.7", "Line 4"), so numbers stay right when lessons move. */
+  let refLabel = null;
+  const setRef = (fn) => { refLabel = fn; };
+  const refText = (id) => (refLabel && refLabel(id)) || id;
+
+  /* Inline markdown for course text: **bold**, *italic*, `code`, [text](https://link), [[lesson-id]].
      Content is escaped first, so only these constructs become markup. */
   function md(s) {
     if (s == null) return '';
@@ -16,6 +22,7 @@
     out = out
       .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
       .replace(/(^|[^*])\*([^*\s][^*]*)\*/g, '$1<em>$2</em>')
+      .replace(/\[\[(m\d+(?:-l\d+)?)\]\]/g, (m, id) => '<a href="#' + id + '">' + esc(refText(id)) + '</a>')
       .replace(/\[([^\]]+)\]\((#[\w-]+)\)/g, '<a href="$2">$1</a>')
       .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
       .replace(/\n/g, '<br>');
@@ -109,5 +116,5 @@
     }
   }
 
-  window.CTK = { esc, md, icon, uid, debounce, clamp, shuffle, copyText };
+  window.CTK = { esc, md, icon, uid, debounce, clamp, shuffle, copyText, setRef, refText };
 })();

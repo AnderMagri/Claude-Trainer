@@ -19,7 +19,7 @@ CT.ui = {
     tabJourney: 'Journey', tabNotebook: 'Notebook', tabExam: 'Exam', tabGlossary: 'Words', tabPrefs: 'Settings', back: 'Back',
     lineN: 'Line {n}', lessonN: 'Lesson {n}', lessonXofY: 'Lesson {x} of {y}', min: 'min', hours: 'h', lessons: 'lessons',
     homeEyebrow: 'Your learning journey', homeTitle: 'From your first chat with Claude to shipping AI tools for real businesses',
-    homeIntro: 'Five lines, one station at a time. **Line 1** explains how AI like Claude works. **Line 2** makes you a power user. **Line 3** teaches the basics of a Forward Deployed Engineer: Git, web apps, the API and deployment. **Line 4** is design with Claude: design systems, Figma, Paper and MCP. **Line 5** prepares you for the *Claude Certified Associate – Foundations* exam and ends with a full, timed simulation.',
+    homeIntro: 'Seven lines, one station at a time. **[[m1]]** explains how AI like Claude works. **[[m2]]** makes you a power user: Projects, memory, Skills, research and creative work. **[[m6]]** puts agents to work: Cowork, Claude Code, a shared team brain, browser agents and QA. **[[m3]]** teaches the basics of a Forward Deployed Engineer: Git, the API, chatbots and deployment. **[[m4]]** is design with Claude. **[[m7]]** brings Claude into real workplaces. **[[m5]]** prepares you for the *Claude Certified Associate – Foundations* exam and ends with a full, timed simulation.',
     progressTitle: 'Your progress', progressLine: '{done} of {total} lessons done', bestMock: 'best mock exam {pct}%',
     continueWhere: 'Continue where you stopped', nextUp: 'Next station', startHere: 'Start here', resume: 'Resume', start: 'Start', continue: 'Continue',
     allDone: 'Every station visited', allDoneTitle: 'You finished every line. Take the full exam simulation once more before you book.', takeExam: 'Take the practice exam', seeCompletion: 'Completion card',
@@ -87,12 +87,12 @@ CT.ui = {
       'Model names, prices and product features change quickly. Facts here were checked in November 2026. When in doubt, the official docs at [platform.claude.com/docs](https://platform.claude.com/docs) and the help centre at [support.claude.com](https://support.claude.com) win.'
     ],
     finishTitle: 'Completion', finishIntro: 'When you finish every station, you get a completion card to share. Then the real exam is the next step.',
-    yourName: 'Your name for the card', yourNamePh: 'Your name', certEyebrow: 'Claude Trainer · course completion', certTitle: 'Zero to FDE', certBody: 'Completed all {n} lessons: LLM basics, power use of Claude, Forward Deployed Engineer foundations, design with Claude, and exam preparation.', certNote: 'Course completion only. Not an Anthropic certification.',
+    yourName: 'Your name for the card', yourNamePh: 'Your name', certEyebrow: 'Claude Trainer · course completion', certTitle: 'Zero to FDE', certBody: 'Completed all {n} lessons: LLM basics, power use of Claude, agents at work, Forward Deployed Engineer foundations, design with Claude, Claude in the workplace, and exam preparation.', certNote: 'Course completion only. Not an Anthropic certification.',
     finishRemaining: 'Stations still waiting for you:', nextSteps: 'What to do next',
     nextStepsList: [
       'Take the full mock exam twice, on different days. Aim for 80% or more.',
       'Read the official exam guide and book the Claude Certified Associate – Foundations when you feel ready.',
-      'Build the capstone from Line 3 for a real small business you know. One happy client teaches more than ten tutorials.',
+      'Build the capstone from [[m3]] for a real small business you know. One happy client teaches more than ten tutorials.',
       'Keep a portfolio: a GitHub repo and a live link for every project.'
     ]
   },
@@ -101,7 +101,7 @@ CT.ui = {
     tabJourney: 'המסלול', tabNotebook: 'מחברת', tabExam: 'מבחן', tabGlossary: 'מילון', tabPrefs: 'הגדרות', back: 'חזרה',
     lineN: 'קו {n}', lessonN: 'שיעור {n}', lessonXofY: 'שיעור {x} מתוך {y}', min: 'דק׳', hours: 'שע׳', lessons: 'שיעורים',
     homeEyebrow: 'מסלול הלמידה שלכם', homeTitle: 'מהשיחה הראשונה עם Claude ועד כלי AI אמיתיים לעסקים',
-    homeIntro: 'חמישה קווים, תחנה אחרי תחנה. **קו 1**: מה זה AI ואיך Claude עובד. **קו 2**: משתמשים כמו מקצוענים. **קו 3**: היסודות של FDE — ‏Git, אתרים, API והעלאה לאוויר. **קו 4**: עיצוב עם Claude — מערכות עיצוב, Figma, ‏Paper ו-MCP. **קו 5**: הכנה למבחן *Claude Certified Associate – Foundations*, עם סימולציה מלאה בזמן אמת בסוף.',
+    homeIntro: 'שבעה קווים, תחנה אחרי תחנה. **[[m1]]**: מה זה AI ואיך Claude עובד. **[[m2]]**: משתמשים כמו מקצוענים — פרויקטים, זיכרון, Skills, מחקר ויצירה. **[[m6]]**: סוכנים בעבודה — Cowork, ‏Claude Code, מוח משותף לצוות, סוכני דפדפן ו-QA. **[[m3]]**: היסודות של FDE — ‏Git, ‏API, צ׳אטבוטים והעלאה לאוויר. **[[m4]]**: עיצוב עם Claude. **[[m7]]**: Claude במקום העבודה. **[[m5]]**: הכנה למבחן *Claude Certified Associate – Foundations*, עם סימולציה מלאה בזמן אמת בסוף.',
     progressTitle: 'ההתקדמות שלכם', progressLine: '{done} מתוך {total} שיעורים', bestMock: 'מבחן תרגול הכי טוב {pct}%',
     continueWhere: 'ממשיכים מאיפה שעצרתם', nextUp: 'התחנה הבאה', startHere: 'מתחילים כאן', resume: 'המשך', start: 'התחל', continue: 'המשך',
     allDone: 'עברתם בכל התחנות', allDoneTitle: 'סיימתם את כל הקווים. עשו עוד סימולציה מלאה לפני שנרשמים.', takeExam: 'למבחן התרגול', seeCompletion: 'תעודת סיום',
@@ -169,12 +169,12 @@ CT.ui = {
       'שמות מודלים, מחירים ופיצ׳רים משתנים מהר. המידע כאן נבדק בנובמבר 2026. אם יש ספק — התיעוד הרשמי ב-[platform.claude.com/docs](https://platform.claude.com/docs) ומרכז העזרה ב-[support.claude.com](https://support.claude.com) קובעים.'
     ],
     finishTitle: 'סיום', finishIntro: 'כשמסיימים את כל התחנות מקבלים תעודת סיום לשיתוף. אחר כך — המבחן האמיתי.',
-    yourName: 'השם שלכם לתעודה', yourNamePh: 'השם שלכם', certEyebrow: 'מאמן Claude · סיום קורס', certTitle: 'מאפס ל-FDE', certBody: 'השלים/ה את כל {n} השיעורים: יסודות מודלי שפה, שימוש מקצועי ב-Claude, יסודות של Forward Deployed Engineer, עיצוב עם Claude, והכנה למבחן.', certNote: 'תעודת סיום קורס בלבד. לא הסמכה של Anthropic.',
+    yourName: 'השם שלכם לתעודה', yourNamePh: 'השם שלכם', certEyebrow: 'מאמן Claude · סיום קורס', certTitle: 'מאפס ל-FDE', certBody: 'השלים/ה את כל {n} השיעורים: יסודות מודלי שפה, שימוש מקצועי ב-Claude, סוכנים בעבודה, יסודות של Forward Deployed Engineer, עיצוב עם Claude, ‏Claude במקום העבודה, והכנה למבחן.', certNote: 'תעודת סיום קורס בלבד. לא הסמכה של Anthropic.',
     finishRemaining: 'תחנות שעוד מחכות לכם:', nextSteps: 'מה עושים עכשיו',
     nextStepsList: [
       'עושים את המבחן המלא פעמיים, בימים שונים. מכוונים ל-80% ומעלה.',
       'קוראים את מדריך המבחן הרשמי ונרשמים ל-Claude Certified Associate – Foundations כשמרגישים מוכנים.',
-      'בונים את פרויקט הסיום מקו 3 לעסק קטן אמיתי שאתם מכירים. לקוח מרוצה אחד מלמד יותר מעשרה מדריכים.',
+      'בונים את פרויקט הסיום מ[[m3]] לעסק קטן אמיתי שאתם מכירים. לקוח מרוצה אחד מלמד יותר מעשרה מדריכים.',
       'שומרים תיק עבודות: מאגר GitHub וקישור חי לכל פרויקט.'
     ]
   }

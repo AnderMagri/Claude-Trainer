@@ -4,7 +4,7 @@ import vm from 'node:vm';
 const ctx = { window: {} };
 ctx.window.window = ctx.window;
 vm.createContext(ctx.window);
-for (const f of ['content/ui.js', 'content/m1.js', 'content/m2.js', 'content/m3.js', 'content/m4.js', 'content/m5.js', 'content/exam.js', 'content/glossary.js']) {
+for (const f of ['content/ui.js', 'content/m1.js', 'content/m2.js', 'content/m3.js', 'content/m4.js', 'content/m5.js', 'content/m6.js', 'content/m7.js', 'content/exam.js', 'content/glossary.js']) {
   vm.runInContext(readFileSync(f, 'utf8'), ctx.window, { filename: f });
 }
 const CT = ctx.window.CT;
@@ -42,6 +42,14 @@ for (const m of CT.modules) {
   }
 }
 CT.exam.forEach((q) => checkQ(q, 'exam'));
+// every [[lesson-id]] or [[line-id]] reference must point to something that exists
+const moduleIds = new Set(CT.modules.map((m) => m.id));
+const allText = ['content/ui.js', 'content/m1.js', 'content/m2.js', 'content/m3.js', 'content/m4.js', 'content/m5.js', 'content/m6.js', 'content/m7.js', 'content/exam.js', 'content/glossary.js'].map((f) => readFileSync(f, 'utf8')).join('\n');
+for (const m of allText.matchAll(/\[\[(m\d+(?:-l\d+)?)\]\]/g)) {
+  if (!lessonIds.has(m[1]) && !moduleIds.has(m[1])) bad(`broken reference [[${m[1]}]]`);
+}
+const lineNums = CT.modules.map((m) => m.n).sort((a, b) => a - b);
+if (lineNums.some((n, i) => n !== i + 1)) bad(`line numbers are not 1..${lineNums.length}: ${lineNums.join(',')}`);
 const byD = {}; CT.exam.forEach((q) => { byD[q.d] = (byD[q.d] || 0) + 1; });
 const byM = {}; CT.exam.forEach((q) => { byM[q.m] = (byM[q.m] || 0) + 1; });
 const enKeys = Object.keys(CT.ui.en), heKeys = new Set(Object.keys(CT.ui.he));

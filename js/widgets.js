@@ -28,6 +28,7 @@
       contrast: 'Contrast checker', textColor: 'Text', bgColor: 'Background', sample: 'Fresh bread every morning', sampleSmall: 'Small text like this must be easy to read too — for everyone.', ratioL: 'contrast ratio', aaNormal: 'Normal text · AA 4.5:1', aaLarge: 'Large text · AA 3:1', aaa: 'Enhanced · AAA 7:1', presets: 'Try these:', pGrey: 'Light grey on white', pBrand: 'Brand on cream', pYellow: 'White on yellow', pDark: 'Dark on light', contrastNote: 'Based on the WCAG contrast rules. Aim for at least 4.5:1 for normal text, 3:1 for large text and icons.',
       tokens: 'Design token playground', brand: 'Brand colour', radius: 'Corner radius', spacing: 'Spacing unit', font: 'Font style', fSans: 'Sans', fSerif: 'Serif', fRound: 'Rounded', cssTab: 'CSS variables', jsonTab: 'Design tokens (JSON)', prevTitle: 'Bakery Nur', prevBody: 'Fresh sourdough and challah, baked every morning in Haifa.', prevTag: 'New today', prevBtn: 'Order now', prevBtn2: 'See the menu', onBrand: 'text on the brand colour', tokNote2: 'The JSON follows the Design Tokens Community Group format (2025.10). Check designtokens.org for the full specification.',
       eliminate: 'Eliminate the wrong answers', elimHint: 'Tap every answer you can rule out. Keep the best one.', elimOut: 'Ruled out', elimCareful: 'Careful — this is the best answer. Keep it.', elimDone: 'Only the best answer is left. That is how you work through hard questions.', elimReset: 'Start over',
+      filetree: 'Explore the folder', ftHint: 'Tap a file or folder to see what it is for and what is inside.',
       examsim: 'Exam simulation', simRules: 'Before you start (for a realistic run)', simStart: 'Start the 120-minute simulation', simQuick: 'Warm-up: quick 20', simResume: 'Resume your exam', simHistory: 'Your simulations', simNone: 'No simulations yet. Your results will appear here.', simTarget: 'Target: 80% or more, twice, on different days.'
     },
     he: {
@@ -47,6 +48,7 @@
       contrast: 'בודק ניגודיות', textColor: 'טקסט', bgColor: 'רקע', sample: 'לחם טרי כל בוקר', sampleSmall: 'גם טקסט קטן כמו זה צריך להיות קריא — לכולם.', ratioL: 'יחס ניגודיות', aaNormal: 'טקסט רגיל · AA ‏4.5:1', aaLarge: 'טקסט גדול · AA ‏3:1', aaa: 'משופר · AAA ‏7:1', presets: 'נסו:', pGrey: 'אפור בהיר על לבן', pBrand: 'צבע מותג על שמנת', pYellow: 'לבן על צהוב', pDark: 'כהה על בהיר', contrastNote: 'לפי כללי הניגודיות של WCAG. מכוונים ל-4.5:1 לפחות בטקסט רגיל, ו-3:1 בטקסט גדול ובאייקונים.',
       tokens: 'מגרש משחקים לטוקנים', brand: 'צבע המותג', radius: 'עיגול פינות', spacing: 'יחידת ריווח', font: 'סגנון גופן', fSans: 'בלי תגים', fSerif: 'עם תגים', fRound: 'מעוגל', cssTab: 'משתני CSS', jsonTab: 'טוקנים (JSON)', prevTitle: 'מאפיית נור', prevBody: 'מחמצת וחלות טריות, נאפות כל בוקר בחיפה.', prevTag: 'חדש היום', prevBtn: 'להזמנה', prevBtn2: 'לתפריט', onBrand: 'טקסט על צבע המותג', tokNote2: 'ה-JSON בנוי לפי הפורמט של Design Tokens Community Group ‏(2025.10). את המפרט המלא בודקים ב-designtokens.org.',
       eliminate: 'מוציאים תשובות לא נכונות', elimHint: 'לוחצים על כל תשובה שאפשר לפסול. משאירים את הטובה ביותר.', elimOut: 'נפסלה', elimCareful: 'זהירות — זו התשובה הטובה ביותר. משאירים אותה.', elimDone: 'נשארה רק התשובה הטובה ביותר. ככה עוברים על שאלות קשות.', elimReset: 'מההתחלה',
+      filetree: 'מסיירים בתיקייה', ftHint: 'לוחצים על קובץ או תיקייה כדי לראות בשביל מה הם ומה יש בפנים.',
       examsim: 'סימולציית מבחן', simRules: 'לפני שמתחילים (כדי שזה יהיה אמיתי)', simStart: 'מתחילים סימולציה של 120 דקות', simQuick: 'חימום: 20 שאלות', simResume: 'ממשיכים את המבחן', simHistory: 'הסימולציות שלכם', simNone: 'עוד אין סימולציות. התוצאות יופיעו כאן.', simTarget: 'יעד: 80% ומעלה, פעמיים, בימים שונים.'
     }
   };
@@ -64,6 +66,18 @@
   /* ======================================================== TERMINAL */
   const HOME = '/home/you';
   const SITE_HTML = '<!doctype html>\n<html>\n<head>\n  <title>Bakery Nur</title>\n  <link rel="stylesheet" href="style.css">\n</head>\n<body>\n  <h1>Bakery Nur</h1>\n  <p>Fresh bread every morning.</p>\n  <section id="menu">\n    <h2>Menu</h2>\n    <ul><li>Sourdough — 24</li><li>Challah — 18</li></ul>\n  </section>\n</body>\n</html>';
+  // The team "brain" repository used in the shared-brain mission (git clone …/brain.git)
+  const BRAIN = {
+    'CLAUDE.md': '# Team brain — read me first\n\n- We are Harbor & Pine, a small design and AI studio.\n- Write in the client\'s language (Hebrew or English). Warm, clear, no jargon.\n- Facts come from this folder. If something is missing, ask — never guess prices or dates.\n- Prompts live in prompts/, skills in skills/, finished work in reports/ or clients/<name>/.\n- Never put passwords, API keys or private personal data in this repository.',
+    'README.md': '# brain\nOur shared knowledge for people and for Claude.\nChange it with a pull request so someone reviews it.',
+    'company/brand-voice.md': '# Brand voice\nWarm, precise, a little playful. Short sentences. No buzzwords.',
+    'company/services-and-prices.md': '# Services (Nov 2026)\n- Brand kit: from ₪6,500\n- Landing page: from ₪4,000\n- AI assistant setup: from ₪7,500 + monthly care',
+    'clients/acme/brief.md': '# Acme Bakery\nGoal: more WhatsApp orders. Contact: Dana (owner).',
+    'clients/acme/notes.md': '# Notes this week\n- Sun: approved new menu photos\n- Tue: asked to add gluten-free day\n- Thu: wants a Passover campaign plan',
+    'prompts/weekly-report.md': '# Weekly client report — template\n1. What we did\n2. Decisions and approvals\n3. Next steps (owner + date)\n4. Risks or questions for the client',
+    'skills/proposal-writer/SKILL.md': '---\nname: proposal-writer\ndescription: Write a client proposal in the studio format. Use when asked for a proposal, quote or offer.\n---\n1. Read company/services-and-prices.md\n2. Use the structure: problem, solution, scope, price, timeline\n3. Ask before giving any discount',
+    'reports/.keep': ''
+  };
   function baseFS(scn) {
     const fs = {};
     const d = (p) => { fs[p] = { d: true }; };
@@ -71,12 +85,12 @@
     d('/'); d('/home'); d(HOME); d(HOME + '/Documents'); d(HOME + '/Downloads');
     f(HOME + '/notes.txt', 'Shopping: flour, yeast, sesame\nCall the accountant on Sunday');
     f(HOME + '/Documents/plan.txt', 'Ideas for the bakery website:\n- menu\n- opening hours\n- WhatsApp button');
-    if (scn !== 'basics') {
+    if (scn !== 'basics' && scn !== 'brain') {
       const r = HOME + '/bakery-site'; d(r);
       f(r + '/index.html', SITE_HTML);
       f(r + '/style.css', 'body { font-family: sans-serif; margin: 2rem; }\nh1 { color: #8a4b08; }');
       f(r + '/README.md', '# Bakery Nur website\nA small site for a neighbourhood bakery.');
-      if (scn === 'api' || scn === 'deploy' || scn === 'claude' || scn === 'design') {
+      if (scn === 'api' || scn === 'deploy' || scn === 'claude' || scn === 'design' || scn === 'qa') {
         f(r + '/.gitignore', 'node_modules/\n.env');
         f(r + '/.env', 'ANTHROPIC_API_KEY=sk-ant-REPLACE-ME');
       }
@@ -85,8 +99,8 @@
     return fs;
   }
   function initTerm(scn) {
-    const st = { fs: baseFS(scn), cwd: scn === 'basics' ? HOME : HOME + '/bakery-site', env: { HOME: HOME, USER: 'you' }, ran: [], git: null, vercel: { login: false, linked: false, deployed: false, prod: false, env: {} }, api: { ok: 0, err: 0 }, claude: { ran: 0, mode: false, mcp: {}, compared: false }, npm: {}, hist: [], hi: -1 };
-    if (scn === 'deploy' || scn === 'claude' || scn === 'api' || scn === 'design') {
+    const st = { fs: baseFS(scn), cwd: (scn === 'basics' || scn === 'brain') ? HOME : HOME + '/bakery-site', env: { HOME: HOME, USER: 'you' }, ran: [], git: null, vercel: { login: false, linked: false, deployed: false, prod: false, env: {} }, api: { ok: 0, err: 0 }, claude: { ran: 0, mode: false, mcp: {}, compared: false }, npm: {}, hist: [], hi: -1 };
+    if (scn === 'deploy' || scn === 'claude' || scn === 'api' || scn === 'design' || scn === 'qa') {
       st.git = gitNew(st, HOME + '/bakery-site');
       gitAddAll(st); gitCommit(st, 'First version of the bakery site');
       if (scn === 'deploy') { st.git.remote = 'https://github.com/you/bakery-site.git'; st.git.rb.main = st.git.br.main; }
@@ -186,7 +200,10 @@
     curl: { en: 'curl sends a web request. Here it talked to the Claude API.', he: 'curl שולח בקשה לאינטרנט. כאן הוא דיבר עם ה-API של Claude.' },
     claude: { en: 'Claude Code read your files, made a plan, changed code, and told you what it did.', he: 'Claude Code קרא את הקבצים, תכנן, שינה קוד, וסיפר מה עשה.' },
     figma: { en: 'Claude used Figma’s MCP tools: it read the frame and the design variables, then wrote code that uses your tokens.', he: 'Claude השתמש בכלים של Figma דרך MCP: קרא את המסגרת ואת משתני העיצוב, וכתב קוד שמשתמש בטוקנים שלכם.' },
-    compare: { en: 'Comparing a screenshot of the design with the result is how you check visual fidelity.', he: 'השוואה בין צילום של העיצוב לתוצאה — כך בודקים נאמנות לעיצוב.' }
+    compare: { en: 'Comparing a screenshot of the design with the result is how you check visual fidelity.', he: 'השוואה בין צילום של העיצוב לתוצאה — כך בודקים נאמנות לעיצוב.' },
+    brain: { en: 'Claude followed the team’s automatic instructions (CLAUDE.md) and the shared template — the same result for anyone on the team.', he: 'Claude פעל לפי ההוראות האוטומטיות של הצוות (CLAUDE.md) ולפי התבנית המשותפת — אותה תוצאה לכל מי שבצוות.' },
+    qa: { en: 'Claude used a real browser through MCP: it clicked and typed like a customer, and reported what broke.', he: 'Claude השתמש בדפדפן אמיתי דרך MCP: לחץ והקליד כמו לקוח, ודיווח מה נשבר.' },
+    parallel: { en: 'Three helpers (subagents) tested at the same time, each with one focus. Parallel testing finds more, faster.', he: 'שלושה עוזרים (Subagents) בדקו בו-זמנית, כל אחד עם מיקוד אחד. בדיקה במקביל מוצאת יותר, מהר יותר.' }
   };
 
   function Terminal(el, cfg, ctx) {
@@ -224,13 +241,13 @@
             if (v.indexOf('head=') === 0) return g.head === v.split('=')[1];
             if (v === 'merged') { const a = ancestors(g, g.br.main); return g.commits.some((c) => c.branch !== 'main' && a.has(c.id)); }
             if (v === 'remote') return !!g.remote;
-            if (v === 'pushed') return Object.keys(g.rb).some((b) => g.rb[b] && g.rb[b] === g.br[b]) && g.commits.length > (scn === 'deploy' ? 1 : 0);
+            if (v === 'pushed') return Object.keys(g.rb).some((b) => g.rb[b] && g.rb[b] === g.br[b]) && g.commits.length > ((scn === 'deploy' || scn === 'brain') ? 1 : 0);
             return false;
           }
           case 'vercel': return v === 'env' ? Object.keys(st.vercel.env).length > 0 : !!st.vercel[v];
           case 'env': return !!st.env[v];
           case 'api': return v === 'ok' ? st.api.ok > 0 : st.api.err > 0;
-          case 'claude': return v === 'ran' ? st.claude.ran > 0 : v === 'init' ? !!st.fs[HOME + '/bakery-site/CLAUDE.md'] : v === 'mcp' ? Object.keys(st.claude.mcp).length > 0 : v === 'compare' ? !!st.claude.compared : v.indexOf('mcp=') === 0 ? !!st.claude.mcp[v.slice(4)] : false;
+          case 'claude': return v === 'ran' ? st.claude.ran > 0 : v === 'init' ? !!st.fs[HOME + '/bakery-site/CLAUDE.md'] : v === 'mcp' ? Object.keys(st.claude.mcp).length > 0 : v === 'compare' ? !!st.claude.compared : v === 'qa' ? !!st.claude.qa : v === 'parallel' ? !!st.claude.parallel : v.indexOf('mcp=') === 0 ? !!st.claude.mcp[v.slice(4)] : false;
           case 'npm': return !!st.npm[v];
           default: return false;
         }
@@ -362,6 +379,18 @@
     };
     C.env = () => Object.keys(st.env).forEach((k) => say(k + '=' + (/KEY|TOKEN|SECRET/i.test(k) ? st.env[k].slice(0, 7) + '…' : st.env[k])));
     C.node = (a) => (a[0] === '-v' || a[0] === '--version' ? say('v22.12.0') : dim('(node is installed. In this simulator, try: node -v)'));
+    C.npx = (a) => {
+      if (a[0] === 'playwright' && a[1] === 'test') {
+        if (!st.fs[st.cwd + '/tests/order-form.spec.ts']) return err('Error: No tests found. Ask Claude to write a test first.');
+        say('Running 3 tests using 3 workers');
+        ok('  ✓ order form: a valid order is accepted (1.2s)\n  ✓ order form: a negative quantity shows an error (0.8s)');
+        err('  ✘ order form: an empty phone is rejected (0.9s)');
+        say('\n  1 failed, 2 passed');
+        push('ln-dim', '↳ ' + (ctx.L === 'he' ? 'הבדיקה נכשלת כי הבאג עוד קיים. מתקנים את הטופס ומריצים שוב — עכשיו היא שומרת שהבאג לא יחזור.' : 'The test fails because the bug is still there. Fix the form and run it again — from now on it guards against the bug returning.'), ctx.L === 'he');
+        return;
+      }
+      dim('(In this simulator npx supports: npx playwright test)');
+    };
     C.code = () => ok('Opening the folder in VS Code… (simulated)');
     C.open = () => ok('Opening… (simulated)');
     C.npm = (a) => {
@@ -407,7 +436,9 @@
         const url = a[1]; if (!url) return err('usage: git clone <url>');
         const name = base(url).replace(/\.git$/, ''); const r = abs(st, name);
         if (st.fs[r]) return err("fatal: destination path '" + name + "' already exists");
-        st.fs[r] = { d: true }; st.fs[r + '/README.md'] = { c: '# ' + name }; st.fs[r + '/index.html'] = { c: SITE_HTML };
+        st.fs[r] = { d: true };
+        if (name === 'brain') Object.keys(BRAIN).forEach((p) => { const full = r + '/' + p; const parts = p.split('/'); for (let i = 1; i < parts.length; i++) st.fs[r + '/' + parts.slice(0, i).join('/')] = { d: true }; st.fs[full] = { c: BRAIN[p] }; });
+        else { st.fs[r + '/README.md'] = { c: '# ' + name }; st.fs[r + '/index.html'] = { c: SITE_HTML }; }
         const saveCwd = st.cwd; st.cwd = r; st.git = gitNew(st, r); gitAddAll(st); gitCommit(st, 'Initial commit'); st.git.remote = url; st.git.rb.main = st.git.br.main; st.cwd = saveCwd;
         return ok("Cloning into '" + name + "'...\nReceiving objects: 100% (12/12), done.");
       }
@@ -580,6 +611,48 @@
       }
       if (p.trim() === '/mcp') { const ks = Object.keys(st.claude.mcp); push('ln-claude', ks.length ? '⏺ Connected MCP servers: ' + ks.join(', ') : '⏺ No MCP servers yet. Add one with: claude mcp add ...'); return; }
       if (p.trim() === '/help') { dim('  /init   write a CLAUDE.md file with project notes\n  /mcp    show connected MCP servers\n  /exit   leave Claude Code'); return; }
+      // Team brain: Claude reads CLAUDE.md and the template, then writes the report
+      if (st.cwd.indexOf(HOME + '/brain') === 0 && /report|דוח/.test(p)) {
+        const b = HOME + '/brain';
+        push('ln-claude', '⏺ Read(CLAUDE.md)'); dim('   ⎿ team rules: client language, brand voice, facts only from this folder');
+        push('ln-claude', '⏺ Read(prompts/weekly-report.md)'); dim('   ⎿ template with 4 sections');
+        push('ln-claude', '⏺ Read(clients/acme/notes.md)'); dim('   ⎿ 3 notes from this week');
+        st.fs[b + '/reports'] = { d: true };
+        st.fs[b + '/reports/2026-11-acme-weekly.md'] = { c: '# Acme Bakery — weekly report\n\n1. What we did: new menu photos approved.\n2. Decisions: add a gluten-free day.\n3. Next steps: Passover campaign plan — Studio, by Thursday.\n4. Questions: which day for gluten-free?' };
+        push('ln-claude', '⏺ Write(reports/2026-11-acme-weekly.md)'); ok('   ⎿ +7 lines, in the team template and brand voice');
+        push('ln-claude', '⏺ Done. One open question for Dana is listed at the end. Review it, then commit and push so the team sees it.');
+        explain('brain'); return;
+      }
+      // QA with a browser (Playwright MCP) and parallel testers
+      if (/(localhost|https?:|website|אתר)/.test(p) && /(test|check|explore|בדוק|בדיקה)/.test(p)) {
+        if (!st.claude.mcp.playwright) { push('ln-claude', '⏺ I need a browser for this. Type /exit and add Playwright’s MCP server:\n   claude mcp add playwright npx @playwright/mcp@latest'); return; }
+        push('ln-claude', '⏺ playwright · browser_navigate http://localhost:5173/order');
+        push('ln-claude', '⏺ playwright · browser_snapshot'); dim('   ⎿ form: name, phone, product, quantity, "Send order"');
+        push('ln-claude', '⏺ playwright · browser_type name "Dana", quantity "2" (phone left empty)');
+        push('ln-claude', '⏺ playwright · browser_click "Send order"');
+        push('ln-warn', '   ⎿ BUG: the order was accepted with an empty phone number — staff cannot call back');
+        push('ln-claude', '⏺ playwright · browser_type quantity "-3"'); ok('   ⎿ error message shown ✓');
+        push('ln-claude', '⏺ playwright · browser_take_screenshot'); dim('   ⎿ saved empty-phone.png');
+        push('ln-claude', '⏺ Found 1 high-severity bug, 2 checks passed. The bug report has steps, expected result, actual result and a screenshot.');
+        st.claude.qa = true; explain('qa'); return;
+      }
+      if (/parallel|במקביל/.test(p)) {
+        push('ln-claude', '⏺ Starting 3 testers in parallel (subagents): mobile · Hebrew · accessibility');
+        dim('   ⎿ mobile (375px): the "Send order" button is hidden behind the cookie banner — medium');
+        dim('   ⎿ Hebrew (RTL): price and ₪ sign appear in the wrong order in the cart — low');
+        dim('   ⎿ accessibility: the phone field has no label; placeholder contrast 2.8:1 — medium');
+        st.fs[st.cwd + '/qa'] = { d: true };
+        st.fs[st.cwd + '/qa/bug-reports.md'] = { c: '# Bug reports\n1. HIGH — empty phone accepted\n2. MEDIUM — Send button hidden on mobile\n3. MEDIUM — phone field has no label\n4. LOW — RTL price order in cart' };
+        push('ln-claude', '⏺ Write(qa/bug-reports.md)'); ok('   ⎿ 4 issues, sorted by severity');
+        st.claude.parallel = true; explain('parallel'); return;
+      }
+      if (/(write|create|כתוב).*(test|בדיקה)/.test(p)) {
+        st.fs[st.cwd + '/tests'] = { d: true };
+        st.fs[st.cwd + '/tests/order-form.spec.ts'] = { c: "import { test, expect } from '@playwright/test';\n\ntest('empty phone is rejected', async ({ page }) => {\n  await page.goto('/order');\n  await page.getByLabel('Name').fill('Dana');\n  await page.getByRole('button', { name: 'Send order' }).click();\n  await expect(page.getByText('Please add a phone number')).toBeVisible();\n});" };
+        push('ln-claude', '⏺ Write(tests/order-form.spec.ts)'); ok('   ⎿ 3 tests: valid order, negative quantity, empty phone');
+        push('ln-claude', '⏺ The empty-phone test will fail until the bug is fixed. That is the point: it proves the bug, then guards against it coming back.');
+        return;
+      }
       // Design tools through MCP (Figma, Paper)
       if (/figma\.com/.test(p)) {
         if (!st.claude.mcp.figma) { push('ln-claude', '⏺ I can’t open Figma links yet. Connect Figma’s MCP server first: type /exit, then run\n   claude mcp add --transport http figma https://mcp.figma.com/mcp'); return; }
@@ -1196,6 +1269,35 @@
     });
   }
 
+  /* ======================================================== FOLDER EXPLORER */
+  function filetreeHTML(b, ctx) {
+    const cfg = b.cfg || {};
+    return `<div class="widget">${head(ctx, 'folder', cfg.title ? ctx.tx(cfg.title) : ws(ctx, 'filetree'))}<div class="w-body">
+      <p class="w-note">${esc(ws(ctx, 'ftHint'))}</p>
+      <div class="ftree"><ul class="ft-list" aria-label="files"></ul><div class="ft-view" aria-live="polite"><div class="ft-path"></div><div class="ft-why" dir="auto"></div><pre class="ft-body"></pre></div></div></div></div>`;
+  }
+  function filetreeMount(el, b, ctx) {
+    const items = ((b.cfg && b.cfg.items) || []).map((it) => Object.assign({}, it, { dir: !!it.dir || /\/$/.test(it.p), p: it.p.replace(/\/$/, '') }));
+    const byPath = {}; items.forEach((it) => { byPath[it.p] = it; });
+    items.forEach((it) => { const parts = it.p.split('/'); for (let i = 1; i < parts.length; i++) { const d = parts.slice(0, i).join('/'); if (!byPath[d]) byPath[d] = { p: d, dir: true }; } });
+    const all = Object.values(byPath).sort((a, z) => a.p.localeCompare(z.p));
+    let cur = (items.find((it) => !it.dir) || all[0]).p;
+    function paint() {
+      $('.ft-list', el).innerHTML = all.map((it) => {
+        const depth = it.p.split('/').length - 1; const name = it.p.split('/').pop() + (it.dir ? '/' : '');
+        return `<li><button type="button" class="${it.dir ? 'dir' : ''}" data-p="${esc(it.p)}" aria-current="${it.p === cur}" style="padding-left:${8 + depth * 16}px">${icon(it.dir ? 'folder' : 'note')}<span>${esc(name)}</span></button></li>`;
+      }).join('');
+      const it = byPath[cur];
+      $('.ft-path', el).textContent = it.p + (it.dir ? '/' : '');
+      $('.ft-why', el).innerHTML = md(ctx.tx(it.why) || '');
+      $('.ft-why', el).hidden = !it.why;
+      const body = ctx.tx(it.body) || '';
+      $('.ft-body', el).textContent = body; $('.ft-body', el).hidden = !body;
+      $$('[data-p]', el).forEach((bt) => bt.addEventListener('click', () => { cur = bt.dataset.p; paint(); }));
+    }
+    paint();
+  }
+
   /* ======================================================== EXAM SIMULATION LAUNCHER */
   function examsimHTML(b, ctx) {
     const rules = ctx.tx((b.cfg || {}).rules) || [];
@@ -1230,7 +1332,8 @@
     contrast: [contrastHTML, contrastMount],
     tokens: [tokensHTML, tokensMount],
     eliminate: [elimHTML, elimMount],
-    examsim: [examsimHTML, examsimMount]
+    examsim: [examsimHTML, examsimMount],
+    filetree: [filetreeHTML, filetreeMount]
   };
   window.W = {
     html(b, ctx) { const r = REG[b.name]; return r ? r[0](b, ctx) : `<div class="card muted">Unknown widget: ${esc(b.name)}</div>`; },

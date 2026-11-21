@@ -16,23 +16,28 @@ The course is drawn as a transit map: each **line** is a module, each **station*
 
 | Line | Title | Lessons |
 |---|---|---|
-| 1 | How AI like Claude works | What an LLM is · Tokens and the context window · How Claude was made · Apps, plans and models · Your first conversation · Prompting basics · Checking and improving answers · Using AI responsibly |
-| 2 | Power user | Projects · Artifacts · Advanced prompting and fixing prompts · Tools, connectors and Skills · MCP · Claude Code and agents · The right tool for each job · Workshop: an assistant for a small business |
-| 3 | FDE basics | What an FDE does · The terminal · Git and GitHub · How web apps work · The Claude API · Deploying · AI solutions clients can trust · Capstone |
-| 4 | Design with Claude | Design basics (contrast, accessibility, RTL) · Design systems and tokens · Claude Design · Figma and MCP · Paper, Orca and agent-native tools · Reviewing AI-made designs · Workshop: brand kit and landing page |
-| 5 | Exam simulation | Know your exam · How to answer scenario questions · Domain review, one page each (+ 14-day plan) · The full exam simulation |
+| 1 | How AI like Claude works | What an LLM is · Tokens and the context window · How Claude was made · Apps, plans and models · Your first conversation · Prompting basics · Checking and improving answers · Using AI responsibly (Usage Policy, RSP, AI Fluency) · Plans, privacy and your data |
+| 2 | Power user | Projects · Memory, styles and personal settings · Artifacts · Advanced prompting · Tools and connectors · Skills (use, find, create, improve) · MCP · Research with Claude · Creative work (stories, books, poems, your own style) · The right tool for each job · Workshop |
+| 3 | Agents at work | How agents work (workflow patterns) · Claude Cowork · Claude Code in depth · The shared brain (one team folder or Git repo) · Browser agents · QA with Claude (parallel testers) · Many agents, many models: Orca |
+| 4 | FDE basics | What an FDE does · The terminal · Git and GitHub · How web apps work · The Claude API · Tools, vision and structured output · Building chatbots · Deploying · AI solutions clients can trust · Capstone |
+| 5 | Design with Claude | Design basics · Design systems and tokens · Claude Design · Figma and MCP · Paper, Orca and agent-native tools · Reviewing AI-made designs · Workshop |
+| 6 | Claude at work | Map a workflow · One solution for the whole team · Playbooks: the office, the design studio, clinics/shops/services · Rolling out AI to a team |
+| 7 | Exam simulation | Know your exam · How to answer scenario questions · Domain review · The full exam simulation |
 | Final stop | Exam tab | Full simulation (60 questions weighted by the 7 domains, 120-minute timer, flags, review screen), quick 20, practice by domain, retry-my-mistakes |
+
+Lines run in order of their `n` number (in each content file), not their file name: `m6.js` is Line 3, `m3.js` is Line 4, `m4.js` is Line 5, `m7.js` is Line 6 and `m5.js` is Line 7.
 
 Every lesson has: a short summary, goals, key-idea cards, diagrams, an interactive exercise, a quick check, and a notes box.
 
 ### Interactive parts
 
 - **Terminal simulator** with missions: files (`pwd`, `ls`, `cd`…), **Git** with a live history graph, `npm`/Vite,
-  **Vercel** deploys, **Claude Code** (`claude`, `/init`, `claude mcp add`) and **curl calls to the Claude API**
-  (with realistic error messages). Tap-to-insert command chips so it works on a phone.
+  **Vercel** deploys, **Claude Code** (`claude`, `/init`, `claude mcp add`), **curl calls to the Claude API**
+  (with realistic error messages), working in a **team brain** repository, and a **QA run** with Playwright MCP,
+  parallel testers and `npx playwright test`. Tap-to-insert command chips so it works on a phone.
 - Next-word predictor with a randomness slider, token counter, prompt builder, MCP config builder with a diagram,
   agent-loop walkthrough, API request builder with cost, monthly cost calculator, "spot the hallucination" checker,
-  and card-sorting games.
+  card-sorting games, and a **folder explorer** that shows how a shared brain is organised.
 - Design tools: a WCAG **contrast checker**, a **design-token playground** that outputs CSS variables and
   DTCG-format JSON, a **Figma-to-code mission** in simulated Claude Code (Figma MCP: design context, variables,
   screenshot comparison), and a design-review spot-check.
@@ -72,12 +77,14 @@ js/core.js          Helpers: escaping, inline markdown, icons
 js/app.js           Engine: routing, language switch, progress, highlights, notebook, quizzes, exam, saving
 js/widgets.js       Interactive widgets and the terminal simulator
 content/ui.js       Interface text (EN + HE) and the exam domains with weights
-content/m1.js       Line 1 lessons
-content/m2.js       Line 2 lessons
-content/m3.js       Line 3 lessons
-content/m4.js       Line 4 lessons (design)
-content/m5.js       Line 5 lessons (exam simulation)
-content/exam.js     88-question bank (questions marked mock: false are design extras, kept out of mock exams)
+content/m1.js       Line 1 lessons (how AI works)
+content/m2.js       Line 2 lessons (power user)
+content/m6.js       Line 3 lessons (agents at work)
+content/m3.js       Line 4 lessons (FDE basics)
+content/m4.js       Line 5 lessons (design)
+content/m7.js       Line 6 lessons (Claude at work)
+content/m5.js       Line 7 lessons (exam simulation)
+content/exam.js     120-question bank (mock: false = extras kept out of mock exams; m = which line quiz uses it)
 content/glossary.js Glossary
 scripts/validate.mjs  Checks every lesson and question has both languages and valid answers
 scripts/build.mjs     Builds dist/ for static hosting (Vercel, Netlify, GitHub Pages)
@@ -87,7 +94,7 @@ vercel.json         Vercel settings (build command and output folder)
 ## Editing the course
 
 All words live in `content/`. You can ask Claude (in Claude Code or on claude.ai with this repository) to make changes,
-for example: *"In lesson 2.4 add a paragraph about the Notion connector, in English and simple Hebrew."*
+for example: *"In lesson 2.5 add a paragraph about the Notion connector, in English and simple Hebrew."*
 
 A lesson looks like this:
 
@@ -123,6 +130,11 @@ Block types you can use in `blocks`:
 | `widget` | `name`, `cfg` | interactive widget |
 
 Text supports `**bold**`, `*italic*`, `` `code` `` and `[links](https://…)`.
+To point to another station, write `[[m6-l3]]` (shows as "3.4") or a whole line as `[[m6]]` (shows as "Line 3").
+The numbers update by themselves if lessons move, and the validator reports any reference that points nowhere.
+
+**Lesson and line IDs are permanent.** Learners' progress, notes and bookmarks are saved by ID, so to move a lesson,
+move its object to another file or position and keep its `id`. Never reuse an old ID for different content.
 A block with only `he` appears only in Hebrew (extra help). Questions use `a` for the index (or indexes) of the right options.
 
 After editing, run:
@@ -153,8 +165,10 @@ Model names, prices and product features were checked in November 2026. The exam
 Responsible Use 15%, Troubleshooting 10%). Check Anthropic's official certification page and docs
 (platform.claude.com/docs) before relying on them.
 
-Design tools (Line 4) move fastest. Facts used: Claude Design launched April 2026 (Anthropic Labs research preview,
+Design and agent tools (Lines 3 and 5) move fastest. Facts used: Claude Design launched April 2026 (Anthropic Labs research preview,
 team design systems, export to PDF/URL/PPTX/Canva); Figma's official MCP server (remote and desktop; tools such as
 `get_design_context`, `get_variable_defs`, `get_screenshot`, Code Connect); Paper (paper.design, HTML/CSS canvas with an
 MCP server via Paper Desktop); Orca (onorca.dev, desktop app for parallel coding agents in Git worktrees); DTCG design
-tokens format 2025.10. Re-check these before teaching a client.
+tokens format 2025.10; Claude Cowork (research preview, January 2026); Playwright MCP
+(`claude mcp add playwright npx @playwright/mcp@latest`). Plan names, privacy settings and admin features (SSO, SCIM,
+audit logs) change often too. Re-check these before teaching a client.

@@ -19,9 +19,11 @@
   --l2: #DE7410;  --l2-ink: #A24F00; --l2-soft: #FCEBD8;
   --l3: #0E8A62;  --l3-ink: #0A6E4E; --l3-soft: #DCF2E9;
   --l4: #C99A00;  --l4-ink: #7A5B00; --l4-soft: #FBF1CF;
+  --l5: #6A48D7;  --l5-ink: #5634BF; --l5-soft: #ECE6FC;
+  --l6: #8A5A2B;  --l6-ink: #6F4520; --l6-soft: #F3E9DF;
   --lx: #B0246A;  --lx-ink: #951C59; --lx-soft: #F7E0EC;
   /* text colour that reads on each line colour */
-  --on-l1: #FFFFFF; --on-l2: #1E1305; --on-l3: #FFFFFF; --on-l4: #211800; --on-lx: #FFFFFF;
+  --on-l1: #FFFFFF; --on-l2: #1E1305; --on-l3: #FFFFFF; --on-l4: #211800; --on-l5: #FFFFFF; --on-l6: #FFFFFF; --on-lx: #FFFFFF;
   --on-accent: var(--on-l1);
   --mark: rgba(255, 212, 59, .62);
   --mark-strong: #FFD43B;
@@ -47,8 +49,10 @@
     --l2: #F29A3B; --l2-ink: #F7B977; --l2-soft: #382512;
     --l3: #33BF8E; --l3-ink: #6FD9B1; --l3-soft: #10332A;
     --l4: #F0C537; --l4-ink: #F6D873; --l4-soft: #352B0A;
+    --l5: #A08BF5; --l5-ink: #C2B4FA; --l5-soft: #251C47;
+    --l6: #D19A62; --l6-ink: #E7BE93; --l6-soft: #35261A;
     --lx: #E2629F; --lx-ink: #F094BF; --lx-soft: #3A1729;
-    --on-l1: #08111F; --on-l2: #1E1305; --on-l3: #06170F; --on-l4: #211800; --on-lx: #1F0612;
+    --on-l1: #08111F; --on-l2: #1E1305; --on-l3: #06170F; --on-l4: #211800; --on-l5: #120A2E; --on-l6: #1E1208; --on-lx: #1F0612;
     --mark: rgba(255, 201, 40, .34); --mark-strong: #E8B923;
     --good: #4CD493; --good-soft: #0F3324; --bad: #FF8A80; --bad-soft: #3D1714; --warn: #F5C063; --warn-soft: #3A2A0E;
     --term-bg: #070C17;
@@ -63,8 +67,10 @@
   --l2: #F29A3B; --l2-ink: #F7B977; --l2-soft: #382512;
   --l3: #33BF8E; --l3-ink: #6FD9B1; --l3-soft: #10332A;
   --l4: #F0C537; --l4-ink: #F6D873; --l4-soft: #352B0A;
+  --l5: #A08BF5; --l5-ink: #C2B4FA; --l5-soft: #251C47;
+  --l6: #D19A62; --l6-ink: #E7BE93; --l6-soft: #35261A;
   --lx: #E2629F; --lx-ink: #F094BF; --lx-soft: #3A1729;
-  --on-l1: #08111F; --on-l2: #1E1305; --on-l3: #06170F; --on-l4: #211800; --on-lx: #1F0612;
+  --on-l1: #08111F; --on-l2: #1E1305; --on-l3: #06170F; --on-l4: #211800; --on-l5: #120A2E; --on-l6: #1E1208; --on-lx: #1F0612;
   --mark: rgba(255, 201, 40, .34); --mark-strong: #E8B923;
   --good: #4CD493; --good-soft: #0F3324; --bad: #FF8A80; --bad-soft: #3D1714; --warn: #F5C063; --warn-soft: #3A2A0E;
   --term-bg: #070C17;
@@ -540,6 +546,19 @@ input[type="range"] { width: 100%; accent-color: var(--accent); min-height: 32px
 .foot { font-size: .8rem; color: var(--ink-3); text-align: center; padding-top: 10px; }
 .status-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--ink-3); margin-inline-end: 6px; }
 .status-dot.on { background: var(--good); }
+/* folder explorer (shared brain) */
+.ftree { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 760px) { .ftree { grid-template-columns: minmax(200px, 0.8fr) minmax(0, 1.2fr); } }
+.ftree ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; font-family: var(--f-mono); font-size: .84rem; direction: ltr; text-align: left; }
+.ftree li button { width: 100%; display: flex; align-items: center; gap: 8px; text-align: left; border: 0; background: transparent; border-radius: 8px; padding: 6px 8px; min-height: 36px; color: var(--ink); font-family: inherit; font-size: inherit; }
+.ftree li button:hover { background: var(--surface-2); }
+.ftree li button[aria-current="true"] { background: var(--accent-soft); color: var(--accent-ink); font-weight: 500; }
+.ftree li button.dir { color: var(--ink-2); font-weight: 500; }
+.ftree li button svg { width: 16px; height: 16px; flex: none; }
+.ftree .ft-view { border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; background: var(--surface); min-width: 0; }
+.ftree .ft-view .ft-path { font-family: var(--f-mono); font-size: .78rem; padding: 8px 12px; background: var(--surface-2); color: var(--ink-2); direction: ltr; text-align: left; }
+.ftree .ft-view .ft-why { padding: 10px 12px; font-size: .92rem; border-bottom: 1px solid var(--rule); }
+.ftree .ft-view pre { margin: 0; padding: 12px; font-family: var(--f-mono); font-size: .8rem; line-height: 1.5; white-space: pre-wrap; word-break: break-word; direction: ltr; text-align: left; max-height: 300px; overflow: auto; }
 /* exam review screen */
 .rev-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)); gap: 6px; }
 .rev-grid button { min-height: 48px; border-radius: 10px; border: 1.5px solid var(--rule); background: var(--surface); font-weight: 700; display: grid; place-items: center; gap: 0; padding: 4px; font-variant-numeric: tabular-nums; position: relative; color: var(--ink); }
@@ -603,6 +622,8 @@ input[type="color"] { width: 64px; height: 44px; border: 1.5px solid var(--rule)
 <script src="content/m3.js"></script>
 <script src="content/m4.js"></script>
 <script src="content/m5.js"></script>
+<script src="content/m6.js"></script>
+<script src="content/m7.js"></script>
 <script src="content/exam.js"></script>
 <script src="content/glossary.js"></script>
 <script src="js/widgets.js"></script>
