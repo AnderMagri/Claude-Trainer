@@ -324,7 +324,7 @@
     }).join('');
     return `<div class="view">
       <section class="hero">
-        <i class="sunrule" aria-hidden="true"></i>
+        ${L === 'he' ? `<img class="hero-art" src="assets/stickers/chat-robot.webp" width="642" height="535" alt="${esc(t('heroArtAlt'))}">` : ''}
         <span class="eyebrow">${esc(t('homeEyebrow'))}</span>
         <h1>${esc(t('homeTitle'))}</h1>
         <p>${md(t('homeIntro'))}</p>

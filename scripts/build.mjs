@@ -21,6 +21,7 @@ const shell = [
 
 mkdirSync('dist', { recursive: true });
 writeFileSync('dist/index.html', shell);
+cpSync('assets', 'dist/assets', { recursive: true, force: true });
 cpSync('css', 'dist/css', { recursive: true, force: true });
 cpSync('js', 'dist/js', { recursive: true, force: true });
 cpSync('content', 'dist/content', { recursive: true, force: true });
