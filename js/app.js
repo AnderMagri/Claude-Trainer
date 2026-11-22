@@ -222,6 +222,18 @@
     const th = S.theme || 'dark';
     if (th === 'auto') document.documentElement.removeAttribute('data-theme');
     else document.documentElement.setAttribute('data-theme', th);
+    const b = $('#themeBtn');
+    if (b) {
+      const dark = isDark();
+      b.innerHTML = icon(dark ? 'sun' : 'moon');
+      b.setAttribute('aria-label', t(dark ? 'toLight' : 'toDark'));
+      b.title = t(dark ? 'toLight' : 'toDark');
+    }
+  }
+  function isDark() {
+    const th = S.theme || 'dark';
+    if (th === 'auto') { try { return window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) { return true; } }
+    return th === 'dark';
   }
   function backTarget() {
     switch (cur.view) {
@@ -1355,6 +1367,10 @@
     render({ keepScroll: cur.view !== 'lesson' });
   }
   $$('.langswitch button').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));
+  $('#themeBtn').addEventListener('click', () => {
+    S.theme = isDark() ? 'light' : 'dark'; persist(); applyTheme();
+    if (cur.view === 'prefs') render({ keepScroll: true });
+  });
   window.addEventListener('hashchange', route);
   window.addEventListener('pagehide', () => { leaveExam(); try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* ignore */ } Cloud.flush(); });
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* ignore */ } Cloud.flush(); } });

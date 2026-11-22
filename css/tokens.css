@@ -1,18 +1,18 @@
 /* Claude Trainer design system: colours, fonts and sizes.
    Change the look of the whole course here. Every component in app.css uses these variables.
-   - Neutrals (--ground, --surface, --ink…) are black and grey.
+   - Neutrals (--ground, --surface, --ink…): black and grey in dark, ghost white and black in light.
    - Lines --l1 … --l6 and --lx follow a sunset, from sun-gold (Line 1) to dusk violet (Line 7).
      Each has -ink (text on light backgrounds), -soft (tinted background) and --on-* (text on the colour).
    - Light theme on :root, dark theme for [data-theme="dark"] (the default) and for devices set to dark
      when the learner picks "Like my device". */
 :root {
-  --ground: #EBEBEB;
-  --surface: #F8F8F8;
-  --surface-2: #DEDEDE;
+  --ground: #F8F8FF;
+  --surface: #FFFFFF;
+  --surface-2: #ECECF2;
   --ink: #0B0B0B;
   --ink-2: #434343;
   --ink-3: #5E5E5E;
-  --rule: #CFCFCF;
+  --rule: #DCDCE4;
   --l1: #D99412;  --l1-ink: #7E5200; --l1-soft: #F3E5C6;
   --l2: #E2761C;  --l2-ink: #9A4300; --l2-soft: #F6DFCB;
   --l3: #DC5527;  --l3-ink: #A2360F; --l3-soft: #F5D9CE;
