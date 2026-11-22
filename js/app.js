@@ -290,7 +290,7 @@
       const marked = S.marks.some((k) => k.lesson === l.id);
       return `<li class="station${done ? ' done' : ''}${isCur ? ' current' : ''}">
         <div class="track"><span class="stop">${done ? icon('check') : ''}</span></div>
-        <a href="#${l.id}"><span class="st-title">${esc(tx(l.title))}${marked ? ` <span class="st-flag" title="${esc(t('bookmarked'))}">${icon('bookmarkOn')}</span>` : ''}</span><span class="st-meta">${l.minutes || 5} ${esc(t('min'))}</span></a>
+        <a href="#${l.id}"><span class="st-title">${esc(tx(l.title))}${marked ? ` <span class="st-flag" title="${esc(t('bookmarked'))}">${icon('bookmarkOn')}</span>` : ''}</span><span class="st-meta">${l.optional ? `<span class="st-opt">${esc(t('optional'))}</span> · ` : ''}${l.minutes || 5} ${esc(t('min'))}</span></a>
       </li>`;
     }).join('')}</ol>`;
   }
@@ -328,7 +328,7 @@
     }).join('');
     return `<div class="view">
       <section class="hero">
-        ${L === 'he' ? `<img class="hero-art" src="assets/stickers/chat-robot.webp" width="633" height="526" alt="${esc(t('heroArtAlt'))}">` : ''}
+        ${L === 'he' ? `<img class="hero-art" src="assets/stickers/chat-robot.webp" width="720" height="589" alt="${esc(t('heroArtAlt'))}">` : ''}
         <span class="eyebrow">${esc(t('homeEyebrow'))}</span>
         <h1>${esc(t('homeTitle'))}</h1>
         <p>${md(t('homeIntro'))}</p>
@@ -448,6 +448,7 @@
     const checks = l.check || [];
     return `<article class="view lesson" style="${lineVars(m.line)}" data-lesson="${l.id}">
       <header class="lesson-head">
+        ${l.optional ? `<p class="opt-tag">${icon('flag')}<span><b>${esc(t('optional'))}</b> · ${esc(t('optionalNote'))}</span></p>` : ''}
         <div class="crumbs"><span class="linebadge">${m.n}</span><a href="#${m.id}">${esc(tx(m.title))}</a><span aria-hidden="true">·</span><span class="tnum">${esc(t('lessonXofY', { x: l.idx + 1, y: m.lessons.length }))}</span></div>
         <h1>${esc(tx(l.title))}</h1>
         <div class="row"><span class="chip">${icon('clock').replace('<svg', '<svg style="width:14px;height:14px"')}${l.minutes || 5} ${esc(t('min'))}</span>${(l.domains || []).map((d) => DOM[d] ? `<span class="chip dom" title="${esc(t('examDomain'))}">${esc(t('domainShort', { n: d.slice(1) }))} · ${esc(tx(DOM[d].short || DOM[d]))}</span>` : '').join('')}${done ? `<span class="chip" style="background:var(--good-soft);color:var(--good)">${icon('check').replace('<svg', '<svg style="width:14px;height:14px"')}${esc(t('completed'))}</span>` : ''}</div>

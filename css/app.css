@@ -139,6 +139,11 @@ label.field small { font-weight: 400; color: var(--ink-2); }
 .line-head.has-art { grid-template-columns: 44px 1fr 96px; }
 .line-thumb { width: 96px; height: 96px; object-fit: contain; align-self: center; }
 .mod-hero.has-art { padding-top: 14px; }
+/* optional stations */
+.opt-tag { display: flex; gap: 8px; align-items: center; margin: 0 0 4px; padding: 8px 12px; border-radius: 10px; border: 1.5px dashed var(--rule); color: var(--ink-2); font-size: .9rem; line-height: 1.4; }
+.opt-tag svg { width: 18px; height: 18px; flex: none; color: var(--accent-ink); }
+.opt-tag b { color: var(--ink); }
+.st-opt { font-weight: 700; color: var(--ink-2); }
 .line-art { display: block; width: min(64%, 260px); height: auto; justify-self: center; }
 .stations { list-style: none; margin: 0 0 6px; padding: 0; }
 .station { display: grid; grid-template-columns: 44px 1fr; gap: 12px; min-height: 58px; }

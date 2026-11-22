@@ -80,8 +80,11 @@ give them at least Contributor access.
 index.html          Page shell: markup, the stylesheet links and the script tags (published as the artifact page)
 css/tokens.css      Design system: black-and-grey neutrals, sunset line colours, fonts, light and dark themes
 css/app.css         Components and layout (uses only the variables from tokens.css)
-assets/stickers/    Character stickers: the first sheet plus one file per pose (chat-robot is on the Hebrew home page)
-assets/stickers/lines/  One sticker per line for the Hebrew edition (made with Krea from the first sheet); sheet-lines.webp is the full set
+assets/stickers/    Character stickers (transparent, no outline): sheet.webp plus one file per pose;
+                    chat-robot is on the Hebrew home page
+assets/stickers/lines/  One sticker per line for the Hebrew edition; sheet-lines.webp is the full set.
+                    Made with Krea (GPT Image) using the character sheet as reference: dark chocolate-brown hair,
+                    warm brown eyes, black leather jacket over a cream knit sweater
 js/core.js          Helpers: escaping, inline markdown, icons
 js/app.js           Engine: routing, language switch, progress, highlights, notebook, quizzes, exam, saving
 js/widgets.js       Interactive widgets and the terminal simulator

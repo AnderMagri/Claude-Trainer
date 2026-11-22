@@ -268,7 +268,7 @@ CT.modules.push({
     },
     /* ---------------------------------------------------------------- Orca & multi-agent */
     {
-      id: 'm6-l6', minutes: 11, domains: ['d3', 'd4'],
+      id: 'm6-l6', minutes: 11, domains: ['d3', 'd4'], optional: true,
       title: { en: 'Many agents, many models: Orca', he: 'הרבה סוכנים, הרבה מודלים: Orca' },
       tldr: {
         en: 'Orca is a desktop workspace for running several coding agents — Claude Code, Codex and others — side by side, each in its own Git worktree, with terminals, a browser and GitHub in one place. Use it to split work, compare approaches or models, and pair a builder with a reviewer. Same rules, same tests, a human merges.',
