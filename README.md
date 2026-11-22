@@ -85,6 +85,8 @@ assets/stickers/    Character stickers (transparent, no outline): sheet.webp plu
 assets/stickers/lines/  One sticker per line for the Hebrew edition; sheet-lines.webp is the full set.
                     Made with Krea (GPT Image) using the character sheet as reference: dark chocolate-brown hair,
                     warm brown eyes, black leather jacket over a cream knit sweater
+assets/stickers/source/  Full-resolution (4K) sheets from Krea, kept as the source for re-cutting
+scripts/cut-stickers.py  Cuts a transparent sheet into one file per sticker (Python: Pillow, numpy, scipy)
 js/core.js          Helpers: escaping, inline markdown, icons
 js/app.js           Engine: routing, language switch, progress, highlights, notebook, quizzes, exam, saving
 js/widgets.js       Interactive widgets and the terminal simulator
