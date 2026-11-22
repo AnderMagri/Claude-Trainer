@@ -25,6 +25,9 @@
 
   /* ------------------------------------------------------------- indexing */
   const LINE = { m1: 'l1', m2: 'l2', m6: 'l3', m3: 'l4', m4: 'l5', m7: 'l6', m5: 'lx', exam: 'lx' };
+  // Hebrew edition: one character sticker per line (assets/stickers/lines/)
+  const LINE_ART = { m1: 'learn', m2: 'power', m6: 'agents', m3: 'build', m4: 'design', m7: 'work', m5: 'exam' };
+  const lineArt = (m, cls) => (L === 'he' && LINE_ART[m.id] ? `<img class="${cls}" src="assets/stickers/lines/${LINE_ART[m.id]}.webp" alt=""${cls === 'line-thumb' ? ' loading="lazy"' : ''}>` : '');
   const lineVars = (line) => `--c:var(--${line});--ci:var(--${line}-ink);--cs:var(--${line}-soft);--on-c:var(--on-${line});--accent:var(--${line});--accent-ink:var(--${line}-ink);--accent-soft:var(--${line}-soft);--on-accent:var(--on-${line})`;
   const MODS = CT.modules.slice().sort((a, b) => a.n - b.n);
   const MBY = {}; const LESSONS = []; const LBY = {};
@@ -313,10 +316,11 @@
     const lines = MODS.map((m, i) => {
       const nxt = MODS[i + 1];
       return `<section class="line" style="${lineVars(m.line)}" aria-label="${esc(tx(m.title))}">
-        <a class="line-head" href="#${m.id}">
+        <a class="line-head${L === 'he' && LINE_ART[m.id] ? ' has-art' : ''}" href="#${m.id}">
           <span class="linebadge">${m.n}</span>
           <span><span class="eyebrow">${esc(t('lineN', { n: m.n }))}</span><h2>${esc(tx(m.title))}</h2><span class="sub">${esc(tx(m.subtitle))}</span>
           <span class="meta tnum"><span class="bar"><i style="width:${pctDone(m)}%"></i></span>${doneCount(m)}/${m.lessons.length} · ${Math.round(minutes(m) / 6) / 10} ${esc(t('hours'))}</span></span>
+          ${lineArt(m, 'line-thumb')}
         </a>
         ${stationsHTML(m, curId)}
       </section>
@@ -324,7 +328,7 @@
     }).join('');
     return `<div class="view">
       <section class="hero">
-        ${L === 'he' ? `<img class="hero-art" src="assets/stickers/chat-robot.webp" width="642" height="535" alt="${esc(t('heroArtAlt'))}">` : ''}
+        ${L === 'he' ? `<img class="hero-art" src="assets/stickers/chat-robot.webp" width="633" height="526" alt="${esc(t('heroArtAlt'))}">` : ''}
         <span class="eyebrow">${esc(t('homeEyebrow'))}</span>
         <h1>${esc(t('homeTitle'))}</h1>
         <p>${md(t('homeIntro'))}</p>
@@ -354,7 +358,8 @@
     const target = m.lessons.find((l) => !S.done[l.id]) || m.lessons[0];
     const nxt = MODS[MODS.indexOf(m) + 1];
     return `<div class="view" style="${lineVars(m.line)}">
-      <section class="mod-hero">
+      <section class="mod-hero${L === 'he' && LINE_ART[m.id] ? ' has-art' : ''}">
+        ${lineArt(m, 'line-art')}
         <div class="row"><span class="linebadge">${m.n}</span><span class="eyebrow">${esc(t('lineN', { n: m.n }))} · ${m.lessons.length} ${esc(t('lessons'))} · ${Math.round(minutes(m) / 6) / 10} ${esc(t('hours'))}</span></div>
         <h1>${esc(tx(m.title))}</h1>
         <p class="lead">${md(tx(m.intro || m.subtitle))}</p>
