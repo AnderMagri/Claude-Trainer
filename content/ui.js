@@ -15,7 +15,7 @@ CT.domains = [
 
 CT.ui = {
   en: {
-    appName: 'Claude Trainer', appSub: 'Zero to FDE',
+    appName: 'Claude Trainer',
     tabJourney: 'Journey', tabNotebook: 'Notebook', tabExam: 'Exam', tabGlossary: 'Words', tabPrefs: 'Settings', back: 'Back',
     lineN: 'Line {n}', lessonN: 'Lesson {n}', lessonXofY: 'Lesson {x} of {y}', min: 'min', hours: 'h', lessons: 'lessons',
     homeEyebrow: 'Your learning journey', homeTitle: 'From your first chat with Claude to shipping AI tools for real businesses',
@@ -77,7 +77,15 @@ CT.ui = {
     savingTitle: 'Where your progress is saved', syncCloud: 'Saved to your Claude account. It follows you to other devices.', syncLocal: 'Saved in this browser on this device.', syncFull: 'Your Claude account storage is full. Progress is saved in this browser only.',
     savingD: 'Clearing your browser data, or using a private window, can erase progress saved in the browser. Use a backup code to be safe or to move to another device.',
     backupTitle: 'Backup and move to another device', backupD: 'Copy your backup code and keep it somewhere safe (an email to yourself works). Paste it here on any device to restore everything.', backupCopy: 'Copy backup code', backupCopied: 'Backup code copied',
-    restoreLabel: 'Paste a backup code', restore: 'Restore', restoreConfirm: 'This backup has {n} completed lessons. How do you want to restore it?', restoreMerge: 'Merge with what I have', restoreReplace: 'Replace everything', restored: 'Restored', restoreBad: 'That code did not work. Copy the whole code, starting with CT1.',
+    restoreLabel: 'Paste a backup code', restore: 'Restore', restoreConfirm: 'This backup has {n} completed lessons. How do you want to restore it?', restoreMerge: 'Merge with what I have', restoreReplace: 'Replace everything', restored: 'Restored', restoreBad: 'That backup did not work. Use a backup file from this course, or copy the whole code, starting with CT1.', restoreFile: 'Restore from a file',
+    theme: 'Colours', themeD: 'Dark is black and grey. Light is soft grey. Both use sunset colours for the lines.', themeDark: 'Dark', themeLight: 'Light', themeAuto: 'Like my device',
+    bkSaveTitle: 'Save your progress', bkSaveD: 'Type a name and save a snapshot of everything: finished lessons, notes, highlights, quiz and exam results. You can go back to it any time.',
+    bkName: 'Backup name', bkNamePh: 'For example: before the exam', bkSave: 'Save backup', bkDownload: 'Download as file', bkFileShort: 'File',
+    bkWhereCloud: 'Backups are saved in your Claude account, so you can open them on any device. Only you can see them.', bkWhereLocal: 'Backups are saved in this browser only. Download a file too, to keep it safe.',
+    bkSaved: 'Backup “{name}” saved', bkSaveFailed: 'Could not save the backup. Try downloading a file instead.', bkFull: 'Backup space is full. Delete an old backup and try again.',
+    bkListTitle: 'Your backups', bkNone: 'No backups yet.', bkLoading: 'Loading backups…', bkLessons: '{n} lessons done', bkDefaultName: 'Backup {date}',
+    bkRestore: 'Restore', bkDelete: 'Delete', bkDeleteConfirm: 'Delete this backup?', bkDeleted: 'Backup deleted',
+    bkGitTitle: 'Keep backups in Git', bkGitD: 'This page cannot push to GitHub by itself — that would need a secret key inside the page. Download the file, move it into your repository, and commit it:',
     tourAgain: 'Help', showTour: 'Show the welcome tour',
     resetTitle: 'Start over', resetD: 'Erase all progress, notes, highlights and exam results on this device and account.', resetBtn: 'Erase everything', resetSure: 'Are you sure? This cannot be undone.', cancel: 'Cancel', resetYes: 'Yes, erase', resetDone: 'Everything was erased',
     aboutTitle: 'About this course',
@@ -87,7 +95,7 @@ CT.ui = {
       'Model names, prices and product features change quickly. Facts here were checked in November 2026. When in doubt, the official docs at [platform.claude.com/docs](https://platform.claude.com/docs) and the help centre at [support.claude.com](https://support.claude.com) win.'
     ],
     finishTitle: 'Completion', finishIntro: 'When you finish every station, you get a completion card to share. Then the real exam is the next step.',
-    yourName: 'Your name for the card', yourNamePh: 'Your name', certEyebrow: 'Claude Trainer · course completion', certTitle: 'Zero to FDE', certBody: 'Completed all {n} lessons: LLM basics, power use of Claude, agents at work, Forward Deployed Engineer foundations, design with Claude, Claude in the workplace, and exam preparation.', certNote: 'Course completion only. Not an Anthropic certification.',
+    yourName: 'Your name for the card', yourNamePh: 'Your name', certEyebrow: 'Claude Trainer · course completion', certTitle: 'Course completed', certBody: 'Completed all {n} lessons: LLM basics, power use of Claude, agents at work, Forward Deployed Engineer foundations, design with Claude, Claude in the workplace, and exam preparation.', certNote: 'Course completion only. Not an Anthropic certification.',
     finishRemaining: 'Stations still waiting for you:', nextSteps: 'What to do next',
     nextStepsList: [
       'Take the full mock exam twice, on different days. Aim for 80% or more.',
@@ -97,7 +105,7 @@ CT.ui = {
     ]
   },
   he: {
-    appName: 'מאמן Claude', appSub: 'מאפס ל-FDE',
+    appName: 'מאמן Claude',
     tabJourney: 'המסלול', tabNotebook: 'מחברת', tabExam: 'מבחן', tabGlossary: 'מילון', tabPrefs: 'הגדרות', back: 'חזרה',
     lineN: 'קו {n}', lessonN: 'שיעור {n}', lessonXofY: 'שיעור {x} מתוך {y}', min: 'דק׳', hours: 'שע׳', lessons: 'שיעורים',
     homeEyebrow: 'מסלול הלמידה שלכם', homeTitle: 'מהשיחה הראשונה עם Claude ועד כלי AI אמיתיים לעסקים',
@@ -159,7 +167,15 @@ CT.ui = {
     savingTitle: 'איפה ההתקדמות נשמרת', syncCloud: 'נשמר בחשבון ה-Claude שלכם. עובר איתכם גם למכשירים אחרים.', syncLocal: 'נשמר בדפדפן הזה, במכשיר הזה.', syncFull: 'האחסון בחשבון מלא. ההתקדמות נשמרת רק בדפדפן הזה.',
     savingD: 'ניקוי נתוני הדפדפן או חלון גלישה פרטי יכולים למחוק את מה שנשמר בדפדפן. כדאי לשמור קוד גיבוי — גם כדי לעבור למכשיר אחר.',
     backupTitle: 'גיבוי ומעבר למכשיר אחר', backupD: 'מעתיקים את קוד הגיבוי ושומרים במקום בטוח (מייל לעצמכם זה מצוין). מדביקים אותו כאן בכל מכשיר — והכול חוזר.', backupCopy: 'העתק קוד גיבוי', backupCopied: 'קוד הגיבוי הועתק',
-    restoreLabel: 'הדביקו קוד גיבוי', restore: 'שחזר', restoreConfirm: 'בגיבוי הזה יש {n} שיעורים שהושלמו. איך לשחזר?', restoreMerge: 'לאחד עם מה שיש לי', restoreReplace: 'להחליף הכול', restored: 'שוחזר', restoreBad: 'הקוד לא עבד. העתיקו את כל הקוד, החל מ-CT1.',
+    restoreLabel: 'הדביקו קוד גיבוי', restore: 'שחזר', restoreConfirm: 'בגיבוי הזה יש {n} שיעורים שהושלמו. איך לשחזר?', restoreMerge: 'לאחד עם מה שיש לי', restoreReplace: 'להחליף הכול', restored: 'שוחזר', restoreBad: 'הגיבוי לא עבד. השתמשו בקובץ גיבוי של הקורס, או העתיקו את כל הקוד, החל מ-CT1.', restoreFile: 'שחזור מקובץ',
+    theme: 'צבעים', themeD: 'כהה = שחור ואפור. בהיר = אפור רך. בשניהם הקווים בצבעי שקיעה.', themeDark: 'כהה', themeLight: 'בהיר', themeAuto: 'כמו במכשיר',
+    bkSaveTitle: 'שמירת ההתקדמות', bkSaveD: 'כותבים שם ושומרים תמונת מצב של הכול: שיעורים שסיימתם, הערות, הדגשות ותוצאות של בחנים ומבחנים. אפשר לחזור אליה מתי שרוצים.',
+    bkName: 'שם הגיבוי', bkNamePh: 'למשל: לפני המבחן', bkSave: 'שמירת גיבוי', bkDownload: 'הורדה כקובץ', bkFileShort: 'קובץ',
+    bkWhereCloud: 'הגיבויים נשמרים בחשבון Claude שלכם, ואפשר לפתוח אותם בכל מכשיר. רק אתם רואים אותם.', bkWhereLocal: 'הגיבויים נשמרים רק בדפדפן הזה. כדאי גם להוריד קובץ, ליתר ביטחון.',
+    bkSaved: 'הגיבוי „{name}” נשמר', bkSaveFailed: 'לא הצלחנו לשמור את הגיבוי. נסו להוריד קובץ במקום.', bkFull: 'אין מקום לגיבויים. מחקו גיבוי ישן ונסו שוב.',
+    bkListTitle: 'הגיבויים שלכם', bkNone: 'עדיין אין גיבויים.', bkLoading: 'טוען גיבויים…', bkLessons: '{n} שיעורים הושלמו', bkDefaultName: 'גיבוי {date}',
+    bkRestore: 'שחזור', bkDelete: 'מחיקה', bkDeleteConfirm: 'למחוק את הגיבוי הזה?', bkDeleted: 'הגיבוי נמחק',
+    bkGitTitle: 'שמירת גיבויים ב-Git', bkGitD: 'הדף לא יכול לדחוף ל-GitHub לבד — זה היה דורש מפתח סודי בתוך הדף. מורידים את הקובץ, מעבירים אותו למאגר, ושומרים (commit):',
     tourAgain: 'עזרה', showTour: 'הצג שוב את סיור הפתיחה',
     resetTitle: 'להתחיל מחדש', resetD: 'מוחק את כל ההתקדמות, ההערות, ההדגשות ותוצאות המבחנים.', resetBtn: 'למחוק הכול', resetSure: 'בטוחים? אי אפשר לבטל.', cancel: 'ביטול', resetYes: 'כן, למחוק', resetDone: 'הכול נמחק',
     aboutTitle: 'על הקורס',
@@ -169,7 +185,7 @@ CT.ui = {
       'שמות מודלים, מחירים ופיצ׳רים משתנים מהר. המידע כאן נבדק בנובמבר 2026. אם יש ספק — התיעוד הרשמי ב-[platform.claude.com/docs](https://platform.claude.com/docs) ומרכז העזרה ב-[support.claude.com](https://support.claude.com) קובעים.'
     ],
     finishTitle: 'סיום', finishIntro: 'כשמסיימים את כל התחנות מקבלים תעודת סיום לשיתוף. אחר כך — המבחן האמיתי.',
-    yourName: 'השם שלכם לתעודה', yourNamePh: 'השם שלכם', certEyebrow: 'מאמן Claude · סיום קורס', certTitle: 'מאפס ל-FDE', certBody: 'השלים/ה את כל {n} השיעורים: יסודות מודלי שפה, שימוש מקצועי ב-Claude, סוכנים בעבודה, יסודות של Forward Deployed Engineer, עיצוב עם Claude, ‏Claude במקום העבודה, והכנה למבחן.', certNote: 'תעודת סיום קורס בלבד. לא הסמכה של Anthropic.',
+    yourName: 'השם שלכם לתעודה', yourNamePh: 'השם שלכם', certEyebrow: 'מאמן Claude · סיום קורס', certTitle: 'הקורס הושלם', certBody: 'השלים/ה את כל {n} השיעורים: יסודות מודלי שפה, שימוש מקצועי ב-Claude, סוכנים בעבודה, יסודות של Forward Deployed Engineer, עיצוב עם Claude, ‏Claude במקום העבודה, והכנה למבחן.', certNote: 'תעודת סיום קורס בלבד. לא הסמכה של Anthropic.',
     finishRemaining: 'תחנות שעוד מחכות לכם:', nextSteps: 'מה עושים עכשיו',
     nextStepsList: [
       'עושים את המבחן המלא פעמיים, בימים שונים. מכוונים ל-80% ומעלה.',

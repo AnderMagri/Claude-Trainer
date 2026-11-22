@@ -24,7 +24,7 @@
   const dir = () => (L === 'he' ? 'rtl' : 'ltr');
 
   /* ------------------------------------------------------------- indexing */
-  const LINE = { m1: 'l1', m2: 'l2', m3: 'l3', m4: 'l4', m5: 'lx', m6: 'l5', m7: 'l6', exam: 'lx' };
+  const LINE = { m1: 'l1', m2: 'l2', m6: 'l3', m3: 'l4', m4: 'l5', m7: 'l6', m5: 'lx', exam: 'lx' };
   const lineVars = (line) => `--c:var(--${line});--ci:var(--${line}-ink);--cs:var(--${line}-soft);--on-c:var(--on-${line});--accent:var(--${line});--accent-ink:var(--${line}-ink);--accent-soft:var(--${line}-soft);--on-accent:var(--on-${line})`;
   const MODS = CT.modules.slice().sort((a, b) => a.n - b.n);
   const MBY = {}; const LESSONS = []; const LBY = {};
@@ -199,9 +199,9 @@
     document.documentElement.lang = L;
     document.documentElement.dir = dir();
     document.documentElement.style.setProperty('--scale', S.scale || 1);
+    applyTheme();
     $$('.langswitch button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === L)));
     $('#brandName').firstChild.nodeValue = t('appName');
-    $('#brandSub').textContent = t('appSub');
     const tabs = [['home', 'map', 'tabJourney'], ['notebook', 'book', 'tabNotebook'], ['exam', 'exam', 'tabExam'], ['glossary', 'glossary', 'tabGlossary'], ['prefs', 'prefs', 'tabPrefs']];
     const active = { home: 'home', module: 'home', lesson: 'home', mquiz: 'home', finish: 'home' }[cur.view] || cur.view;
     $('#tabbar').innerHTML = tabs.map(([h, ic, k]) => `<a class="tab" href="#${h}"${active === h ? ' aria-current="page"' : ''}>${icon(ic)}<span>${esc(t(k))}</span></a>`).join('');
@@ -211,9 +211,14 @@
     back.innerHTML = icon('back', 'flip');
     back.setAttribute('aria-label', t('back'));
     back.onclick = () => { if (parent) go(parent); };
-    const accentLine = cur.view === 'lesson' ? LBY[cur.arg].mod.line : (cur.view === 'module' || cur.view === 'mquiz') ? MBY[cur.arg].line : cur.view === 'exam' ? 'lx' : 'l1';
+    const accentLine = cur.view === 'lesson' ? LBY[cur.arg].mod.line : (cur.view === 'module' || cur.view === 'mquiz') ? MBY[cur.arg].line : cur.view === 'exam' ? 'lx' : 'l2';
     const rs = document.documentElement.style;
     rs.setProperty('--accent', `var(--${accentLine})`); rs.setProperty('--accent-ink', `var(--${accentLine}-ink)`); rs.setProperty('--accent-soft', `var(--${accentLine}-soft)`); rs.setProperty('--on-accent', `var(--on-${accentLine})`);
+  }
+  function applyTheme() {
+    const th = S.theme || 'dark';
+    if (th === 'auto') document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme', th);
   }
   function backTarget() {
     switch (cur.view) {
@@ -319,12 +324,13 @@
     }).join('');
     return `<div class="view">
       <section class="hero">
+        <i class="sunrule" aria-hidden="true"></i>
         <span class="eyebrow">${esc(t('homeEyebrow'))}</span>
         <h1>${esc(t('homeTitle'))}</h1>
         <p>${md(t('homeIntro'))}</p>
       </section>
       <div class="card overall">
-        <svg class="ring" viewBox="0 0 76 76" role="img" aria-label="${pct}%"><circle class="bg" cx="38" cy="38" r="${R}"/><circle class="fg" cx="38" cy="38" r="${R}" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - pct / 100)}" transform="rotate(-90 38 38)"/><text x="38" y="45" text-anchor="middle">${pct}%</text></svg>
+        <svg class="ring" viewBox="0 0 76 76" role="img" aria-label="${pct}%"><defs><linearGradient id="sunGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--l1)"/><stop offset=".5" style="stop-color:var(--l3)"/><stop offset="1" style="stop-color:var(--l5)"/></linearGradient></defs><circle class="bg" cx="38" cy="38" r="${R}"/><circle class="fg" cx="38" cy="38" r="${R}" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - pct / 100)}" transform="rotate(-90 38 38)"/><text x="38" y="45" text-anchor="middle">${pct}%</text></svg>
         <div><b>${esc(t('progressTitle'))}</b><p class="muted tnum">${esc(t('progressLine', { done, total }))}${best >= 0 ? ' · ' + esc(t('bestMock', { pct: best })) : ''}</p></div>
       </div>
       ${cont}
@@ -1153,6 +1159,107 @@
     if (!obj || typeof obj !== 'object' || !obj.done) throw new Error('bad');
     return obj;
   }
+
+  /* ------------------------------------------------------- named backups */
+  // Saved in the learner's private space in the artifact database when signed in on claude.ai,
+  // otherwise in this browser. Any backup can also be downloaded as a .json file (to keep in Git).
+  const BK_LOCAL = 'claude-trainer.backups.v1';
+  const Backups = {
+    list: [], loaded: false, loading: false, where: 'local',
+    col() { return Cloud.on && Cloud.ref ? Cloud.ref.collection('backups') : null; },
+    snapshot() {
+      const st = JSON.parse(JSON.stringify(Object.assign({}, S, { draft: null })));
+      if (JSON.stringify(st).length > 200000) st.journal = (st.journal || []).slice(-40);
+      return st;
+    },
+    readLocal() { try { const a = JSON.parse(localStorage.getItem(BK_LOCAL) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } },
+    writeLocal(list) { try { localStorage.setItem(BK_LOCAL, JSON.stringify(list)); return true; } catch (e) { return false; } },
+    async load() {
+      this.loading = true;
+      const col = this.col();
+      if (col) {
+        try {
+          const snap = await timeout(col.orderBy('at', 'desc').limit(30).get(), 10000);
+          this.list = snap.docs.map((d) => Object.assign({}, d.data(), { id: d.id }));
+          this.where = 'cloud';
+        } catch (e) { this.list = this.readLocal(); this.where = 'local'; }
+      } else { this.list = this.readLocal(); this.where = 'local'; }
+      this.loading = false; this.loaded = true;
+    },
+    async save(name) {
+      const item = { name, at: Date.now(), lessons: Object.keys(S.done || {}).length, state: this.snapshot() };
+      const col = this.col();
+      if (col) { const ref = col.doc(); await ref.set(item); this.list.unshift(Object.assign({}, item, { id: ref.id })); this.where = 'cloud'; return; }
+      const list = this.readLocal();
+      list.unshift(Object.assign({ id: uid() }, item));
+      if (!this.writeLocal(list.slice(0, 10))) throw { code: 'local_full' };
+      this.list = list.slice(0, 10); this.where = 'local';
+    },
+    async remove(id) {
+      if (this.where === 'cloud' && this.col()) await this.col().doc(id).delete();
+      else this.writeLocal(this.readLocal().filter((x) => x.id !== id));
+      this.list = this.list.filter((x) => x.id !== id);
+    },
+    fileOf(item) {
+      const d = new Date(item.at); const pad = (n) => String(n).padStart(2, '0');
+      const day = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+      const slug = String(item.name || '').toLowerCase().replace(/[^a-z0-9֐-׿]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) || 'backup';
+      return { filename: `claude-trainer-${day}-${slug}.json`, data: JSON.stringify({ app: 'claude-trainer', kind: 'backup', v: 1, name: item.name, at: item.at, state: item.state }, null, 2) };
+    }
+  };
+  async function saveFile(filename, data, type) {
+    if (Ext.downloads) { await Ext.downloads.save({ filename, data }); return true; }
+    if (hasClaude()) return false;
+    const url = URL.createObjectURL(new Blob([data], { type: type || 'application/json' }));
+    const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    return true;
+  }
+  const canDownload = () => !!Ext.downloads || !hasClaude();
+  function readBackupText(text) {
+    const s = String(text || '').trim();
+    if (s.startsWith('{')) {
+      const j = JSON.parse(s);
+      const st = j && j.kind === 'backup' && j.state ? j.state : j;
+      if (!st || typeof st !== 'object' || !st.done) throw new Error('bad');
+      return st;
+    }
+    return decodeBackup(s);
+  }
+  function askRestore(obj, box) {
+    box.innerHTML = `<div class="card" style="display:grid;gap:10px;border-color:var(--warn)"><b>${esc(t('restoreConfirm', { n: Object.keys(obj.done || {}).length }))}</b><div class="row"><button type="button" class="btn" data-rs="merge">${esc(t('restoreMerge'))}</button><button type="button" class="btn primary" data-rs="replace">${esc(t('restoreReplace'))}</button><button type="button" class="btn ghost" data-rs="cancel">${esc(t('cancel'))}</button></div></div>`;
+    box.querySelector('[data-rs="merge"]').addEventListener('click', () => { S = mergeStates(S, Object.assign({}, obj, { updatedAt: 0 })); persist(); toast(t('restored')); render(); });
+    box.querySelector('[data-rs="replace"]').addEventListener('click', () => { const theme = S.theme; S = Object.assign(defaults(), obj); if (!S.theme) S.theme = theme; persist(); toast(t('restored')); setLang(S.lang || L); });
+    box.querySelector('[data-rs="cancel"]').addEventListener('click', () => { box.innerHTML = ''; });
+    box.scrollIntoView({ block: 'nearest' });
+  }
+  function backupListHTML() {
+    if (!Backups.loaded) return `<p class="muted" style="font-size:.92rem">${esc(t('bkLoading'))}</p>`;
+    if (!Backups.list.length) return `<p class="muted" style="font-size:.92rem">${esc(t('bkNone'))}</p>`;
+    return `<ul class="bk-list">${Backups.list.map((b) => `<li data-bk="${esc(b.id)}"><div class="bk-meta"><b>${esc(b.name || t('bkDefaultName', { date: fmtDate(b.at) }))}</b><span class="muted tnum">${esc(fmtDate(b.at))} · ${esc(t('bkLessons', { n: b.lessons || 0 }))}</span></div>
+      <div class="row"><button type="button" class="btn small" data-bkact="restore">${icon('upload')}${esc(t('bkRestore'))}</button>${canDownload() ? `<button type="button" class="btn small" data-bkact="file">${icon('download')}${esc(t('bkFileShort'))}</button>` : ''}<button type="button" class="btn small ghost" data-bkact="delete" style="color:var(--bad)" aria-label="${esc(t('bkDelete'))}">${icon('trash')}</button></div><div class="bk-msg"></div></li>`).join('')}</ul>`;
+  }
+  function paintBackups(root) {
+    const box = $('#bkList', root || document); if (!box) return;
+    box.innerHTML = backupListHTML();
+    const where = $('#bkWhere', root || document); if (where) where.textContent = t(Backups.where === 'cloud' ? 'bkWhereCloud' : 'bkWhereLocal');
+    $$('[data-bkact]', box).forEach((btn) => btn.addEventListener('click', async () => {
+      const li = btn.closest('[data-bk]'); const item = Backups.list.find((x) => x.id === li.dataset.bk); if (!item) return;
+      const msg = $('.bk-msg', li);
+      if (btn.dataset.bkact === 'restore') askRestore(item.state, msg);
+      else if (btn.dataset.bkact === 'file') {
+        const f = Backups.fileOf(item);
+        try { if (await saveFile(f.filename, f.data)) toast(t('fileSaved')); } catch (e) { /* viewer declined */ }
+      } else if (btn.dataset.bkact === 'delete') {
+        msg.innerHTML = `<div class="row"><span>${esc(t('bkDeleteConfirm'))}</span><button type="button" class="btn small" data-no>${esc(t('cancel'))}</button><button type="button" class="btn small primary" data-yes style="background:var(--bad);border-color:var(--bad);color:var(--surface)">${esc(t('bkDelete'))}</button></div>`;
+        $('[data-no]', msg).addEventListener('click', () => { msg.innerHTML = ''; });
+        $('[data-yes]', msg).addEventListener('click', async () => {
+          try { await Backups.remove(item.id); toast(t('bkDeleted')); } catch (e) { toast(t('bkSaveFailed')); }
+          paintBackups(root);
+        });
+      }
+    }));
+  }
   function viewPrefs() {
     const sizes = [[0.9, 'A−'], [1, 'A'], [1.12, 'A+'], [1.25, 'A++']];
     return `<div class="view">
@@ -1161,11 +1268,24 @@
         <div class="toggles"><button type="button" data-setlang="en" aria-pressed="${L === 'en'}">English</button><button type="button" data-setlang="he" aria-pressed="${L === 'he'}" lang="he">עברית — פשוט וברור</button></div></section>
       <section class="card" style="display:grid;gap:12px"><b>${esc(t('textSize'))}</b>
         <div class="toggles">${sizes.map(([v, lab]) => `<button type="button" data-scale="${v}" aria-pressed="${Math.abs((S.scale || 1) - v) < 0.01}">${lab}</button>`).join('')}</div></section>
+      <section class="card" style="display:grid;gap:12px"><b>${esc(t('theme'))}</b><p class="muted" style="font-size:.94rem">${esc(t('themeD'))}</p>
+        <div class="toggles">${[['dark', 'themeDark'], ['light', 'themeLight'], ['auto', 'themeAuto']].map(([v, k]) => `<button type="button" data-theme-set="${v}" aria-pressed="${(S.theme || 'dark') === v}">${esc(t(k))}</button>`).join('')}</div></section>
+      <section class="card" style="display:grid;gap:12px" id="bkCard"><b>${esc(t('bkSaveTitle'))}</b><p class="muted" style="font-size:.94rem">${esc(t('bkSaveD'))}</p>
+        <label class="field" for="bkName">${esc(t('bkName'))}<input type="text" id="bkName" dir="auto" maxlength="60" autocomplete="off" placeholder="${esc(t('bkNamePh'))}"></label>
+        <div class="row"><button type="button" class="btn primary" id="bkSave">${icon('check')}${esc(t('bkSave'))}</button>${canDownload() ? `<button type="button" class="btn" id="bkDownload">${icon('download')}${esc(t('bkDownload'))}</button>` : ''}</div>
+        <p class="muted" style="font-size:.88rem" id="bkWhere">${esc(t(Backups.where === 'cloud' ? 'bkWhereCloud' : 'bkWhereLocal'))}</p>
+        <div><b style="font-size:.95rem">${esc(t('bkListTitle'))}</b><div id="bkList">${backupListHTML()}</div></div>
+        <details class="bk-git"><summary>${esc(t('bkGitTitle'))}</summary><p class="muted" style="font-size:.92rem">${esc(t('bkGitD'))}</p>
+          <div class="codebox" dir="ltr" data-nohl><div class="cb-head"><span>terminal</span></div><pre><code>mkdir -p backups
+mv ~/Downloads/claude-trainer-*.json backups/
+git add backups
+git commit -m "Course progress backup"
+git push</code></pre></div></details></section>
       <section class="card" style="display:grid;gap:10px"><b>${esc(t('savingTitle'))}</b><p id="syncStatus">${syncLabel()}</p><p class="muted" style="font-size:.92rem">${esc(t('savingD'))}</p></section>
       <section class="card" style="display:grid;gap:12px"><b>${esc(t('backupTitle'))}</b><p class="muted" style="font-size:.94rem">${esc(t('backupD'))}</p>
         <div class="row"><button type="button" class="btn" id="bkCopy">${icon('copy')}${esc(t('backupCopy'))}</button></div>
         <label class="field" for="bkIn">${esc(t('restoreLabel'))}<textarea id="bkIn" dir="ltr" placeholder="CT1.…" style="font-family:var(--f-mono);font-size:.8rem;min-height:70px"></textarea></label>
-        <div class="row"><button type="button" class="btn" id="bkRestore">${icon('upload')}${esc(t('restore'))}</button></div><div id="bkMsg"></div></section>
+        <div class="row"><button type="button" class="btn" id="bkRestore">${icon('upload')}${esc(t('restore'))}</button><label class="btn" for="bkFileIn">${icon('upload')}${esc(t('restoreFile'))}</label><input type="file" id="bkFileIn" accept=".json,application/json,.txt" class="sr"></div><div id="bkMsg"></div></section>
       <section class="card" style="display:grid;gap:12px"><b>${esc(t('tourAgain'))}</b><div class="row"><button type="button" class="btn" id="tourBtn">${icon('map')}${esc(t('showTour'))}</button><a class="btn" href="#finish">${icon('award')}${esc(t('seeCompletion'))}</a></div></section>
       <section class="card" style="display:grid;gap:12px;border-color:var(--bad)"><b>${esc(t('resetTitle'))}</b><p class="muted" style="font-size:.94rem">${esc(t('resetD'))}</p><div id="resetZone"><button type="button" class="btn" id="resetBtn" style="color:var(--bad)">${icon('trash')}${esc(t('resetBtn'))}</button></div></section>
       <section class="card" style="display:grid;gap:8px"><b>${esc(t('aboutTitle'))}</b>${(CT.ui[L].about || CT.ui.en.about).map((p) => `<p class="muted" style="font-size:.94rem">${md(p)}</p>`).join('')}</section>
@@ -1177,18 +1297,36 @@
     $('#bkCopy', root).addEventListener('click', async () => { const ok = await copyText(encodeBackup()); toast(ok ? t('backupCopied') : t('copyFailed')); if (!ok) { $('#bkIn', root).value = encodeBackup(); $('#bkIn', root).select(); } });
     $('#bkRestore', root).addEventListener('click', () => {
       const msg = $('#bkMsg', root);
-      try {
-        const obj = decodeBackup($('#bkIn', root).value);
-        msg.innerHTML = `<div class="card" style="display:grid;gap:10px;border-color:var(--warn)"><b>${esc(t('restoreConfirm', { n: Object.keys(obj.done || {}).length }))}</b><div class="row"><button type="button" class="btn" id="rsMerge">${esc(t('restoreMerge'))}</button><button type="button" class="btn primary" id="rsReplace">${esc(t('restoreReplace'))}</button></div></div>`;
-        $('#rsMerge', root).addEventListener('click', () => { S = mergeStates(S, Object.assign({}, obj, { updatedAt: 0 })); persist(); toast(t('restored')); render(); });
-        $('#rsReplace', root).addEventListener('click', () => { S = Object.assign(defaults(), obj); persist(); toast(t('restored')); setLang(S.lang || L); });
-      } catch (e) { msg.innerHTML = `<p style="color:var(--bad)">${esc(t('restoreBad'))}</p>`; }
+      try { askRestore(readBackupText($('#bkIn', root).value), msg); } catch (e) { msg.innerHTML = `<p style="color:var(--bad)">${esc(t('restoreBad'))}</p>`; }
     });
+    $('#bkFileIn', root).addEventListener('change', (ev) => {
+      const file = ev.target.files && ev.target.files[0]; const msg = $('#bkMsg', root);
+      if (!file) return;
+      file.text().then((txt) => askRestore(readBackupText(txt), msg)).catch(() => { msg.innerHTML = `<p style="color:var(--bad)">${esc(t('restoreBad'))}</p>`; });
+      ev.target.value = '';
+    });
+    $$('[data-theme-set]', root).forEach((btn) => btn.addEventListener('click', () => { S.theme = btn.dataset.themeSet; persist(); applyTheme(); render({ keepScroll: true }); }));
+    const nameIn = $('#bkName', root);
+    const bkName = () => (nameIn.value || '').trim() || t('bkDefaultName', { date: fmtDate(Date.now()) });
+    $('#bkSave', root).addEventListener('click', async (ev) => {
+      const btn = ev.currentTarget; btn.disabled = true;
+      const name = bkName();
+      try { await Backups.save(name); toast(t('bkSaved', { name })); nameIn.value = ''; }
+      catch (e) { const c = e && e.code; toast(t(c === 'quota_exceeded' || c === 'local_full' ? 'bkFull' : 'bkSaveFailed')); }
+      btn.disabled = false; paintBackups(root);
+    });
+    nameIn.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') { ev.preventDefault(); $('#bkSave', root).click(); } });
+    const dl = $('#bkDownload', root);
+    if (dl) dl.addEventListener('click', async () => {
+      const file = Backups.fileOf({ name: bkName(), at: Date.now(), state: Backups.snapshot() });
+      try { if (await saveFile(file.filename, file.data)) toast(t('fileSaved')); } catch (e) { /* viewer declined */ }
+    });
+    if (!Backups.loaded && !Backups.loading) Backups.load().then(() => paintBackups(root)); else paintBackups(root);
     $('#tourBtn', root).addEventListener('click', () => { S.seenTour = false; go('home'); });
     $('#resetBtn', root).addEventListener('click', () => {
       $('#resetZone', root).innerHTML = `<div class="row"><span>${esc(t('resetSure'))}</span><button type="button" class="btn" id="rsNo">${esc(t('cancel'))}</button><button type="button" class="btn primary" id="rsYes" style="background:var(--bad);border-color:var(--bad)">${esc(t('resetYes'))}</button></div>`;
       $('#rsNo', root).addEventListener('click', () => render({ keepScroll: true }));
-      $('#rsYes', root).addEventListener('click', () => { const lang = S.lang, scale = S.scale; S = defaults(); S.lang = lang; S.scale = scale; S.seenTour = true; persist(); toast(t('resetDone')); go('home'); });
+      $('#rsYes', root).addEventListener('click', () => { const lang = S.lang, scale = S.scale, theme = S.theme; S = defaults(); S.lang = lang; S.scale = scale; S.theme = theme; S.seenTour = true; persist(); toast(t('resetDone')); go('home'); });
     });
   };
 

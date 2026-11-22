@@ -1,0 +1,82 @@
+/* Claude Trainer design system: colours, fonts and sizes.
+   Change the look of the whole course here. Every component in app.css uses these variables.
+   - Neutrals (--ground, --surface, --ink…) are black and grey.
+   - Lines --l1 … --l6 and --lx follow a sunset, from sun-gold (Line 1) to dusk violet (Line 7).
+     Each has -ink (text on light backgrounds), -soft (tinted background) and --on-* (text on the colour).
+   - Light theme on :root, dark theme for [data-theme="dark"] (the default) and for devices set to dark
+     when the learner picks "Like my device". */
+:root {
+  --ground: #EBEBEB;
+  --surface: #F8F8F8;
+  --surface-2: #DEDEDE;
+  --ink: #0B0B0B;
+  --ink-2: #434343;
+  --ink-3: #5E5E5E;
+  --rule: #CFCFCF;
+  --l1: #D99412;  --l1-ink: #7E5200; --l1-soft: #F3E5C6;
+  --l2: #E2761C;  --l2-ink: #9A4300; --l2-soft: #F6DFCB;
+  --l3: #DC5527;  --l3-ink: #A2360F; --l3-soft: #F5D9CE;
+  --l4: #CE3445;  --l4-ink: #A01F31; --l4-soft: #F4D7DA;
+  --l5: #C4366F;  --l5-ink: #9A2155; --l5-soft: #F3D7E3;
+  --l6: #9A3CB0;  --l6-ink: #7A2A8E; --l6-soft: #ECDCF1;
+  --lx: #5E3FCB;  --lx-ink: #4A2EAE; --lx-soft: #E3DDF6;
+  /* text colour that reads on each line colour */
+  --on-l1: #1A1204; --on-l2: #1E0F02; --on-l3: #1F0A03; --on-l4: #FFFFFF; --on-l5: #FFFFFF; --on-l6: #FFFFFF; --on-lx: #FFFFFF;
+  --on-accent: var(--on-l2);
+  --sunset: linear-gradient(90deg, var(--l1), var(--l2), var(--l3), var(--l4), var(--l5), var(--l6), var(--lx));
+  --mark: rgba(242, 179, 61, .45);
+  --mark-strong: #F2B33D;
+  --good: #1E7A4C; --good-soft: #DCEFE4;
+  --bad: #C0352B;  --bad-soft: #F7DEDB;
+  --warn: #94590A; --warn-soft: #F6EBD7;
+  --term-bg: #0E0E0E; --term-ink: #E4E4E4; --term-dim: #8C8C8C; --term-ok: #86E0A8; --term-err: #FF9C94; --term-prompt: #F6B26B;
+  --shadow: 0 1px 2px rgba(0,0,0,.06), 0 6px 20px rgba(0,0,0,.08);
+  --f-display: "Overpass", "Rubik", "Segoe UI", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans", "IBM Plex Sans Hebrew", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --scale: 1;
+  --radius: 14px;
+  --tabbar-h: 64px;
+  --rail-w: 92px;
+  --accent: var(--l2); --accent-ink: var(--l2-ink); --accent-soft: var(--l2-soft);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0A0A0A; --surface: #151515; --surface-2: #222222;
+    --ink: #EDEDED; --ink-2: #ADADAD; --ink-3: #8C8C8C; --rule: #2E2E2E;
+    --l1: #F2B33D; --l1-ink: #F6CA72; --l1-soft: #2B2210;
+    --l2: #F18A33; --l2-ink: #F6A868; --l2-soft: #2D1D0F;
+    --l3: #EE6B40; --l3-ink: #F48F6C; --l3-soft: #2E1912;
+    --l4: #E9565D; --l4-ink: #F08187; --l4-soft: #2E1517;
+    --l5: #E8619C; --l5-ink: #F08DBA; --l5-soft: #2E1622;
+    --l6: #C470D8; --l6-ink: #D79CE6; --l6-soft: #28172E;
+    --lx: #9583F2; --lx-ink: #B4A7F7; --lx-soft: #1D1934;
+    --on-l1: #1A1204; --on-l2: #1E0F02; --on-l3: #1F0A03; --on-l4: #1F0607; --on-l5: #22071A; --on-l6: #1C0722; --on-lx: #0F0A2A;
+    --mark: rgba(242, 179, 61, .32); --mark-strong: #E0A030;
+    --good: #4CD493; --good-soft: #0F2E20; --bad: #FF8A80; --bad-soft: #3A1614; --warn: #F5C063; --warn-soft: #36280E;
+    --term-bg: #050505;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0A0A0A; --surface: #151515; --surface-2: #222222;
+  --ink: #EDEDED; --ink-2: #ADADAD; --ink-3: #8C8C8C; --rule: #2E2E2E;
+  --l1: #F2B33D; --l1-ink: #F6CA72; --l1-soft: #2B2210;
+  --l2: #F18A33; --l2-ink: #F6A868; --l2-soft: #2D1D0F;
+  --l3: #EE6B40; --l3-ink: #F48F6C; --l3-soft: #2E1912;
+  --l4: #E9565D; --l4-ink: #F08187; --l4-soft: #2E1517;
+  --l5: #E8619C; --l5-ink: #F08DBA; --l5-soft: #2E1622;
+  --l6: #C470D8; --l6-ink: #D79CE6; --l6-soft: #28172E;
+  --lx: #9583F2; --lx-ink: #B4A7F7; --lx-soft: #1D1934;
+  --on-l1: #1A1204; --on-l2: #1E0F02; --on-l3: #1F0A03; --on-l4: #1F0607; --on-l5: #22071A; --on-l6: #1C0722; --on-lx: #0F0A2A;
+  --mark: rgba(242, 179, 61, .32); --mark-strong: #E0A030;
+  --good: #4CD493; --good-soft: #0F2E20; --bad: #FF8A80; --bad-soft: #3A1614; --warn: #F5C063; --warn-soft: #36280E;
+  --term-bg: #050505;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  color-scheme: dark;
+}
+:root[lang="he"] {
+  --f-display: "Rubik", "Overpass", "Segoe UI", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans Hebrew", "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+}

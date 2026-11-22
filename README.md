@@ -1,4 +1,4 @@
-# Claude Trainer — Zero to FDE
+# Claude Trainer
 
 A step-by-step course that takes someone with **no AI experience** to the point where they can pass the
 *Claude Certified Associate – Foundations* exam and build and deploy simple AI solutions for small businesses.
@@ -7,6 +7,8 @@ A step-by-step course that takes someone with **no AI experience** to the point 
 - **Languages:** English and Hebrew (switch any time at the top). The Hebrew text is written simpler and shorter on purpose,
   with a "small dictionary" of English terms in every lesson, because the exam and the tools are in English.
 - **Works on phones first:** bottom tab bar, large touch targets, no sideways scrolling.
+- **Look:** black and grey, with the seven lines coloured like a sunset, from sun-gold (Line 1) to dusk violet (Line 7).
+  Dark is the default; learners can switch to light grey or follow their device in Settings.
 
 > Independent study course. Not made by, affiliated with, or endorsed by Anthropic.
 
@@ -53,6 +55,9 @@ Every lesson has: a short summary, goals, key-idea cards, diagrams, an interacti
 - **Notebook** with highlights, lesson notes, saved key ideas, bookmarks and free pages. Search it, copy everything as Markdown,
   or save it as a file.
 - Listen button (read-aloud) where the viewer's Claude app supports it. Text size setting.
+- **Named backups:** type a name and save a snapshot of all progress. Inside claude.ai it is saved in the learner's
+  private space in their account; elsewhere in the browser. Restore or delete any backup, download it as a `.json`
+  file (to keep in Git, for example), or restore from a file.
 - Backup code to move progress to another device.
 
 ## Where learners' progress is saved
@@ -72,7 +77,9 @@ give them at least Contributor access.
 ## Project layout
 
 ```
-index.html          Page shell: design tokens, all CSS, and the script tags (published as the artifact page)
+index.html          Page shell: markup, the stylesheet links and the script tags (published as the artifact page)
+css/tokens.css      Design system: black-and-grey neutrals, sunset line colours, fonts, light and dark themes
+css/app.css         Components and layout (uses only the variables from tokens.css)
 js/core.js          Helpers: escaping, inline markdown, icons
 js/app.js           Engine: routing, language switch, progress, highlights, notebook, quizzes, exam, saving
 js/widgets.js       Interactive widgets and the terminal simulator
@@ -146,7 +153,7 @@ node scripts/validate.mjs
 ## Updating the live artifact
 
 The artifact is published from this repository. In a Claude session that has this repo, ask:
-*"Republish the Claude Trainer artifact at https://claude.ai/artifact/AYd37GNtmYY9t7m9sRAdhF from index.html with all the js/ and content/ files."*
+*"Republish the Claude Trainer artifact at https://claude.ai/artifact/AYd37GNtmYY9t7m9sRAdhF from index.html with all the css/, js/ and content/ files."*
 If you add a new content file, also add its `<script>` tag at the bottom of `index.html` and its name in `scripts/validate.mjs`.
 The link stays the same, and learners' saved progress is kept.
 
@@ -157,6 +164,12 @@ The same files run as a normal website, saving progress in the browser.
 - **Vercel:** import this repository on vercel.com. `vercel.json` already sets the build (`node scripts/build.mjs`) and output (`dist`).
 - **Any static host / GitHub Pages:** run `node scripts/build.mjs` and publish the `dist/` folder.
 - **Locally:** `node scripts/build.mjs`, then open `dist/index.html` through a local server, for example `cd dist && python3 -m http.server`.
+
+## Changing the look
+
+All colours live in `css/tokens.css`. Each line colour has four values: the colour itself (`--l3`), a darker or lighter
+version for text (`--l3-ink`), a soft tint for backgrounds (`--l3-soft`) and the text colour that reads on it (`--on-l3`).
+Change them in both the light block and the two dark blocks, and keep text contrast at 4.5:1 or more.
 
 ## Accuracy notes
 
