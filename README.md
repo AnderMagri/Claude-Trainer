@@ -8,7 +8,7 @@ A step-by-step course that takes someone with **no AI experience** to the point 
   with a "small dictionary" of English terms in every lesson, because the exam and the tools are in English.
 - **Works on phones first:** bottom tab bar, large touch targets, no sideways scrolling.
 - **Look:** black and grey, with the seven lines coloured like a sunset, from sun-gold (Line 1) to dusk violet (Line 7).
-  Dark is the default. Learners switch to light (ghost white) with the sun/moon button in the top bar, or choose
+  Dark is the default. Learners switch to light (ghost white, grey text) with the sun/moon button in the top bar, or choose
   Dark, Light or "Like my device" in Settings.
 
 > Independent study course. Not made by, affiliated with, or endorsed by Anthropic.
