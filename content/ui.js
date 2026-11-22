@@ -85,14 +85,14 @@ CT.ui = {
     bkSaved: 'Backup “{name}” saved', bkSaveFailed: 'Could not save the backup. Try downloading a file instead.', bkFull: 'Backup space is full. Delete an old backup and try again.',
     bkListTitle: 'Your backups', bkNone: 'No backups yet.', bkLoading: 'Loading backups…', bkLessons: '{n} lessons done', bkDefaultName: 'Backup {date}',
     bkRestore: 'Restore', bkDelete: 'Delete', bkDeleteConfirm: 'Delete this backup?', bkDeleted: 'Backup deleted',
-    bkGitTitle: 'Keep backups in Git', bkGitD: 'This page cannot push to GitHub by itself — that would need a secret key inside the page. Download the file, move it into your repository, and commit it:',
     tourAgain: 'Help', showTour: 'Show the welcome tour',
     resetTitle: 'Start over', resetD: 'Erase all progress, notes, highlights and exam results on this device and account.', resetBtn: 'Erase everything', resetSure: 'Are you sure? This cannot be undone.', cancel: 'Cancel', resetYes: 'Yes, erase', resetDone: 'Everything was erased',
     aboutTitle: 'About this course',
     about: [
       'Claude Trainer is an independent, free study course for people who have never used AI tools, up to building simple AI solutions for small businesses.',
       'It is **not** an official Anthropic product and it does not give you a certification. It prepares you for the official exam and for real client work.',
-      'Model names, prices and product features change quickly. Facts here were checked in November 2026. When in doubt, the official docs at [platform.claude.com/docs](https://platform.claude.com/docs) and the help centre at [support.claude.com](https://support.claude.com) win.'
+      'Model names, prices and product features change quickly. Facts here were checked in November 2026. When in doubt, the official docs at [platform.claude.com/docs](https://platform.claude.com/docs) and the help centre at [support.claude.com](https://support.claude.com) win.',
+      'Made by Asher. If anything is wrong, blame him, not Claude 😊'
     ],
     finishTitle: 'Completion', finishIntro: 'When you finish every station, you get a completion card to share. Then the real exam is the next step.',
     yourName: 'Your name for the card', yourNamePh: 'Your name', certEyebrow: 'Claude Trainer · course completion', certTitle: 'Course completed', certBody: 'Completed all {n} lessons: LLM basics, power use of Claude, agents at work, Forward Deployed Engineer foundations, design with Claude, Claude in the workplace, and exam preparation.', certNote: 'Course completion only. Not an Anthropic certification.',
@@ -175,14 +175,14 @@ CT.ui = {
     bkSaved: 'הגיבוי „{name}” נשמר', bkSaveFailed: 'לא הצלחנו לשמור את הגיבוי. נסו להוריד קובץ במקום.', bkFull: 'אין מקום לגיבויים. מחקו גיבוי ישן ונסו שוב.',
     bkListTitle: 'הגיבויים שלכם', bkNone: 'עדיין אין גיבויים.', bkLoading: 'טוען גיבויים…', bkLessons: '{n} שיעורים הושלמו', bkDefaultName: 'גיבוי {date}',
     bkRestore: 'שחזור', bkDelete: 'מחיקה', bkDeleteConfirm: 'למחוק את הגיבוי הזה?', bkDeleted: 'הגיבוי נמחק',
-    bkGitTitle: 'שמירת גיבויים ב-Git', bkGitD: 'הדף לא יכול לדחוף ל-GitHub לבד — זה היה דורש מפתח סודי בתוך הדף. מורידים את הקובץ, מעבירים אותו למאגר, ושומרים (commit):',
     tourAgain: 'עזרה', showTour: 'הצג שוב את סיור הפתיחה',
     resetTitle: 'להתחיל מחדש', resetD: 'מוחק את כל ההתקדמות, ההערות, ההדגשות ותוצאות המבחנים.', resetBtn: 'למחוק הכול', resetSure: 'בטוחים? אי אפשר לבטל.', cancel: 'ביטול', resetYes: 'כן, למחוק', resetDone: 'הכול נמחק',
     aboutTitle: 'על הקורס',
     about: [
       '"מאמן Claude" הוא קורס לימוד עצמאי וחינמי: מאנשים שמעולם לא השתמשו ב-AI, ועד בניית פתרונות AI פשוטים לעסקים קטנים.',
       'זה **לא** מוצר רשמי של Anthropic, והוא לא נותן הסמכה. הוא מכין אתכם למבחן הרשמי ולעבודה אמיתית עם לקוחות.',
-      'שמות מודלים, מחירים ופיצ׳רים משתנים מהר. המידע כאן נבדק בנובמבר 2026. אם יש ספק — התיעוד הרשמי ב-[platform.claude.com/docs](https://platform.claude.com/docs) ומרכז העזרה ב-[support.claude.com](https://support.claude.com) קובעים.'
+      'שמות מודלים, מחירים ופיצ׳רים משתנים מהר. המידע כאן נבדק בנובמבר 2026. אם יש ספק — התיעוד הרשמי ב-[platform.claude.com/docs](https://platform.claude.com/docs) ומרכז העזרה ב-[support.claude.com](https://support.claude.com) קובעים.',
+      'נבנה על ידי אשר. אם משהו לא נכון, תאשימו אותו, לא את Claude 😊'
     ],
     finishTitle: 'סיום', finishIntro: 'כשמסיימים את כל התחנות מקבלים תעודת סיום לשיתוף. אחר כך — המבחן האמיתי.',
     yourName: 'השם שלכם לתעודה', yourNamePh: 'השם שלכם', certEyebrow: 'מאמן Claude · סיום קורס', certTitle: 'הקורס הושלם', certBody: 'השלים/ה את כל {n} השיעורים: יסודות מודלי שפה, שימוש מקצועי ב-Claude, סוכנים בעבודה, יסודות של Forward Deployed Engineer, עיצוב עם Claude, ‏Claude במקום העבודה, והכנה למבחן.', certNote: 'תעודת סיום קורס בלבד. לא הסמכה של Anthropic.',

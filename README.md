@@ -57,7 +57,7 @@ Every lesson has: a short summary, goals, key-idea cards, diagrams, an interacti
 - Listen button (read-aloud) where the viewer's Claude app supports it. Text size setting.
 - **Named backups:** type a name and save a snapshot of all progress. Inside claude.ai it is saved in the learner's
   private space in their account; elsewhere in the browser. Restore or delete any backup, download it as a `.json`
-  file (to keep in Git, for example), or restore from a file.
+  file, or restore from a file.
 - Backup code to move progress to another device.
 
 ## Where learners' progress is saved

@@ -1280,13 +1280,7 @@
         <label class="field" for="bkName">${esc(t('bkName'))}<input type="text" id="bkName" dir="auto" maxlength="60" autocomplete="off" placeholder="${esc(t('bkNamePh'))}"></label>
         <div class="row"><button type="button" class="btn primary" id="bkSave">${icon('check')}${esc(t('bkSave'))}</button>${canDownload() ? `<button type="button" class="btn" id="bkDownload">${icon('download')}${esc(t('bkDownload'))}</button>` : ''}</div>
         <p class="muted" style="font-size:.88rem" id="bkWhere">${esc(t(Backups.where === 'cloud' ? 'bkWhereCloud' : 'bkWhereLocal'))}</p>
-        <div><b style="font-size:.95rem">${esc(t('bkListTitle'))}</b><div id="bkList">${backupListHTML()}</div></div>
-        <details class="bk-git"><summary>${esc(t('bkGitTitle'))}</summary><p class="muted" style="font-size:.92rem">${esc(t('bkGitD'))}</p>
-          <div class="codebox" dir="ltr" data-nohl><div class="cb-head"><span>terminal</span></div><pre><code>mkdir -p backups
-mv ~/Downloads/claude-trainer-*.json backups/
-git add backups
-git commit -m "Course progress backup"
-git push</code></pre></div></details></section>
+        <div><b style="font-size:.95rem">${esc(t('bkListTitle'))}</b><div id="bkList">${backupListHTML()}</div></div></section>
       <section class="card" style="display:grid;gap:10px"><b>${esc(t('savingTitle'))}</b><p id="syncStatus">${syncLabel()}</p><p class="muted" style="font-size:.92rem">${esc(t('savingD'))}</p></section>
       <section class="card" style="display:grid;gap:12px"><b>${esc(t('backupTitle'))}</b><p class="muted" style="font-size:.94rem">${esc(t('backupD'))}</p>
         <div class="row"><button type="button" class="btn" id="bkCopy">${icon('copy')}${esc(t('backupCopy'))}</button></div>
