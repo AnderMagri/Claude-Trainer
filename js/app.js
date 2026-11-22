@@ -318,7 +318,7 @@
       return `<section class="line" style="${lineVars(m.line)}" aria-label="${esc(tx(m.title))}">
         <a class="line-head${L === 'he' && LINE_ART[m.id] ? ' has-art' : ''}" href="#${m.id}">
           <span class="linebadge">${m.n}</span>
-          <span><span class="eyebrow">${esc(t('lineN', { n: m.n }))}</span><h2>${esc(tx(m.title))}</h2><span class="sub">${esc(tx(m.subtitle))}</span>
+          <span class="lh-text"><span class="eyebrow">${esc(t('lineN', { n: m.n }))}</span><h2>${esc(tx(m.title))}</h2><span class="sub">${esc(tx(m.subtitle))}</span>
           <span class="meta tnum"><span class="bar"><i style="width:${pctDone(m)}%"></i></span>${doneCount(m)}/${m.lessons.length} · ${Math.round(minutes(m) / 6) / 10} ${esc(t('hours'))}</span></span>
           ${lineArt(m, 'line-thumb')}
         </a>
