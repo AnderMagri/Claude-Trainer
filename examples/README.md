@@ -9,6 +9,7 @@ its own project (its own Git repository), not run from here.
 | `receipts/` | Receipts and invoices → one spreadsheet | A Node script that reads PDF receipts and writes one CSV with a "check" column |
 | `page-watch/` | Watch pages and propose updates by pull request | A weekly GitHub Actions workflow plus a script that asks Claude what changed and opens a pull request |
 | `help-site/` | Docs → a searchable help site with Q&A | A Vercel function that answers only from your `docs/` folder, with prompt caching |
+| `pwa/` | Install your web app on phones (PWA) | A manifest, the `<head>` lines and a service worker that make a Vercel site installable and usable offline |
 
 The team-tracker and inbox-triage recipes need no code: their prompts are in the lessons.
 
