@@ -112,8 +112,8 @@ label.field small { font-weight: 400; color: var(--ink-2); }
 
 /* ---------- home / journey map ---------- */
 .hero { display: grid; gap: 14px; padding-top: 6px; }
-.hero-art { display: block; width: min(78%, 320px); height: auto; justify-self: center; margin-bottom: -4px; }
-.hero-art.robot { width: min(56%, 220px); }
+.hero-art { display: block; width: min(60%, 250px); height: auto; justify-self: center; margin-bottom: -4px; }
+.hero-art.robot { width: min(44%, 170px); }
 .hero h1 { font-size: clamp(2rem, 6.4vw, 2.8rem); font-weight: 900; letter-spacing: -.025em; }
 :root[lang="he"] .hero h1 { letter-spacing: 0; font-weight: 800; }
 .hero p { color: var(--ink-2); max-width: 60ch; }
@@ -149,7 +149,7 @@ label.field small { font-weight: 400; color: var(--ink-2); }
 .extras-head { display: grid; gap: 4px; margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--rule); }
 .extras-head p { font-size: .92rem; }
 .line.extra .track::before, .line.extra .line-head::before { background: repeating-linear-gradient(to bottom, var(--c) 0 8px, transparent 8px 14px); opacity: 1; }
-.line-art { display: block; width: min(64%, 260px); height: auto; justify-self: center; }
+.line-art { display: block; width: min(50%, 200px); height: auto; justify-self: center; }
 .stations { list-style: none; margin: 0 0 6px; padding: 0; }
 .station { display: grid; grid-template-columns: 44px 1fr; gap: 12px; min-height: 58px; }
 .track { position: relative; }
