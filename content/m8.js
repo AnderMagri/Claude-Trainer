@@ -1687,6 +1687,321 @@ CT.modules.push({
       ]
     },
     {
+      "id": "m8-l9",
+      "minutes": 12,
+      "domains": [],
+      "title": {
+        "en": "Image generation: Krea, Midjourney and more",
+        "he": "יצירת תמונות: Krea, ‏Midjourney ועוד"
+      },
+      "tldr": {
+        "en": "Claude reads images and designs layouts, but photos and illustrations come from image models. Let Claude plan the set and write the prompts, generate in a tool such as Krea or Midjourney, and iterate with reference images. Check rights and privacy before you publish.",
+        "he": "Claude קורא תמונות ומעצב פריסות, אבל צילומים ואיורים מגיעים ממודלים של תמונות. נותנים ל-Claude לתכנן את הסט ולכתוב את הפרומפטים, יוצרים בכלי כמו Krea או Midjourney, ומשפרים עם תמונות ייחוס. בודקים זכויות ופרטיות לפני שמפרסמים."
+      },
+      "goals": {
+        "en": [
+          "Pick the right image tool for a job",
+          "Write image prompts with Claude, and keep a character consistent with reference images",
+          "Use generated images legally and safely"
+        ],
+        "he": [
+          "לבחור את כלי התמונות הנכון למשימה",
+          "לכתוב פרומפטים לתמונות עם Claude, ולשמור על דמות עקבית עם תמונות ייחוס",
+          "להשתמש בתמונות שנוצרו בצורה חוקית ובטוחה"
+        ]
+      },
+      "terms": [
+        [
+          "Image model",
+          "מודל תמונות: מודל AI שיוצר או עורך תמונות לפי טקסט ותמונות."
+        ],
+        [
+          "Reference image",
+          "תמונת ייחוס: תמונה שנותנים למודל כדי לשמור על דמות, סגנון או מוצר."
+        ],
+        [
+          "Transparent background",
+          "רקע שקוף: בלי רקע, כדי שאפשר לשים את התמונה על כל צבע."
+        ]
+      ],
+      "blocks": [
+        {
+          "t": "table",
+          "en": {
+            "head": [
+              "At a glance",
+              ""
+            ],
+            "rows": [
+              [
+                "Good for",
+                "Illustrations, social posts, mood boards, product mock-ups, mascots and stickers"
+              ],
+              [
+                "Time",
+                "Minutes per image; an afternoon for a consistent set"
+              ],
+              [
+                "You need",
+                "An image tool account (Krea, Midjourney or similar) and Claude to plan"
+              ],
+              [
+                "Cost",
+                "Subscriptions or credits; high resolution and top models cost more"
+              ],
+              [
+                "Level",
+                "Beginner"
+              ]
+            ]
+          },
+          "he": {
+            "head": [
+              "במבט אחד",
+              ""
+            ],
+            "rows": [
+              [
+                "מתאים ל",
+                "איורים, פוסטים לרשתות, לוחות השראה, הדמיות מוצר, קמעות ומדבקות"
+              ],
+              [
+                "זמן",
+                "דקות לתמונה; אחר צהריים לסט עקבי"
+              ],
+              [
+                "צריך",
+                "חשבון בכלי תמונות (Krea, ‏Midjourney או דומה) ו-Claude לתכנון"
+              ],
+              [
+                "עלות",
+                "מנוי או קרדיטים; רזולוציה גבוהה ומודלים מובילים עולים יותר"
+              ],
+              [
+                "רמה",
+                "מתחילים"
+              ]
+            ]
+          }
+        },
+        {
+          "t": "p",
+          "en": "Claude does not paint pixels itself. It reads images, designs layouts (Claude Design, artifacts, SVG), and writes excellent briefs. For photos and illustrations you use an **image model**. Together they make a strong team: Claude plans and checks, the image model paints, and you choose.",
+          "he": "Claude לא מצייר פיקסלים בעצמו. הוא קורא תמונות, מעצב פריסות (Claude Design, ‏Artifacts, ‏SVG), וכותב תדריכים מצוינים. לצילומים ולאיורים משתמשים ב**מודל תמונות**. יחד זה צוות חזק: ‏Claude מתכנן ובודק, מודל התמונות מצייר, ואתם בוחרים."
+        },
+        {
+          "t": "table",
+          "en": {
+            "head": [
+              "Tool",
+              "Known for",
+              "Good to know"
+            ],
+            "rows": [
+              [
+                "[Krea](https://www.krea.ai)",
+                "One studio with many image and video models, editing and upscaling",
+                "Has a connector, so Claude can generate for you; you pay in credits and pick the model per job"
+              ],
+              [
+                "[Midjourney](https://www.midjourney.com)",
+                "Polished, artistic images with a strong style",
+                "V8 models in 2026; web app for paid subscribers, community on Discord"
+              ],
+              [
+                "[Adobe Firefly](https://firefly.adobe.com)",
+                "Image generation inside Adobe apps and in Adobe for Claude ([[m2-l14]])",
+                "Adobe presents it as safe for commercial use; check your plan"
+              ],
+              [
+                "GPT Image (OpenAI)",
+                "Follows detailed instructions, edits with references, transparent backgrounds",
+                "Also available inside Krea and other studios"
+              ],
+              [
+                "Nano Banana (Google)",
+                "Fast edits and consistency from reference images",
+                "Also available inside Krea and other studios"
+              ],
+              [
+                "[Ideogram](https://ideogram.ai)",
+                "Clean text inside images: posters, signs, logos",
+                "Put the exact words in quotes"
+              ],
+              [
+                "[Recraft](https://www.recraft.ai)",
+                "Vector graphics, icons and brand-consistent sets",
+                "Good for logos and UI illustrations"
+              ],
+              [
+                "Flux (Black Forest Labs)",
+                "Strong pro and open models",
+                "Open versions are on Hugging Face ([[m8-l7]])"
+              ]
+            ]
+          },
+          "he": {
+            "head": [
+              "כלי",
+              "ידוע ב",
+              "כדאי לדעת"
+            ],
+            "rows": [
+              [
+                "[Krea](https://www.krea.ai)",
+                "סטודיו אחד עם הרבה מודלים לתמונות ווידאו, עריכה והגדלה",
+                "יש לו חיבור, כך ש-Claude יכול ליצור בשבילכם; משלמים בקרדיטים ובוחרים מודל לכל משימה"
+              ],
+              [
+                "[Midjourney](https://www.midjourney.com)",
+                "תמונות מלוטשות ואמנותיות עם סגנון חזק",
+                "מודלי V8 ב-2026; אפליקציית אתר למנויים, קהילה ב-Discord"
+              ],
+              [
+                "[Adobe Firefly](https://firefly.adobe.com)",
+                "יצירת תמונות בתוך אפליקציות Adobe וב-Adobe for Claude ‏([[m2-l14]])",
+                "Adobe מציגה אותו כבטוח לשימוש מסחרי; בודקים את התוכנית"
+              ],
+              [
+                "GPT Image ‏(OpenAI)",
+                "מבין הוראות מפורטות, עורך עם תמונות ייחוס, רקע שקוף",
+                "זמין גם בתוך Krea ובסטודיו אחרים"
+              ],
+              [
+                "Nano Banana ‏(Google)",
+                "עריכות מהירות ועקביות מתמונות ייחוס",
+                "זמין גם בתוך Krea ובסטודיו אחרים"
+              ],
+              [
+                "[Ideogram](https://ideogram.ai)",
+                "טקסט נקי בתוך תמונות: פוסטרים, שלטים, לוגואים",
+                "שמים את המילים המדויקות במירכאות"
+              ],
+              [
+                "[Recraft](https://www.recraft.ai)",
+                "גרפיקה וקטורית, אייקונים וסטים עקביים למותג",
+                "טוב ללוגואים ולאיורים לממשק"
+              ],
+              [
+                "Flux ‏(Black Forest Labs)",
+                "מודלים מקצועיים ופתוחים חזקים",
+                "גרסאות פתוחות נמצאות ב-Hugging Face ‏([[m8-l7]])"
+              ]
+            ]
+          }
+        },
+        {
+          "t": "h",
+          "en": "Case study: the stickers in this course",
+          "he": "מקרה בוחן: המדבקות בקורס הזה"
+        },
+        {
+          "t": "steps",
+          "en": [
+            "**Start from a reference.** The author’s character sheet showed the girl in seven poses.",
+            "**Plan with Claude.** One pose per line, props that match each topic, and rules: no hearts, no text, a transparent background.",
+            "**Generate in Krea** with an image model that supports reference images and transparent backgrounds, passing the original stickers so the character stays the same.",
+            "**Iterate one change at a time:** a cleaner second version, then “no white outline”, then “darker hair, same eyes”, each time using the previous sheet as the reference.",
+            "**Cut and check.** A small script cut the sheet into separate stickers, which were checked on dark and light backgrounds.",
+            "**A second set:** robot-only stickers for the English version, made the same way."
+          ],
+          "he": [
+            "**מתחילים מייחוס.** דף הדמויות של הכותב הראה את הדמות בשבע תנוחות.",
+            "**מתכננים עם Claude.** תנוחה אחת לכל קו, אביזרים שמתאימים לנושא, וכללים: בלי לבבות, בלי טקסט, רקע שקוף.",
+            "**יוצרים ב-Krea** עם מודל שתומך בתמונות ייחוס וברקע שקוף, ומצרפים את המדבקות המקוריות כדי שהדמות תישאר אותו דבר.",
+            "**משפרים שינוי אחד בכל פעם:** גרסה שנייה נקייה יותר, אחר כך \"בלי מסגרת לבנה\", ואז \"שיער כהה יותר, אותן עיניים\" — בכל פעם הדף הקודם הוא הייחוס.",
+            "**חותכים ובודקים.** סקריפט קטן חתך את הדף למדבקות נפרדות, ובדקנו אותן על רקע כהה ובהיר.",
+            "**סט שני:** מדבקות רובוט בלבד לגרסה האנגלית, באותה דרך."
+          ]
+        },
+        {
+          "t": "prompt",
+          "label": {
+            "en": "Ask Claude for a sticker-sheet prompt",
+            "he": "מבקשים מ-Claude פרומפט לדף מדבקות"
+          },
+          "en": "I need a set of [7] illustrations of [our mascot] for [where they will be used].\nWrite one image-generation prompt for a single sheet: describe the character exactly as in the reference, the art style, one pose per item with its props, the layout (rows and wide spacing), a transparent background, and strict rules (no text, no logos, no hearts).\nThen list three things I should check in the result.",
+          "he": "אני צריך סט של [7] איורים של [הקמע שלנו] בשביל [איפה ישתמשו בהם].\nתכתוב פרומפט אחד ליצירת דף אחד: תתאר את הדמות בדיוק כמו בתמונת הייחוס, את סגנון האיור, תנוחה אחת לכל פריט עם האביזרים שלה, את הפריסה (שורות ורווחים גדולים), רקע שקוף, וכללים מחייבים (בלי טקסט, בלי לוגואים, בלי לבבות).\nאחר כך תרשום שלושה דברים שכדאי לבדוק בתוצאה."
+        },
+        {
+          "t": "table",
+          "en": {
+            "head": [
+              "Prompt tip",
+              "Why"
+            ],
+            "rows": [
+              [
+                "Describe the subject first, exactly",
+                "The model fills every gap with guesses"
+              ],
+              [
+                "Add reference images for characters, products or style",
+                "The strongest way to keep a set consistent"
+              ],
+              [
+                "Say the layout and background",
+                "“Transparent background, wide spacing” saves editing later"
+              ],
+              [
+                "Ask for no text unless you need it",
+                "Generated text is often wrong; use Ideogram or add text in design tools"
+              ],
+              [
+                "Change one thing per round",
+                "You see what each change did, and spend fewer credits"
+              ]
+            ]
+          },
+          "he": {
+            "head": [
+              "טיפ לפרומפט",
+              "למה"
+            ],
+            "rows": [
+              [
+                "מתארים קודם את הנושא, במדויק",
+                "המודל ממלא כל חור בניחושים"
+              ],
+              [
+                "מוסיפים תמונות ייחוס לדמות, מוצר או סגנון",
+                "הדרך הכי חזקה לשמור על סט עקבי"
+              ],
+              [
+                "אומרים מה הפריסה והרקע",
+                "\"רקע שקוף, רווחים גדולים\" חוסך עריכה אחר כך"
+              ],
+              [
+                "מבקשים בלי טקסט, אלא אם צריך",
+                "טקסט שנוצר לרוב שגוי; משתמשים ב-Ideogram או מוסיפים טקסט בכלי עיצוב"
+              ],
+              [
+                "משנים דבר אחד בכל סבב",
+                "רואים מה כל שינוי עשה, ומבזבזים פחות קרדיטים"
+              ]
+            ]
+          }
+        },
+        {
+          "t": "callout",
+          "kind": "warn",
+          "en": "Before you publish: check each tool’s terms for commercial use; do not imitate living artists, real people or other brands without permission; never create images of real people without their consent; keep client material private (some services show your images publicly on cheaper plans); and label AI images where your platform or client requires it.",
+          "he": "לפני שמפרסמים: בודקים בתנאים של כל כלי אם מותר שימוש מסחרי; לא מחקים אמנים חיים, אנשים אמיתיים או מותגים אחרים בלי רשות; אף פעם לא יוצרים תמונות של אנשים אמיתיים בלי הסכמה; שומרים חומרים של לקוחות פרטיים (יש שירותים שמציגים את התמונות שלכם בפומבי בתוכניות זולות); ומסמנים תמונות AI איפה שהפלטפורמה או הלקוח דורשים."
+        },
+        {
+          "t": "key",
+          "en": {
+            "title": "Claude plans, the image model paints, you choose",
+            "body": "Use Claude for the brief, the prompts and the review, an image tool for the pixels, and your own taste for the final pick."
+          },
+          "he": {
+            "title": "Claude מתכנן, מודל התמונות מצייר, אתם בוחרים",
+            "body": "Claude לתדריך, לפרומפטים ולבדיקה, כלי תמונות לפיקסלים, והטעם שלכם לבחירה הסופית."
+          }
+        }
+      ]
+    },
+    {
       "id": "m8-l8",
       "minutes": 6,
       "domains": [],
@@ -1958,7 +2273,11 @@ CT.modules.push({
               ],
               [
                 "[Krea](https://www.krea.ai)",
-                "Image and video generation; this course’s stickers were made there"
+                "Image and video generation; this course’s stickers were made there ([[m8-l9]])"
+              ],
+              [
+                "[Midjourney](https://www.midjourney.com)",
+                "Polished, artistic image generation"
               ]
             ]
           },
@@ -1986,7 +2305,11 @@ CT.modules.push({
               ],
               [
                 "[Krea](https://www.krea.ai)",
-                "יצירת תמונות ווידאו; המדבקות של הקורס נוצרו שם"
+                "יצירת תמונות ווידאו; המדבקות של הקורס נוצרו שם ([[m8-l9]])"
+              ],
+              [
+                "[Midjourney](https://www.midjourney.com)",
+                "יצירת תמונות מלוטשות ואמנותיות"
               ]
             ]
           }

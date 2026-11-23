@@ -26,7 +26,7 @@ The course is drawn as a transit map: each **line** is a module, each **station*
 | 5 | Design with Claude | Design basics · Design systems and tokens · Claude Design · Figma and MCP · Paper, Orca and agent-native tools · Reviewing AI-made designs · Workshop |
 | 6 | Claude at work | Map a workflow · One solution for the whole team · Playbooks: the office, the design studio, clinics/shops/services · Rolling out AI to a team |
 | 7 | Exam simulation | Know your exam · How to answer scenario questions · Domain review · The full exam simulation |
-| + | Extras: real-world builds (bonus) | Team tracker artifact · Morning inbox triage · Website lead form → Claude → Slack · Receipts → spreadsheet · Page watch with pull requests · Docs → help site with Q&A · Hugging Face · Gallery of useful links (incl. model rankings) |
+| + | Extras: real-world builds (bonus) | Team tracker artifact · Morning inbox triage · Website lead form → Claude → Slack · Receipts → spreadsheet · Page watch with pull requests · Docs → help site with Q&A · Hugging Face · Image generation (Krea, Midjourney and more) · Gallery of useful links (incl. model rankings) |
 | Final stop | Exam tab | Full simulation (60 questions weighted by the 7 domains, 120-minute timer, flags, review screen), quick 20, practice by domain, retry-my-mistakes |
 
 The **Extras** section (`m8.js`, `extra: true`) sits after the exam station on the map. It does not count toward progress
