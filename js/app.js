@@ -24,10 +24,13 @@
   const dir = () => (L === 'he' ? 'rtl' : 'ltr');
 
   /* ------------------------------------------------------------- indexing */
-  const LINE = { m1: 'l1', m2: 'l2', m6: 'l3', m3: 'l4', m4: 'l5', m7: 'l6', m5: 'lx', exam: 'lx' };
+  const LINE = { m1: 'l1', m2: 'l2', m6: 'l3', m3: 'l4', m4: 'l5', m7: 'l6', m5: 'lx', m8: 'le', exam: 'lx' };
   // Hebrew edition: one character sticker per line (assets/stickers/lines/)
-  const LINE_ART = { m1: 'learn', m2: 'power', m6: 'agents', m3: 'build', m4: 'design', m7: 'work', m5: 'exam' };
-  const lineArt = (m, cls) => (L === 'he' && LINE_ART[m.id] ? `<img class="${cls}" src="assets/stickers/lines/${LINE_ART[m.id]}.webp" alt=""${cls === 'line-thumb' ? ' loading="lazy"' : ''}>` : '');
+  const LINE_ART = { m1: 'learn', m2: 'power', m6: 'agents', m3: 'build', m4: 'design', m7: 'work', m5: 'exam', m8: 'extras' };
+  // English edition: the robot on its own (assets/stickers/robot/)
+  const ROBOT_ART = { m1: 'learn', m2: 'power', m6: 'agents', m3: 'build', m4: 'design', m7: 'work', m5: 'exam', m8: 'maker' };
+  const artSrc = (m) => (L === 'he' ? (LINE_ART[m.id] ? `assets/stickers/lines/${LINE_ART[m.id]}.webp` : '') : (ROBOT_ART[m.id] ? `assets/stickers/robot/${ROBOT_ART[m.id]}.webp` : ''));
+  const lineArt = (m, cls) => { const src = artSrc(m); return src ? `<img class="${cls}" src="${src}" alt=""${cls === 'line-thumb' ? ' loading="lazy"' : ''}>` : ''; };
   const lineVars = (line) => `--c:var(--${line});--ci:var(--${line}-ink);--cs:var(--${line}-soft);--on-c:var(--on-${line});--accent:var(--${line});--accent-ink:var(--${line}-ink);--accent-soft:var(--${line}-soft);--on-accent:var(--on-${line})`;
   const MODS = CT.modules.slice().sort((a, b) => a.n - b.n);
   const MBY = {}; const LESSONS = []; const LBY = {};
@@ -35,6 +38,9 @@
     MBY[m.id] = m; m.line = LINE[m.id] || 'l1';
     m.lessons.forEach((l, i) => { l.mod = m; l.idx = i; l.gi = LESSONS.length; LESSONS.push(l); LBY[l.id] = l; });
   });
+  const CORE = LESSONS.filter((l) => !l.mod.extra);   // the course path; extras are a bonus and do not count
+  const lineName = (m) => (m.extra ? t('extrasName') : t('lineN', { n: m.n }));
+  const badge = (m) => (m.extra ? '+' : String(m.n));
   const QBY = {}; (CT.exam || []).forEach((q) => { QBY[q.id] = q; });
   LESSONS.forEach((l) => {
     (l.check || []).forEach((q) => { q.lesson = l.id; QBY[q.id] = q; });
@@ -42,7 +48,7 @@
   });
   const DOM = {}; (CT.domains || []).forEach((d) => { DOM[d.id] = d; });
   // [[m1-l7]] → "1.7", [[m3]] → "Line 4": labels follow the current order of lines and lessons
-  window.CTK.setRef((id) => (LBY[id] ? LBY[id].mod.n + '.' + (LBY[id].idx + 1) : MBY[id] ? t('lineN', { n: MBY[id].n }) : null));
+  window.CTK.setRef((id) => (LBY[id] ? (LBY[id].mod.extra ? t('extraRef', { n: LBY[id].idx + 1 }) : LBY[id].mod.n + '.' + (LBY[id].idx + 1)) : MBY[id] ? lineName(MBY[id]) : null));
 
   /* ---------------------------------------------------------------- state */
   const KEY = 'claude-trainer.state.v1';
@@ -157,13 +163,13 @@
   }
 
   /* ---------------------------------------------------------- small utils */
-  const doneCount = (m) => (m ? m.lessons : LESSONS).filter((l) => S.done[l.id]).length;
-  const pctDone = (m) => { const list = m ? m.lessons : LESSONS; return list.length ? Math.round(doneCount(m) / list.length * 100) : 0; };
-  const minutes = (m) => (m ? m.lessons : LESSONS).reduce((a, l) => a + (l.minutes || 5), 0);
-  const firstUndone = () => LESSONS.find((l) => !S.done[l.id]);
+  const doneCount = (m) => (m ? m.lessons : CORE).filter((l) => S.done[l.id]).length;
+  const pctDone = (m) => { const list = m ? m.lessons : CORE; return list.length ? Math.round(doneCount(m) / list.length * 100) : 0; };
+  const minutes = (m) => (m ? m.lessons : CORE).reduce((a, l) => a + (l.minutes || 5), 0);
+  const firstUndone = () => CORE.find((l) => !S.done[l.id]);
   const bestExam = (mode) => S.exams.filter((e) => !mode || e.mode === mode).reduce((b, e) => Math.max(b, e.pct), -1);
   const fmtDate = (ts) => { try { return new Date(ts).toLocaleDateString(L === 'he' ? 'he-IL' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); } catch (e) { return ''; } };
-  const lessonLabel = (l) => `${t('lineN', { n: l.mod.n })} · ${t('lessonN', { n: l.idx + 1 })}`;
+  const lessonLabel = (l) => `${lineName(l.mod)} · ${t('lessonN', { n: l.idx + 1 })}`;
   function toast(msg) {
     const el = $('#toast'); $('#toastMsg').textContent = msg; el.hidden = false;
     clearTimeout(toast.t); toast.t = setTimeout(() => { el.hidden = true; }, 2400);
@@ -205,8 +211,8 @@
     applyTheme();
     $$('.langswitch button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === L)));
     $('#brandName').firstChild.nodeValue = t('appName');
-    const tabs = [['home', 'map', 'tabJourney'], ['notebook', 'book', 'tabNotebook'], ['exam', 'exam', 'tabExam'], ['glossary', 'glossary', 'tabGlossary'], ['prefs', 'prefs', 'tabPrefs']];
-    const active = { home: 'home', module: 'home', lesson: 'home', mquiz: 'home', finish: 'home' }[cur.view] || cur.view;
+    const tabs = [['home', 'map', 'tabJourney'], ['notebook', 'book', 'tabNotebook'], ['glossary', 'glossary', 'tabGlossary'], ['prefs', 'prefs', 'tabPrefs']];
+    const active = { home: 'home', module: 'home', lesson: 'home', mquiz: 'home', finish: 'home', exam: 'home' }[cur.view] || cur.view;
     $('#tabbar').innerHTML = tabs.map(([h, ic, k]) => `<a class="tab" href="#${h}"${active === h ? ' aria-current="page"' : ''}>${icon(ic)}<span>${esc(t(k))}</span></a>`).join('');
     const back = $('#backBtn');
     const parent = backTarget();
@@ -307,7 +313,7 @@
     }).join('')}</ol>`;
   }
   function viewHome() {
-    const total = LESSONS.length, done = doneCount(), pct = pctDone();
+    const total = CORE.length, done = doneCount(), pct = pctDone();
     const R = 31, C = 2 * Math.PI * R;
     const last = S.last && LBY[S.last.id];
     const target = (last && !S.done[last.id]) ? last : firstUndone();
@@ -325,12 +331,23 @@
     } else {
       cont = `<div class="card continue" style="${lineVars('lx')}"><span class="eyebrow">${esc(t('allDone'))}</span><h3>${esc(t('allDoneTitle'))}</h3><div class="row"><a class="btn primary" href="#exam">${icon('exam')}${esc(t('takeExam'))}</a><a class="btn" href="#finish">${icon('award')}${esc(t('seeCompletion'))}</a></div></div>`;
     }
-    const lines = MODS.map((m, i) => {
-      const nxt = MODS[i + 1];
+    const PATH = MODS.filter((m) => !m.extra), EXTRAS = MODS.filter((m) => m.extra);
+    const lineHTML = (m) => `<section class="line${m.extra ? ' extra' : ''}" style="${lineVars(m.line)}" aria-label="${esc(tx(m.title))}">
+        <a class="line-head${artSrc(m) ? ' has-art' : ''}" href="#${m.id}">
+          <span class="linebadge">${badge(m)}</span>
+          <span class="lh-text"><span class="eyebrow">${esc(lineName(m))}</span><h2>${esc(tx(m.title))}</h2><span class="sub">${esc(tx(m.subtitle))}</span>
+          <span class="meta tnum"><span class="bar"><i style="width:${pctDone(m)}%"></i></span>${doneCount(m)}/${m.lessons.length} · ${Math.round(minutes(m) / 6) / 10} ${esc(t('hours'))}</span></span>
+          ${lineArt(m, 'line-thumb')}
+        </a>
+        ${stationsHTML(m, curId)}
+      </section>`;
+    const extras = EXTRAS.length ? `<div class="extras-head"><p class="muted">${esc(t('extrasMapNote'))}</p></div><div class="map">${EXTRAS.map(lineHTML).join('')}</div>` : '';
+    const lines = PATH.map((m, i) => {
+      const nxt = PATH[i + 1];
       return `<section class="line" style="${lineVars(m.line)}" aria-label="${esc(tx(m.title))}">
-        <a class="line-head${L === 'he' && LINE_ART[m.id] ? ' has-art' : ''}" href="#${m.id}">
-          <span class="linebadge">${m.n}</span>
-          <span class="lh-text"><span class="eyebrow">${esc(t('lineN', { n: m.n }))}</span><h2>${esc(tx(m.title))}</h2><span class="sub">${esc(tx(m.subtitle))}</span>
+        <a class="line-head${artSrc(m) ? ' has-art' : ''}" href="#${m.id}">
+          <span class="linebadge">${badge(m)}</span>
+          <span class="lh-text"><span class="eyebrow">${esc(lineName(m))}</span><h2>${esc(tx(m.title))}</h2><span class="sub">${esc(tx(m.subtitle))}</span>
           <span class="meta tnum"><span class="bar"><i style="width:${pctDone(m)}%"></i></span>${doneCount(m)}/${m.lessons.length} · ${Math.round(minutes(m) / 6) / 10} ${esc(t('hours'))}</span></span>
           ${lineArt(m, 'line-thumb')}
         </a>
@@ -340,7 +357,7 @@
     }).join('');
     return `<div class="view">
       <section class="hero">
-        ${L === 'he' ? `<img class="hero-art" src="assets/stickers/chat-robot.webp" width="720" height="589" alt="${esc(t('heroArtAlt'))}">` : ''}
+        ${L === 'he' ? `<img class="hero-art" src="assets/stickers/chat-robot.webp" width="720" height="589" alt="${esc(t('heroArtAlt'))}">` : `<img class="hero-art robot" src="assets/stickers/robot/hello.webp" width="527" height="720" alt="${esc(t('heroArtAlt'))}">`}
         <span class="eyebrow">${esc(t('homeEyebrow'))}</span>
         <h1>${esc(t('homeTitle'))}</h1>
         <p>${md(t('homeIntro'))}</p>
@@ -353,6 +370,7 @@
       <div class="map">${lines}
         <a class="terminus" href="#exam"><span class="big"></span><span><span class="eyebrow">${esc(t('terminus'))}</span><h2>${esc(t('examStation'))}</h2><span class="muted" style="font-size:.92rem">${esc(t('examStationSub'))}</span></span></a>
       </div>
+      ${extras}
       <div class="legend"><span><i></i>${esc(t('legendTodo'))}</span><span><i class="f"></i>${esc(t('legendDone'))}</span><span style="color:var(--lx)">${icon('bookmarkOn').replace('<svg', '<svg style="width:14px;height:14px"')}${esc(t('bookmarked'))}</span></div>
       <div class="home-grid">
         <a class="card tile" href="#notebook">${icon('book')}<b class="tnum">${S.hl.length + S.saved.length + Object.keys(S.notes).filter((k) => S.notes[k] && S.notes[k].text).length + S.journal.length}</b><span class="muted">${esc(t('tileNotebook'))}</span></a>
@@ -370,9 +388,9 @@
     const target = m.lessons.find((l) => !S.done[l.id]) || m.lessons[0];
     const nxt = MODS[MODS.indexOf(m) + 1];
     return `<div class="view" style="${lineVars(m.line)}">
-      <section class="mod-hero${L === 'he' && LINE_ART[m.id] ? ' has-art' : ''}">
+      <section class="mod-hero${artSrc(m) ? ' has-art' : ''}">
         ${lineArt(m, 'line-art')}
-        <div class="row"><span class="linebadge">${m.n}</span><span class="eyebrow">${esc(t('lineN', { n: m.n }))} · ${m.lessons.length} ${esc(t('lessons'))} · ${Math.round(minutes(m) / 6) / 10} ${esc(t('hours'))}</span></div>
+        <div class="row"><span class="linebadge">${badge(m)}</span><span class="eyebrow">${esc(lineName(m))} · ${m.lessons.length} ${esc(t('lessons'))} · ${Math.round(minutes(m) / 6) / 10} ${esc(t('hours'))}</span></div>
         <h1>${esc(tx(m.title))}</h1>
         <p class="lead">${md(tx(m.intro || m.subtitle))}</p>
         <div><b>${esc(t('youWillBeAble'))}</b><ul class="outcomes">${(tx(m.outcomes) || []).map((o) => `<li>${md(o)}</li>`).join('')}</ul></div>
@@ -380,11 +398,11 @@
         <div class="row"><a class="btn primary" href="#${target.id}">${icon('play')}${esc(doneCount(m) ? t('continue') : t('startLine'))}</a></div>
       </section>
       <section style="${lineVars(m.line)}">${stationsHTML(m, target.id)}</section>
-      <a class="card spread" href="#${m.id}-quiz" style="text-decoration:none;color:inherit">
+      ${qs.length ? `<a class="card spread" href="#${m.id}-quiz" style="text-decoration:none;color:inherit">
         <span><span class="eyebrow">${esc(t('lineQuiz'))}</span><h3 style="font-size:1.1rem">${esc(t('lineQuizTitle', { n: m.n }))}</h3><span class="muted">${esc(t('nQuestions', { n: qs.length }))}${bq ? ' · ' + esc(t('lastScore', { pct: Math.round(bq.ok / bq.of * 100) })) : ''}</span></span>
         ${icon('next', 'flip')}
-      </a>
-      ${nxt ? `<a class="btn" href="#${nxt.id}">${esc(t('nextLine'))}: ${esc(tx(nxt.title))}</a>` : `<a class="btn" href="#exam">${esc(t('examStation'))}</a>`}
+      </a>` : ''}
+      ${nxt && !nxt.extra ? `<a class="btn" href="#${nxt.id}">${esc(t('nextLine'))}: ${esc(tx(nxt.title))}</a>` : m.extra ? `<a class="btn" href="#home">${icon('map')}${esc(t('backToMap'))}</a>` : `<a class="btn" href="#exam">${esc(t('examStation'))}</a>`}
     </div>`;
   }
 
@@ -452,7 +470,7 @@
     const m = l.mod; const done = !!S.done[l.id];
     const prev = LESSONS[l.gi - 1]; const nextL = LESSONS[l.gi + 1];
     const isLastInLine = l.idx === m.lessons.length - 1;
-    const next = isLastInLine ? { href: '#' + m.id + '-quiz', title: t('lineQuizTitle', { n: m.n }), lab: t('lineQuiz') } : (nextL ? { href: '#' + nextL.id, title: tx(nextL.title), lab: t('nextLesson') } : null);
+    const next = isLastInLine ? (m.extra ? { href: '#' + m.id, title: tx(m.title), lab: lineName(m) } : { href: '#' + m.id + '-quiz', title: t('lineQuizTitle', { n: m.n }), lab: t('lineQuiz') }) : (nextL ? { href: '#' + nextL.id, title: tx(nextL.title), lab: t('nextLesson') } : null);
     const marked = S.marks.some((k) => k.lesson === l.id);
     const tldr = tx(l.tldr);
     const terms = L === 'he' ? (l.terms || []) : [];
@@ -460,8 +478,9 @@
     const checks = l.check || [];
     return `<article class="view lesson" style="${lineVars(m.line)}" data-lesson="${l.id}">
       <header class="lesson-head">
+        ${m.extra ? `<p class="opt-tag">${icon('spark')}<span><b>${esc(t('extrasName'))}</b> · ${esc(t('extraNote'))}</span></p>` : ''}
         ${l.optional ? `<p class="opt-tag">${icon('flag')}<span><b>${esc(t('optional'))}</b> · ${esc(t('optionalNote'))}</span></p>` : ''}
-        <div class="crumbs"><span class="linebadge">${m.n}</span><a href="#${m.id}">${esc(tx(m.title))}</a><span aria-hidden="true">·</span><span class="tnum">${esc(t('lessonXofY', { x: l.idx + 1, y: m.lessons.length }))}</span></div>
+        <div class="crumbs"><span class="linebadge">${badge(m)}</span><a href="#${m.id}">${esc(tx(m.title))}</a><span aria-hidden="true">·</span><span class="tnum">${esc(t('lessonXofY', { x: l.idx + 1, y: m.lessons.length }))}</span></div>
         <h1>${esc(tx(l.title))}</h1>
         <div class="row"><span class="chip">${icon('clock').replace('<svg', '<svg style="width:14px;height:14px"')}${l.minutes || 5} ${esc(t('min'))}</span>${(l.domains || []).map((d) => DOM[d] ? `<span class="chip dom" title="${esc(t('examDomain'))}">${esc(t('domainShort', { n: d.slice(1) }))} · ${esc(tx(DOM[d].short || DOM[d]))}</span>` : '').join('')}${done ? `<span class="chip" style="background:var(--good-soft);color:var(--good)">${icon('check').replace('<svg', '<svg style="width:14px;height:14px"')}${esc(t('completed'))}</span>` : ''}</div>
         <div class="lesson-tools">
@@ -652,7 +671,7 @@
     const doneBtn = $('#doneBtn');
     if (doneBtn) doneBtn.addEventListener('click', () => {
       S.done[l.id] = Date.now(); persist();
-      const nxt = l.idx === l.mod.lessons.length - 1 ? l.mod.id + '-quiz' : (LESSONS[l.gi + 1] && LESSONS[l.gi + 1].id);
+      const nxt = l.idx === l.mod.lessons.length - 1 ? (l.mod.extra ? l.mod.id : l.mod.id + '-quiz') : (LESSONS[l.gi + 1] && LESSONS[l.gi + 1].id);
       toast(t('lessonDoneToast'));
       if (nxt) go(nxt); else render({ keepScroll: true });
     });
@@ -1344,7 +1363,7 @@
 
   /* -------------------------------------------------------------- FINISH */
   function viewFinish() {
-    const all = LESSONS.length, done = doneCount(); const best = bestExam('full');
+    const all = CORE.length, done = doneCount(); const best = bestExam('full');
     const complete = done === all;
     return `<div class="view" style="${lineVars('lx')}">
       <section class="hero"><span class="eyebrow">${esc(t('terminus'))}</span><h1>${esc(t('finishTitle'))}</h1><p>${md(t('finishIntro'))}</p></section>

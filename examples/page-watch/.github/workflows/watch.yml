@@ -1,0 +1,33 @@
+name: Weekly page watch
+on:
+  schedule:
+    - cron: "0 5 * * 1"        # Mondays 05:00 UTC
+  workflow_dispatch:           # run it by hand too
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: node scripts/watch.mjs
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      - name: Open a pull request if something changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [ -f changes.md ] || { echo "No meaningful changes"; exit 0; }
+          branch="watch/$(date +%F)"
+          git config user.name "page-watch-bot"
+          git config user.email "page-watch-bot@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add watch/snapshots
+          git commit -m "Page watch: proposed updates"
+          git push -u origin "$branch"
+          gh pr create --title "Page watch: proposed updates" --body-file changes.md

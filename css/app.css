@@ -56,7 +56,7 @@ main { max-width: 760px; margin: 0 auto; padding-block: 20px calc(var(--tabbar-h
   padding-bottom: env(safe-area-inset-bottom, 0px);
   padding-left: max(8px, env(safe-area-inset-left, 0px)); padding-right: max(8px, env(safe-area-inset-right, 0px));
 }
-.tabbar-in { max-width: 560px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); height: var(--tabbar-h); }
+.tabbar-in { max-width: 560px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); height: var(--tabbar-h); }
 .tab { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: var(--ink-3); font-size: .72rem; font-weight: 600; border-radius: 12px; position: relative; }
 :root[lang="he"] .tab { font-size: .8rem; }
 .tab svg { width: 24px; height: 24px; }
@@ -113,6 +113,7 @@ label.field small { font-weight: 400; color: var(--ink-2); }
 /* ---------- home / journey map ---------- */
 .hero { display: grid; gap: 14px; padding-top: 6px; }
 .hero-art { display: block; width: min(78%, 320px); height: auto; justify-self: center; margin-bottom: -4px; }
+.hero-art.robot { width: min(56%, 220px); }
 .hero h1 { font-size: clamp(2rem, 6.4vw, 2.8rem); font-weight: 900; letter-spacing: -.025em; }
 :root[lang="he"] .hero h1 { letter-spacing: 0; font-weight: 800; }
 .hero p { color: var(--ink-2); max-width: 60ch; }
@@ -144,6 +145,10 @@ label.field small { font-weight: 400; color: var(--ink-2); }
 .opt-tag svg { width: 18px; height: 18px; flex: none; color: var(--accent-ink); }
 .opt-tag b { color: var(--ink); }
 .st-opt { font-weight: 700; color: var(--ink-2); }
+/* bonus extras section after the exam station: dashed track */
+.extras-head { display: grid; gap: 4px; margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--rule); }
+.extras-head p { font-size: .92rem; }
+.line.extra .track::before, .line.extra .line-head::before { background: repeating-linear-gradient(to bottom, var(--c) 0 8px, transparent 8px 14px); opacity: 1; }
 .line-art { display: block; width: min(64%, 260px); height: auto; justify-self: center; }
 .stations { list-style: none; margin: 0 0 6px; padding: 0; }
 .station { display: grid; grid-template-columns: 44px 1fr; gap: 12px; min-height: 58px; }

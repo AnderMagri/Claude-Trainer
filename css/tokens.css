@@ -21,8 +21,9 @@
   --l5: #C4366F;  --l5-ink: #9A2155; --l5-soft: #F3D7E3;
   --l6: #9A3CB0;  --l6-ink: #7A2A8E; --l6-soft: #ECDCF1;
   --lx: #5E3FCB;  --lx-ink: #4A2EAE; --lx-soft: #E3DDF6;
+  --le: #6E6E7A;  --le-ink: #4E4E59; --le-soft: #E8E8F0;   /* extras: silver, the night after the sunset */
   /* text colour that reads on each line colour */
-  --on-l1: #1A1204; --on-l2: #1E0F02; --on-l3: #1F0A03; --on-l4: #FFFFFF; --on-l5: #FFFFFF; --on-l6: #FFFFFF; --on-lx: #FFFFFF;
+  --on-l1: #1A1204; --on-l2: #1E0F02; --on-l3: #1F0A03; --on-l4: #FFFFFF; --on-l5: #FFFFFF; --on-l6: #FFFFFF; --on-lx: #FFFFFF; --on-le: #FFFFFF;
   --on-accent: var(--on-l2);
   --sunset: linear-gradient(90deg, var(--l1), var(--l2), var(--l3), var(--l4), var(--l5), var(--l6), var(--lx));
   --mark: rgba(242, 179, 61, .45);
@@ -52,7 +53,8 @@
     --l5: #E8619C; --l5-ink: #F08DBA; --l5-soft: #2E1622;
     --l6: #C470D8; --l6-ink: #D79CE6; --l6-soft: #28172E;
     --lx: #9583F2; --lx-ink: #B4A7F7; --lx-soft: #1D1934;
-    --on-l1: #1A1204; --on-l2: #1E0F02; --on-l3: #1F0A03; --on-l4: #1F0607; --on-l5: #22071A; --on-l6: #1C0722; --on-lx: #0F0A2A;
+    --le: #B9B9C4; --le-ink: #D2D2DA; --le-soft: #22222A;
+    --on-l1: #1A1204; --on-l2: #1E0F02; --on-l3: #1F0A03; --on-l4: #1F0607; --on-l5: #22071A; --on-l6: #1C0722; --on-lx: #0F0A2A; --on-le: #111116;
     --mark: rgba(242, 179, 61, .32); --mark-strong: #E0A030;
     --good: #4CD493; --good-soft: #0F2E20; --bad: #FF8A80; --bad-soft: #3A1614; --warn: #F5C063; --warn-soft: #36280E;
     --term-bg: #050505;
@@ -70,7 +72,8 @@
   --l5: #E8619C; --l5-ink: #F08DBA; --l5-soft: #2E1622;
   --l6: #C470D8; --l6-ink: #D79CE6; --l6-soft: #28172E;
   --lx: #9583F2; --lx-ink: #B4A7F7; --lx-soft: #1D1934;
-  --on-l1: #1A1204; --on-l2: #1E0F02; --on-l3: #1F0A03; --on-l4: #1F0607; --on-l5: #22071A; --on-l6: #1C0722; --on-lx: #0F0A2A;
+    --le: #B9B9C4; --le-ink: #D2D2DA; --le-soft: #22222A;
+  --on-l1: #1A1204; --on-l2: #1E0F02; --on-l3: #1F0A03; --on-l4: #1F0607; --on-l5: #22071A; --on-l6: #1C0722; --on-lx: #0F0A2A; --on-le: #111116;
   --mark: rgba(242, 179, 61, .32); --mark-strong: #E0A030;
   --good: #4CD493; --good-soft: #0F2E20; --bad: #FF8A80; --bad-soft: #3A1614; --warn: #F5C063; --warn-soft: #36280E;
   --term-bg: #050505;

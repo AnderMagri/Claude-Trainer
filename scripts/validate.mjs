@@ -4,7 +4,7 @@ import vm from 'node:vm';
 const ctx = { window: {} };
 ctx.window.window = ctx.window;
 vm.createContext(ctx.window);
-for (const f of ['content/ui.js', 'content/m1.js', 'content/m2.js', 'content/m3.js', 'content/m4.js', 'content/m5.js', 'content/m6.js', 'content/m7.js', 'content/exam.js', 'content/glossary.js']) {
+for (const f of ['content/ui.js', 'content/m1.js', 'content/m2.js', 'content/m3.js', 'content/m4.js', 'content/m5.js', 'content/m6.js', 'content/m7.js', 'content/m8.js', 'content/exam.js', 'content/glossary.js']) {
   vm.runInContext(readFileSync(f, 'utf8'), ctx.window, { filename: f });
 }
 const CT = ctx.window.CT;
@@ -44,7 +44,7 @@ for (const m of CT.modules) {
 CT.exam.forEach((q) => checkQ(q, 'exam'));
 // every [[lesson-id]] or [[line-id]] reference must point to something that exists
 const moduleIds = new Set(CT.modules.map((m) => m.id));
-const allText = ['content/ui.js', 'content/m1.js', 'content/m2.js', 'content/m3.js', 'content/m4.js', 'content/m5.js', 'content/m6.js', 'content/m7.js', 'content/exam.js', 'content/glossary.js'].map((f) => readFileSync(f, 'utf8')).join('\n');
+const allText = ['content/ui.js', 'content/m1.js', 'content/m2.js', 'content/m3.js', 'content/m4.js', 'content/m5.js', 'content/m6.js', 'content/m7.js', 'content/m8.js', 'content/exam.js', 'content/glossary.js'].map((f) => readFileSync(f, 'utf8')).join('\n');
 for (const m of allText.matchAll(/\[\[(m\d+(?:-l\d+)?)\]\]/g)) {
   if (!lessonIds.has(m[1]) && !moduleIds.has(m[1])) bad(`broken reference [[${m[1]}]]`);
 }
