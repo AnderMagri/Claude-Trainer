@@ -21,7 +21,7 @@ The course is drawn as a transit map: each **line** is a module, each **station*
 |---|---|---|
 | 1 | How AI like Claude works | What an LLM is · Tokens and the context window · How Claude was made · Apps, plans and models · Your first conversation · Prompting basics · Checking and improving answers · Using AI responsibly (Usage Policy, RSP, AI Fluency) · Plans, privacy and your data |
 | 2 | Power user | Projects · Memory, styles and personal settings · Artifacts · Advanced prompting · Strategies: let Claude interview you · Tools and connectors · Claude in Microsoft 365, Adobe and everyday apps · Skills (use, find, create, improve) · MCP · Research with Claude · Creative work (stories, books, poems, your own style) · The right tool for each job · Workshop |
-| 3 | Agents at work | How agents work (workflow patterns) · Claude Cowork · Claude Code in depth · The shared brain (one team folder or Git repo) · Browser agents · QA with Claude (parallel testers) · Many agents, many models: Orca |
+| 3 | Agents at work | How agents work (workflow patterns) · Long tasks and scheduled jobs in Claude (formerly Cowork) · Claude Code in depth (with an optional editor section on Cursor) · The shared brain (one team folder or Git repo) · Browser agents · QA with Claude (parallel testers) · Many agents, many models: Orca |
 | 4 | FDE basics | What an FDE does · The terminal · Git and GitHub · How web apps work · The Claude API · Tools, vision and structured output · Building chatbots · Deploying · Keep it fresh: automatic and scheduled updates (optional) · AI solutions clients can trust · Capstone |
 | 5 | Design with Claude | Design basics · Design systems and tokens · Claude Design · Figma and MCP · Paper, Orca and agent-native tools · Reviewing AI-made designs · Workshop |
 | 6 | Claude at work | Map a workflow · One solution for the whole team · Playbooks: the office, the design studio, clinics/shops/services · Rolling out AI to a team |
@@ -200,6 +200,6 @@ Design and agent tools (Lines 3 and 5) move fastest. Facts used: Claude Design l
 team design systems, export to PDF/URL/PPTX/Canva); Figma's official MCP server (remote and desktop; tools such as
 `get_design_context`, `get_variable_defs`, `get_screenshot`, Code Connect); Paper (paper.design, HTML/CSS canvas with an
 MCP server via Paper Desktop); Orca (onorca.dev, desktop app for parallel coding agents in Git worktrees); DTCG design
-tokens format 2025.10; Claude Cowork (research preview, January 2026); Playwright MCP
+tokens format 2025.10; Cowork (launched January 2026, merged into the regular Claude app on 16 September 2026); Cursor 3 (April 2026, agent-first editor); Playwright MCP
 (`claude mcp add playwright npx @playwright/mcp@latest`). Plan names, privacy settings and admin features (SSO, SCIM,
 audit logs) change often too. Re-check these before teaching a client.

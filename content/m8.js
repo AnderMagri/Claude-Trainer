@@ -294,7 +294,7 @@ CT.modules.push({
               ],
               [
                 "You need",
-                "Claude scheduled tasks (Cowork or Claude Code) and the Gmail or Microsoft 365 connector"
+                "Claude scheduled tasks (in the Claude app or Claude Code) and the Gmail or Microsoft 365 connector"
               ],
               [
                 "Running cost",
@@ -322,7 +322,7 @@ CT.modules.push({
               ],
               [
                 "צריך",
-                "משימות מתוזמנות של Claude ‏(Cowork או Claude Code) וחיבור Gmail או Microsoft 365"
+                "משימות מתוזמנות של Claude ‏(באפליקציית Claude או ב-Claude Code) וחיבור Gmail או Microsoft 365"
               ],
               [
                 "עלות שוטפת",
@@ -720,8 +720,8 @@ CT.modules.push({
         "he": "קבלות וחשבוניות ← גיליון אחד"
       },
       "tldr": {
-        "en": "Drop the month’s PDF receipts in a folder and get one CSV with date, supplier, total, VAT and category, plus a “check” column for anything unclear. No code with Cowork, or a 40-line script in your repository.",
-        "he": "שמים את קבלות ה-PDF של החודש בתיקייה ומקבלים CSV אחד עם תאריך, ספק, סכום, מע״מ וקטגוריה, ועמודת \"לבדוק\" לכל דבר לא ברור. בלי קוד עם Cowork, או סקריפט של 40 שורות במאגר."
+        "en": "Drop the month’s PDF receipts in a folder and get one CSV with date, supplier, total, VAT and category, plus a “check” column for anything unclear. No code: ask Claude in a chat. Or use a 40-line script in your repository.",
+        "he": "שמים את קבלות ה-PDF של החודש בתיקייה ומקבלים CSV אחד עם תאריך, ספק, סכום, מע״מ וקטגוריה, ועמודת \"לבדוק\" לכל דבר לא ברור. בלי קוד: מבקשים מ-Claude בשיחה. או סקריפט של 40 שורות במאגר."
       },
       "goals": {
         "en": [
@@ -764,11 +764,11 @@ CT.modules.push({
               ],
               [
                 "Build time",
-                "20 minutes (Cowork) or 1 to 2 hours (script)"
+                "20 minutes (no code) or 1 to 2 hours (script)"
               ],
               [
                 "You need",
-                "Cowork, or Node.js with a Claude API key"
+                "A paid Claude plan, or Node.js with a Claude API key"
               ],
               [
                 "Running cost",
@@ -776,7 +776,7 @@ CT.modules.push({
               ],
               [
                 "Level",
-                "Beginner (Cowork) or intermediate (script)"
+                "Beginner (no code) or intermediate (script)"
               ]
             ]
           },
@@ -792,11 +792,11 @@ CT.modules.push({
               ],
               [
                 "זמן בנייה",
-                "20 דקות (Cowork) או שעה-שעתיים (סקריפט)"
+                "20 דקות (בלי קוד) או שעה-שעתיים (סקריפט)"
               ],
               [
                 "צריך",
-                "Cowork, או Node.js עם מפתח API של Claude"
+                "תוכנית Claude בתשלום, או Node.js עם מפתח API של Claude"
               ],
               [
                 "עלות שוטפת",
@@ -804,24 +804,24 @@ CT.modules.push({
               ],
               [
                 "רמה",
-                "מתחילים (Cowork) או בינוניים (סקריפט)"
+                "מתחילים (בלי קוד) או בינוניים (סקריפט)"
               ]
             ]
           }
         },
         {
           "t": "h",
-          "en": "Option A: no code, with Cowork",
-          "he": "אפשרות א׳: בלי קוד, עם Cowork"
+          "en": "Option A: no code, ask Claude",
+          "he": "אפשרות א׳: בלי קוד, מבקשים מ-Claude"
         },
         {
           "t": "prompt",
           "label": {
-            "en": "Cowork task",
-            "he": "משימה ב-Cowork"
+            "en": "The task for Claude",
+            "he": "המשימה ל-Claude"
           },
-          "en": "Read every PDF in the folder Receipts/2026-11.\nFor each one, extract: date (YYYY-MM-DD), supplier, total, VAT, currency, and a category from: materials, software, travel, food, other.\nCreate receipts-2026-11.xlsx with one row per receipt and a “Check” column marked for anything you are not sure about.\nAdd a summary sheet with totals per category. Do not move or delete any receipt.",
-          "he": "תקרא כל PDF בתיקייה Receipts/2026-11.\nמכל אחד תשלוף: תאריך (YYYY-MM-DD), ספק, סכום, מע״מ, מטבע, וקטגוריה מתוך: חומרים, תוכנה, נסיעות, אוכל, אחר.\nתיצור receipts-2026-11.xlsx עם שורה לכל קבלה ועמודת \"לבדוק\" לכל דבר שאתה לא בטוח בו.\nתוסיף גיליון סיכום עם סכום לכל קטגוריה. אל תזיז ואל תמחק אף קבלה."
+          "en": "Read every PDF receipt I attached (or in the connected folder Receipts/2026-11).\nFor each one, extract: date (YYYY-MM-DD), supplier, total, VAT, currency, and a category from: materials, software, travel, food, other.\nCreate receipts-2026-11.xlsx with one row per receipt and a “Check” column marked for anything you are not sure about.\nAdd a summary sheet with totals per category. Do not move or delete any receipt.",
+          "he": "תקרא כל קבלת PDF שצירפתי (או בתיקייה המחוברת Receipts/2026-11).\nמכל אחד תשלוף: תאריך (YYYY-MM-DD), ספק, סכום, מע״מ, מטבע, וקטגוריה מתוך: חומרים, תוכנה, נסיעות, אוכל, אחר.\nתיצור receipts-2026-11.xlsx עם שורה לכל קבלה ועמודת \"לבדוק\" לכל דבר שאתה לא בטוח בו.\nתוסיף גיליון סיכום עם סכום לכל קטגוריה. אל תזיז ואל תמחק אף קבלה."
         },
         {
           "t": "h",
@@ -1736,7 +1736,7 @@ CT.modules.push({
             "rows": [
               [
                 "[Claude](https://claude.ai)",
-                "The app: chat, Projects, artifacts, Cowork"
+                "The app: chat, long tasks, Projects, artifacts"
               ],
               [
                 "[Claude docs](https://platform.claude.com/docs)",
@@ -1780,7 +1780,7 @@ CT.modules.push({
             "rows": [
               [
                 "[Claude](https://claude.ai)",
-                "האפליקציה: שיחות, פרויקטים, Artifacts, ‏Cowork"
+                "האפליקציה: שיחות, משימות ארוכות, פרויקטים, Artifacts"
               ],
               [
                 "[התיעוד של Claude](https://platform.claude.com/docs)",
@@ -1889,6 +1889,10 @@ CT.modules.push({
                 "Deploys, functions, environment variables, cron jobs"
               ],
               [
+                "[Cursor](https://cursor.com)",
+                "An AI-first code editor with its own agents ([[m2-l6]])"
+              ],
+              [
                 "[Hugging Face](https://huggingface.co)",
                 "Open models, datasets and Spaces ([[m8-l7]])"
               ]
@@ -1911,6 +1915,10 @@ CT.modules.push({
               [
                 "[התיעוד של Vercel](https://vercel.com/docs)",
                 "העלאות, פונקציות, משתני סביבה, cron"
+              ],
+              [
+                "[Cursor](https://cursor.com)",
+                "עורך קוד שנבנה סביב AI, עם סוכנים משלו ([[m2-l6]])"
               ],
               [
                 "[Hugging Face](https://huggingface.co)",
