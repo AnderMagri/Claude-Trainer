@@ -15,7 +15,7 @@ CT.domains = [
 
 CT.ui = {
   en: {
-    appName: 'Claude Trainer', optional: 'Optional', optionalNote: 'Extra content. You can skip it; it is not needed for the exam.', heroArtAlt: 'A smiling learner chatting with a small friendly robot',
+    appName: 'Claude Trainer', optional: 'Optional', optionalNote: 'Advanced extra. You can skip it; it is not needed for the exam.', heroArtAlt: 'A smiling learner chatting with a small friendly robot',
     tabJourney: 'Journey', tabNotebook: 'Notebook', tabExam: 'Exam', tabGlossary: 'Words', tabPrefs: 'Settings', back: 'Back',
     lineN: 'Line {n}', lessonN: 'Lesson {n}', lessonXofY: 'Lesson {x} of {y}', min: 'min', hours: 'h', lessons: 'lessons',
     homeEyebrow: 'Your learning journey', homeTitle: 'From your first chat with Claude to shipping AI tools for real businesses',
@@ -105,7 +105,7 @@ CT.ui = {
     ]
   },
   he: {
-    appName: 'מאמן Claude', optional: 'רשות', optionalNote: 'תוכן נוסף. אפשר לדלג עליו, הוא לא נדרש למבחן.', heroArtAlt: 'לומדת מחייכת משוחחת עם רובוט קטן וחביב',
+    appName: 'מאמן Claude', optional: 'רשות', optionalNote: 'תוכן מתקדם נוסף. אפשר לדלג עליו, הוא לא נדרש למבחן.', heroArtAlt: 'לומדת מחייכת משוחחת עם רובוט קטן וחביב',
     tabJourney: 'המסלול', tabNotebook: 'מחברת', tabExam: 'מבחן', tabGlossary: 'מילון', tabPrefs: 'הגדרות', back: 'חזרה',
     lineN: 'קו {n}', lessonN: 'שיעור {n}', lessonXofY: 'שיעור {x} מתוך {y}', min: 'דק׳', hours: 'שע׳', lessons: 'שיעורים',
     homeEyebrow: 'מסלול הלמידה שלכם', homeTitle: 'מהשיחה הראשונה עם Claude ועד כלי AI אמיתיים לעסקים',

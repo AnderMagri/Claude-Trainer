@@ -20,15 +20,17 @@ The course is drawn as a transit map: each **line** is a module, each **station*
 | Line | Title | Lessons |
 |---|---|---|
 | 1 | How AI like Claude works | What an LLM is · Tokens and the context window · How Claude was made · Apps, plans and models · Your first conversation · Prompting basics · Checking and improving answers · Using AI responsibly (Usage Policy, RSP, AI Fluency) · Plans, privacy and your data |
-| 2 | Power user | Projects · Memory, styles and personal settings · Artifacts · Advanced prompting · Tools and connectors · Skills (use, find, create, improve) · MCP · Research with Claude · Creative work (stories, books, poems, your own style) · The right tool for each job · Workshop |
+| 2 | Power user | Projects · Memory, styles and personal settings · Artifacts · Advanced prompting · Strategies: let Claude interview you · Tools and connectors · Claude in Microsoft 365, Adobe and everyday apps · Skills (use, find, create, improve) · MCP · Research with Claude · Creative work (stories, books, poems, your own style) · The right tool for each job · Workshop |
 | 3 | Agents at work | How agents work (workflow patterns) · Claude Cowork · Claude Code in depth · The shared brain (one team folder or Git repo) · Browser agents · QA with Claude (parallel testers) · Many agents, many models: Orca |
-| 4 | FDE basics | What an FDE does · The terminal · Git and GitHub · How web apps work · The Claude API · Tools, vision and structured output · Building chatbots · Deploying · AI solutions clients can trust · Capstone |
+| 4 | FDE basics | What an FDE does · The terminal · Git and GitHub · How web apps work · The Claude API · Tools, vision and structured output · Building chatbots · Deploying · Keep it fresh: automatic and scheduled updates (optional) · AI solutions clients can trust · Capstone |
 | 5 | Design with Claude | Design basics · Design systems and tokens · Claude Design · Figma and MCP · Paper, Orca and agent-native tools · Reviewing AI-made designs · Workshop |
 | 6 | Claude at work | Map a workflow · One solution for the whole team · Playbooks: the office, the design studio, clinics/shops/services · Rolling out AI to a team |
 | 7 | Exam simulation | Know your exam · How to answer scenario questions · Domain review · The full exam simulation |
 | Final stop | Exam tab | Full simulation (60 questions weighted by the 7 domains, 120-minute timer, flags, review screen), quick 20, practice by domain, retry-my-mistakes |
 
 Lines run in order of their `n` number (in each content file), not their file name: `m6.js` is Line 3, `m3.js` is Line 4, `m4.js` is Line 5, `m7.js` is Line 6 and `m5.js` is Line 7.
+
+Very advanced stations (Orca, Paper and agent-native tools, automatic updates) carry an **Optional** tag: `optional: true` on the lesson.
 
 Every lesson has: a short summary, goals, key-idea cards, diagrams, an interactive exercise, a quick check, and a notes box.
 
@@ -99,7 +101,7 @@ content/m3.js       Line 4 lessons (FDE basics)
 content/m4.js       Line 5 lessons (design)
 content/m7.js       Line 6 lessons (Claude at work)
 content/m5.js       Line 7 lessons (exam simulation)
-content/exam.js     120-question bank (mock: false = extras kept out of mock exams; m = which line quiz uses it)
+content/exam.js     125-question bank (mock: false = extras kept out of mock exams; m = which line quiz uses it)
 content/glossary.js Glossary
 scripts/validate.mjs  Checks every lesson and question has both languages and valid answers
 scripts/build.mjs     Builds dist/ for static hosting (Vercel, Netlify, GitHub Pages)
@@ -109,7 +111,7 @@ vercel.json         Vercel settings (build command and output folder)
 ## Editing the course
 
 All words live in `content/`. You can ask Claude (in Claude Code or on claude.ai with this repository) to make changes,
-for example: *"In lesson 2.5 add a paragraph about the Notion connector, in English and simple Hebrew."*
+for example: *"In lesson 2.6 add a paragraph about the Notion connector, in English and simple Hebrew."*
 
 A lesson looks like this:
 

@@ -141,7 +141,7 @@ CT.modules.push({
     },
     /* ---------------------------------------------------------------- 4.5 */
     {
-      id: 'm4-l5', minutes: 10, domains: ['d3', 'd4'],
+      id: 'm4-l5', minutes: 10, domains: ['d3', 'd4'], optional: true,
       title: { en: 'Paper, Orca and agent-native tools', he: 'Paper, ‏Orca וכלים שנבנו לסוכנים' },
       tldr: {
         en: 'Paper is a design canvas built on HTML and CSS that AI agents can read and write through MCP. Orca is a desktop app for running several coding agents side by side, each on its own Git branch, with a built-in browser. Together with Figma and Claude Design, they let you explore, design and build in one loop.',
