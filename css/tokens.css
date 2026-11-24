@@ -14,13 +14,13 @@
   --ink-2: #55555C;
   --ink-3: #66666E;
   --rule: #DCDCE4;
-  --l1: #D99412;  --l1-ink: #7E5200; --l1-soft: #F3E5C6;
-  --l2: #E2761C;  --l2-ink: #9A4300; --l2-soft: #F6DFCB;
-  --l3: #DC5527;  --l3-ink: #A2360F; --l3-soft: #F5D9CE;
-  --l4: #CE3445;  --l4-ink: #A01F31; --l4-soft: #F4D7DA;
-  --l5: #C4366F;  --l5-ink: #9A2155; --l5-soft: #F3D7E3;
-  --l6: #9A3CB0;  --l6-ink: #7A2A8E; --l6-soft: #ECDCF1;
-  --lx: #5E3FCB;  --lx-ink: #4A2EAE; --lx-soft: #E3DDF6;
+  --l1: #D4962A;  --l1-ink: #7A5206; --l1-soft: #F5EBD4;
+  --l2: #DB7A32;  --l2-ink: #96450A; --l2-soft: #F7E6D8;
+  --l3: #D65E3C;  --l3-ink: #9E3A1A; --l3-soft: #F6E1D9;
+  --l4: #C9434F;  --l4-ink: #9C2636; --l4-soft: #F5DFE1;
+  --l5: #BD4377;  --l5-ink: #96275A; --l5-soft: #F4DFE8;
+  --l6: #9649AB;  --l6-ink: #78308C; --l6-soft: #EEE1F3;
+  --lx: #6450C4;  --lx-ink: #4C38AA; --lx-soft: #E6E2F6;
   --le: #6E6E7A;  --le-ink: #4E4E59; --le-soft: #E8E8F0;   /* extras: silver, the night after the sunset */
   /* text colour that reads on each line colour */
   --on-l1: #1A1204; --on-l2: #1E0F02; --on-l3: #1F0A03; --on-l4: #FFFFFF; --on-l5: #FFFFFF; --on-l6: #FFFFFF; --on-lx: #FFFFFF; --on-le: #FFFFFF;
@@ -44,15 +44,15 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --ground: #0A0A0A; --surface: #151515; --surface-2: #222222;
-    --ink: #EDEDED; --ink-2: #ADADAD; --ink-3: #8C8C8C; --rule: #2E2E2E;
-    --l1: #F2B33D; --l1-ink: #F6CA72; --l1-soft: #2B2210;
-    --l2: #F18A33; --l2-ink: #F6A868; --l2-soft: #2D1D0F;
-    --l3: #EE6B40; --l3-ink: #F48F6C; --l3-soft: #2E1912;
-    --l4: #E9565D; --l4-ink: #F08187; --l4-soft: #2E1517;
-    --l5: #E8619C; --l5-ink: #F08DBA; --l5-soft: #2E1622;
-    --l6: #C470D8; --l6-ink: #D79CE6; --l6-soft: #28172E;
-    --lx: #9583F2; --lx-ink: #B4A7F7; --lx-soft: #1D1934;
+    --ground: #0B0B0C; --surface: #161617; --surface-2: #212123;
+    --ink: #ECECEE; --ink-2: #A9A9B0; --ink-3: #88888F; --rule: #2C2C30;
+    --l1: #EDB552; --l1-ink: #F3CB85; --l1-soft: #262014;
+    --l2: #EC9456; --l2-ink: #F2B185; --l2-soft: #271C14;
+    --l3: #E87B5C; --l3-ink: #EF9F88; --l3-soft: #281915;
+    --l4: #E26A70; --l4-ink: #EC9398; --l4-soft: #281718;
+    --l5: #DA6C9C; --l5-ink: #E797BA; --l5-soft: #27171F;
+    --l6: #B87BD2; --l6-ink: #CFA2E2; --l6-soft: #221829;
+    --lx: #9189EA; --lx-ink: #B3ADF2; --lx-soft: #1A192C;
     --le: #B9B9C4; --le-ink: #D2D2DA; --le-soft: #22222A;
     --on-l1: #1A1204; --on-l2: #1E0F02; --on-l3: #1F0A03; --on-l4: #1F0607; --on-l5: #22071A; --on-l6: #1C0722; --on-lx: #0F0A2A; --on-le: #111116;
     --mark: rgba(242, 179, 61, .32); --mark-strong: #E0A030;
@@ -63,15 +63,15 @@
   }
 }
 :root[data-theme="dark"] {
-  --ground: #0A0A0A; --surface: #151515; --surface-2: #222222;
-  --ink: #EDEDED; --ink-2: #ADADAD; --ink-3: #8C8C8C; --rule: #2E2E2E;
-  --l1: #F2B33D; --l1-ink: #F6CA72; --l1-soft: #2B2210;
-  --l2: #F18A33; --l2-ink: #F6A868; --l2-soft: #2D1D0F;
-  --l3: #EE6B40; --l3-ink: #F48F6C; --l3-soft: #2E1912;
-  --l4: #E9565D; --l4-ink: #F08187; --l4-soft: #2E1517;
-  --l5: #E8619C; --l5-ink: #F08DBA; --l5-soft: #2E1622;
-  --l6: #C470D8; --l6-ink: #D79CE6; --l6-soft: #28172E;
-  --lx: #9583F2; --lx-ink: #B4A7F7; --lx-soft: #1D1934;
+  --ground: #0B0B0C; --surface: #161617; --surface-2: #212123;
+  --ink: #ECECEE; --ink-2: #A9A9B0; --ink-3: #88888F; --rule: #2C2C30;
+  --l1: #EDB552; --l1-ink: #F3CB85; --l1-soft: #262014;
+  --l2: #EC9456; --l2-ink: #F2B185; --l2-soft: #271C14;
+  --l3: #E87B5C; --l3-ink: #EF9F88; --l3-soft: #281915;
+  --l4: #E26A70; --l4-ink: #EC9398; --l4-soft: #281718;
+  --l5: #DA6C9C; --l5-ink: #E797BA; --l5-soft: #27171F;
+  --l6: #B87BD2; --l6-ink: #CFA2E2; --l6-soft: #221829;
+  --lx: #9189EA; --lx-ink: #B3ADF2; --lx-soft: #1A192C;
     --le: #B9B9C4; --le-ink: #D2D2DA; --le-soft: #22222A;
   --on-l1: #1A1204; --on-l2: #1E0F02; --on-l3: #1F0A03; --on-l4: #1F0607; --on-l5: #22071A; --on-l6: #1C0722; --on-lx: #0F0A2A; --on-le: #111116;
   --mark: rgba(242, 179, 61, .32); --mark-strong: #E0A030;

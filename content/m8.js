@@ -2343,12 +2343,12 @@ CT.modules.push({
               [
                 "GPT Image (OpenAI)",
                 "Follows detailed instructions, edits with references, transparent backgrounds",
-                "Also available inside Krea and other studios"
+                "Also available inside Krea and other tools"
               ],
               [
                 "Nano Banana (Google)",
                 "Fast edits and consistency from reference images",
-                "Also available inside Krea and other studios"
+                "Also available inside Krea and other tools"
               ],
               [
                 "[Ideogram](https://ideogram.ai)",
@@ -2392,12 +2392,12 @@ CT.modules.push({
               [
                 "GPT Image ‏(OpenAI)",
                 "מבין הוראות מפורטות, עורך עם תמונות ייחוס, רקע שקוף",
-                "זמין גם בתוך Krea ובסטודיו אחרים"
+                "זמין גם בתוך Krea ובכלים אחרים"
               ],
               [
                 "Nano Banana ‏(Google)",
                 "עריכות מהירות ועקביות מתמונות ייחוס",
-                "זמין גם בתוך Krea ובסטודיו אחרים"
+                "זמין גם בתוך Krea ובכלים אחרים"
               ],
               [
                 "[Ideogram](https://ideogram.ai)",

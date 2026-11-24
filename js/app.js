@@ -157,7 +157,7 @@
     const [sample, tts, comments, downloads] = await Promise.all([use('sample'), use('tts'), use('comments'), use('downloads')]);
     Ext.sample = sample; Ext.tts = tts; Ext.comments = comments; Ext.downloads = downloads;
     if (tts && typeof tts.onState === 'function') {
-      try { tts.onState(({ state }) => { ttsOn = state === 'speaking' || state === 'paused'; paintListen(); }); } catch (e) { /* ignore */ }
+      try { tts.onState(({ state }) => { ttsOn = !!reading || state === 'speaking' || state === 'paused'; paintListen(); }); } catch (e) { /* ignore */ }
     }
     paintListen(); paintDownloads();
   }
@@ -334,7 +334,7 @@
     const PATH = MODS.filter((m) => !m.extra), EXTRAS = MODS.filter((m) => m.extra);
     const lineHTML = (m) => `<section class="line${m.extra ? ' extra' : ''}" style="${lineVars(m.line)}" aria-label="${esc(tx(m.title))}">
         <a class="line-head${artSrc(m) ? ' has-art' : ''}" href="#${m.id}">
-          <span class="linebadge">${badge(m)}</span>
+          <span class="linebadge"><span class="num">${badge(m)}</span></span>
           <span class="lh-text"><span class="eyebrow">${esc(lineName(m))}</span><h2>${esc(tx(m.title))}</h2><span class="sub">${esc(tx(m.subtitle))}</span>
           <span class="meta tnum"><span class="bar"><i style="width:${pctDone(m)}%"></i></span>${doneCount(m)}/${m.lessons.length} · ${Math.round(minutes(m) / 6) / 10} ${esc(t('hours'))}</span></span>
           ${lineArt(m, 'line-thumb')}
@@ -346,7 +346,7 @@
       const nxt = PATH[i + 1];
       return `<section class="line" style="${lineVars(m.line)}" aria-label="${esc(tx(m.title))}">
         <a class="line-head${artSrc(m) ? ' has-art' : ''}" href="#${m.id}">
-          <span class="linebadge">${badge(m)}</span>
+          <span class="linebadge"><span class="num">${badge(m)}</span></span>
           <span class="lh-text"><span class="eyebrow">${esc(lineName(m))}</span><h2>${esc(tx(m.title))}</h2><span class="sub">${esc(tx(m.subtitle))}</span>
           <span class="meta tnum"><span class="bar"><i style="width:${pctDone(m)}%"></i></span>${doneCount(m)}/${m.lessons.length} · ${Math.round(minutes(m) / 6) / 10} ${esc(t('hours'))}</span></span>
           ${lineArt(m, 'line-thumb')}
@@ -390,7 +390,7 @@
     return `<div class="view" style="${lineVars(m.line)}">
       <section class="mod-hero${artSrc(m) ? ' has-art' : ''}">
         ${lineArt(m, 'line-art')}
-        <div class="row"><span class="linebadge">${badge(m)}</span><span class="eyebrow">${esc(lineName(m))} · ${m.lessons.length} ${esc(t('lessons'))} · ${Math.round(minutes(m) / 6) / 10} ${esc(t('hours'))}</span></div>
+        <div class="row"><span class="linebadge"><span class="num">${badge(m)}</span></span><span class="eyebrow">${esc(lineName(m))} · ${m.lessons.length} ${esc(t('lessons'))} · ${Math.round(minutes(m) / 6) / 10} ${esc(t('hours'))}</span></div>
         <h1>${esc(tx(m.title))}</h1>
         <p class="lead">${md(tx(m.intro || m.subtitle))}</p>
         <div><b>${esc(t('youWillBeAble'))}</b><ul class="outcomes">${(tx(m.outcomes) || []).map((o) => `<li>${md(o)}</li>`).join('')}</ul></div>
@@ -480,12 +480,14 @@
       <header class="lesson-head">
         ${m.extra ? `<p class="opt-tag">${icon('spark')}<span><b>${esc(t('extrasName'))}</b> · ${esc(t('extraNote'))}</span></p>` : ''}
         ${l.optional ? `<p class="opt-tag">${icon('flag')}<span><b>${esc(t('optional'))}</b> · ${esc(t('optionalNote'))}</span></p>` : ''}
-        <div class="crumbs"><span class="linebadge">${badge(m)}</span><a href="#${m.id}">${esc(tx(m.title))}</a><span aria-hidden="true">·</span><span class="tnum">${esc(t('lessonXofY', { x: l.idx + 1, y: m.lessons.length }))}</span></div>
+        <div class="crumbs"><span class="linebadge"><span class="num">${badge(m)}</span></span><a href="#${m.id}">${esc(tx(m.title))}</a><span aria-hidden="true">·</span><span class="tnum">${esc(t('lessonXofY', { x: l.idx + 1, y: m.lessons.length }))}</span></div>
         <h1>${esc(tx(l.title))}</h1>
         <div class="row"><span class="chip">${icon('clock').replace('<svg', '<svg style="width:14px;height:14px"')}${l.minutes || 5} ${esc(t('min'))}</span>${(l.domains || []).map((d) => DOM[d] ? `<span class="chip dom" title="${esc(t('examDomain'))}">${esc(t('domainShort', { n: d.slice(1) }))} · ${esc(tx(DOM[d].short || DOM[d]))}</span>` : '').join('')}${done ? `<span class="chip" style="background:var(--good-soft);color:var(--good)">${icon('check').replace('<svg', '<svg style="width:14px;height:14px"')}${esc(t('completed'))}</span>` : ''}</div>
         <div class="lesson-tools">
           <button type="button" class="btn" id="markBtn" aria-pressed="${marked}">${icon(marked ? 'bookmarkOn' : 'bookmark')}<span>${esc(t('bookmarkHere'))}</span></button>
           <button type="button" class="btn" id="listenBtn" hidden>${icon('speaker')}<span>${esc(t('listen'))}</span></button>
+          <button type="button" class="btn" id="tocBtn">${icon('toc')}<span>${esc(t('contents'))}</span></button>
+          <button type="button" class="btn ask" id="askBtn">${icon('ask')}<span>${esc(t('askClaude'))}</span></button>
           <a class="btn" href="#notebook">${icon('book')}<span>${esc(t('myNotebook'))}</span></a>
         </div>
       </header>
@@ -579,18 +581,50 @@
     b.hidden = !Ext.tts;
     b.innerHTML = icon(ttsOn ? 'stop' : 'speaker') + `<span>${esc(ttsOn ? t('stopListening') : t('listen'))}</span>`;
   }
-  function stopTTS() { if (Ext.tts && ttsOn) { try { Ext.tts.stop(); } catch (e) { /* ignore */ } } ttsOn = false; }
+  function stopTTS() { const was = ttsOn; reading = 0; ttsOn = false; markReading(null); if (Ext.tts && was) { try { Ext.tts.stop(); } catch (e) { /* ignore */ } } }
+  // What "Listen" reads: one entry per block, so there can be a pause between blocks.
+  // b is the block index (data-b); -1 is the title and summary. head marks headings (longer pause after).
   function lessonSpeech(l) {
-    const out = [];
-    out.push(tx(l.title));
-    const tl = tx(l.tldr); if (tl) out.push(stripMd(tl));
+    const out = [{ text: tx(l.title), b: -1, head: true }];
+    const tl = tx(l.tldr); if (tl) out.push({ text: stripMd(tl), b: -1 });
     l.blocks.forEach((b, i) => {
       if (['p', 'h', 'h3', 'list', 'steps', 'callout', 'key', 'quote'].indexOf(b.t) < 0) return;
-      const s = stripMd(blockText(l, i)); if (s) out.push(s);
+      const s = stripMd(blockText(l, i)); if (s) out.push({ text: s, b: i, head: b.t === 'h' || b.t === 'h3' });
     });
     const lines = [];
-    out.forEach((s) => { while (s.length > 1800) { const cut = s.lastIndexOf('. ', 1800); const k = cut > 200 ? cut + 1 : 1800; lines.push(s.slice(0, k)); s = s.slice(k); } if (s.trim()) lines.push(s); });
+    out.forEach((o) => {
+      let s = o.text;
+      while (s.length > 1800) { const cut = s.lastIndexOf('. ', 1800); const k = cut > 200 ? cut + 1 : 1800; lines.push({ text: s.slice(0, k), b: o.b }); s = s.slice(k); }
+      if (s.trim()) lines.push({ text: s, b: o.b, head: o.head });
+    });
     return lines;
+  }
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  let reading = 0; // id of the reading in progress, 0 when idle
+  function markReading(b) {
+    $$('.reading').forEach((el) => el.classList.remove('reading'));
+    if (b == null) return;
+    const el = b < 0 ? $('.tldr') || $('.lesson-head h1') : $(`.content [data-b="${b}"]`);
+    if (!el) return;
+    el.classList.add('reading');
+    const r = el.getBoundingClientRect();
+    if (r.top < 80 || r.bottom > window.innerHeight - 120) window.scrollTo({ top: Math.max(0, r.top + window.scrollY - 110), behavior: 'smooth' });
+  }
+  async function readLesson(l) {
+    const id = ++reading; ttsOn = true; paintListen();
+    try {
+      const lines = lessonSpeech(l);
+      for (let i = 0; i < lines.length; i++) {
+        if (reading !== id) break;
+        markReading(lines[i].b);
+        await Ext.tts.speak(lines[i].text, { language: L });
+        if (reading !== id) break;
+        // a breath between parts; a longer one after a heading or when the next part is a heading
+        const next = lines[i + 1];
+        if (next) await sleep(lines[i].head || next.head ? 1100 : 650);
+      }
+    } catch (e) { if (e && e.code === 'not_granted') { Ext.tts = null; } }
+    if (reading === id) { reading = 0; ttsOn = false; markReading(null); paintListen(); }
   }
 
   const MOUNT = {};
@@ -660,11 +694,10 @@
     $('#listenBtn').addEventListener('click', async () => {
       if (!Ext.tts) return;
       if (ttsOn) { stopTTS(); paintListen(); return; }
-      ttsOn = true; paintListen();
-      try { await Ext.tts.speak(lessonSpeech(l).map((text) => ({ text })), { language: L }); }
-      catch (e) { if (e && e.code === 'not_granted') { Ext.tts = null; } }
-      ttsOn = false; paintListen();
+      readLesson(l);
     });
+    $('#tocBtn').addEventListener('click', () => openToc(l));
+    $('#askBtn').addEventListener('click', () => openAsk(l));
     const ta = $('#lessonNote');
     const saveNote = debounce(() => { S.notes[l.id] = { text: ta.value, at: Date.now() }; persist(); $('#noteHint').textContent = t('savedJustNow'); }, 600);
     ta.addEventListener('input', () => { $('#noteHint').textContent = t('saving'); saveNote(); });
@@ -818,8 +851,109 @@
     if (mount) mount(sh);
     const f = $('textarea, input, button', sh); if (f) setTimeout(() => f.focus(), 30);
   }
-  function closeSheet() { const r = $('#sheetRoot'); if (r) r.innerHTML = ''; }
+  function closeSheet() { if (askAbort) { try { askAbort.abort(); } catch (e) { /* ignore */ } askAbort = null; } const r = $('#sheetRoot'); if (r) r.innerHTML = ''; }
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeSheet(); hideSelbar(); } });
+
+  /* Contents: jump to any part of the lesson */
+  function openToc(l) {
+    const items = [];
+    if (tx(l.tldr)) items.push({ sel: '.tldr', label: t('inShort'), top: true });
+    l.blocks.forEach((b, i) => {
+      if (b.t === 'h') items.push({ sel: `.content [data-b="${i}"]`, label: stripMd(tx(b)), top: true });
+      else if (b.t === 'h3') items.push({ sel: `.content [data-b="${i}"]`, label: stripMd(tx(b)) });
+      else if (b.t === 'widget' && b.cfg && b.cfg.title) items.push({ sel: `.content [data-b="${i}"]`, label: stripMd(tx(b.cfg.title)), ic: 'play' });
+      else if (b.t === 'key') items.push({ sel: `.content [data-b="${i}"]`, label: t('keyIdea'), ic: 'star' });
+    });
+    if ((l.check || []).length) items.push({ sel: `section[aria-label="${t('quickCheck')}"]`, label: t('quickCheck'), top: true, ic: 'check' });
+    items.push({ sel: '#lessonNote', label: t('myNotesTitle'), top: true, ic: 'note' });
+    openSheet(`<h3>${esc(t('contents'))}</h3><p class="sheet-sub">${esc(tx(l.title))}</p>
+      <nav class="toc">${items.map((it, i) => `<button type="button" class="${it.top ? 'top' : 'sub'}" data-toc="${i}">${it.ic ? icon(it.ic) : '<i></i>'}<span>${esc(it.label)}</span></button>`).join('')}</nav>`, (sh) => {
+      $$('[data-toc]', sh).forEach((b) => b.addEventListener('click', () => {
+        const el = $(items[+b.dataset.toc].sel); closeSheet();
+        if (el) { scrollToEl(el); el.classList.add('flash'); setTimeout(() => el.classList.remove('flash'), 1600); }
+      }));
+    });
+  }
+
+  /* Ask Claude: a small chat about the open lesson. It runs on the reader's own Claude account. */
+  const askLog = {}; // lesson id -> [{role, content}] (kept until the page is closed)
+  let askAbort = null;
+  function lessonPlain(l) {
+    const parts = [tx(l.title), stripMd(tx(l.tldr) || '')];
+    l.blocks.forEach((b, i) => { const s = stripMd(blockText(l, i)); if (s) parts.push(s); });
+    return parts.join('\n').slice(0, 9000);
+  }
+  function askSystem(l) {
+    const he = L === 'he';
+    return 'You are a patient tutor inside a beginner course about Claude and AI called "Claude Trainer". ' +
+      'The learner is reading the lesson below and asks you about it. Answer in ' + (he ? 'simple, everyday Hebrew (keep product names and technical terms in English)' : 'plain English (short sentences; the learner may not be a native speaker)') + '. ' +
+      'Keep answers short: at most about 120 words unless asked for more. Use one concrete everyday example when it helps. ' +
+      'If the answer is not in the lesson, use general knowledge and say so; if you are not sure, say you are not sure. Do not invent product facts or prices. ' +
+      'Light Markdown only: **bold**, lists. No headings, no tables.\n\n<lesson>\n' + lessonPlain(l) + '\n</lesson>';
+  }
+  // Chat answers: paragraphs and simple lists (the course's md() handles the inline part).
+  function mdBlock(src) {
+    const out = []; let list = null;
+    const flush = () => { if (list) { out.push(`<${list.tag}>${list.items.map((x) => `<li>${md(x)}</li>`).join('')}</${list.tag}>`); list = null; } };
+    String(src || '').split(/\n/).forEach((ln) => {
+      const m = ln.match(/^\s*(?:([-*•])|(\d+)[.)])\s+(.*)$/);
+      if (m) { const tag = m[1] ? 'ul' : 'ol'; if (!list || list.tag !== tag) { flush(); list = { tag, items: [] }; } list.items.push(m[3]); return; }
+      flush();
+      if (ln.trim()) out.push(`<p>${md(ln.replace(/^#+\s*/, ''))}</p>`);
+    });
+    flush();
+    return out.join('');
+  }
+  function openAsk(l, seed) {
+    const log = askLog[l.id] || (askLog[l.id] = []);
+    const chips = ['askChip1', 'askChip2', 'askChip3', 'askChip4'];
+    const has = !!Ext.sample;
+    const bubble = (m) => `<div class="msg ${m.role === 'user' ? 'me' : 'ai fmt'}">${m.role === 'user' ? esc(m.content) : mdBlock(m.content)}</div>`;
+    openSheet(`<div class="ask-head"><h3>${icon('ask')}<span>${esc(t('askClaude'))}</span></h3><button type="button" class="iconbtn" data-close aria-label="${esc(t('close'))}">${icon('x')}</button></div>
+      <p class="sheet-sub">${esc(has ? t('askIntro') : t('askNoChat'))}</p>
+      <div class="ask-log" id="askLogBox" aria-live="polite">${log.map(bubble).join('')}</div>
+      <div class="ask-chips">${chips.map((k) => `<button type="button" class="chip-btn" data-q="${esc(t(k))}">${esc(t(k))}</button>`).join('')}</div>
+      <form class="ask-form" id="askForm"><textarea id="askInput" rows="1" dir="auto" placeholder="${esc(t('askPh'))}">${esc(seed || '')}</textarea><button type="submit" class="btn primary send" aria-label="${esc(t('askSend'))}">${icon('send')}</button></form>`, (sh) => {
+      sh.classList.add('ask-sheet');
+      const box = $('#askLogBox', sh), input = $('#askInput', sh);
+      const down = () => { box.scrollTop = box.scrollHeight; };
+      down();
+      const grow = () => { input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight, 120) + 'px'; };
+      input.addEventListener('input', grow);
+      input.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); $('#askForm', sh).requestSubmit(); } });
+      let busy = false;
+      async function send(q) {
+        q = (q || '').trim(); if (!q || busy) return;
+        if (!Ext.sample) { // outside claude.ai: open the question in Claude instead
+          const url = 'https://claude.ai/new?q=' + encodeURIComponent(t('askOpenPrefix', { title: tx(l.title) }) + '\n\n' + q);
+          window.open(url, '_blank', 'noopener'); return;
+        }
+        busy = true; input.value = ''; grow();
+        log.push({ role: 'user', content: q });
+        box.insertAdjacentHTML('beforeend', bubble({ role: 'user', content: q }) + `<div class="msg ai pending"><span class="dots"><i></i><i></i><i></i></span></div>`);
+        const out = box.lastElementChild; down();
+        // The model has no memory: send the lesson and the whole short conversation every time.
+        const turns = log.slice(-8).map((m) => ({ role: m.role, content: m.content }));
+        turns[0] = { role: 'user', content: askSystem(l) + '\n\nQuestion: ' + turns[0].content };
+        askAbort = new AbortController();
+        let answer = '';
+        try {
+          const res = await Ext.sample(turns, { cache: false, signal: askAbort.signal, onText: ({ text }) => { answer = text; out.classList.remove('pending'); out.textContent = text; down(); } });
+          answer = (res && res.text) || answer;
+          out.classList.remove('pending'); out.classList.add('fmt'); out.innerHTML = mdBlock(answer); log.push({ role: 'assistant', content: answer });
+        } catch (e) {
+          log.pop();
+          if (e && e.code === 'not_granted') Ext.sample = null;
+          out.classList.remove('pending'); out.classList.add('err');
+          out.textContent = e && e.code === 'rate_limited' ? t('askBusy') : t('askFail');
+        }
+        busy = false; down();
+      }
+      $('#askForm', sh).addEventListener('submit', (e) => { e.preventDefault(); send(input.value); });
+      $$('[data-q]', sh).forEach((b) => b.addEventListener('click', () => send(b.dataset.q)));
+      if (seed) grow();
+    });
+  }
 
   function openHlSheet(id) {
     const h = S.hl.find((x) => x.id === id); if (!h) return;
@@ -942,7 +1076,7 @@
     if (ids.length < n) { const rest = shuffle(bank.map((q) => q.id).filter((id) => ids.indexOf(id) < 0)); ids = ids.concat(rest.slice(0, n - ids.length)); }
     return shuffle(ids);
   }
-  // Start an exam mode from the Exam tab or from a lesson widget. An exam already in progress is resumed instead.
+  // Start an exam mode from the exam page or from a lesson widget. An exam already in progress is resumed instead.
   function startMode(m) {
     if (S.draft && S.draft.back === 'exam' && (m === 'full' || m === 'quick')) { examView = 'run'; go('exam'); toast(t('resumingExam')); return; }
     if (m === 'full') startRun({ mode: 'full', title: t('modeFull'), qids: pickExam(60), limit: 120 * 60000 });
@@ -1148,7 +1282,7 @@
     const nxt = MODS[MODS.indexOf(m) + 1];
     const draftHere = S.draft && S.draft.back === m.id + '-quiz';
     return `<div class="view" style="${lineVars(m.line)}">
-      <section class="mod-hero"><div class="row"><span class="linebadge">${m.n}</span><span class="eyebrow">${esc(t('lineQuiz'))}</span></div><h1>${esc(t('lineQuizTitle', { n: m.n }))}</h1><p class="lead">${esc(t('lineQuizIntro', { n: qs.length }))}</p>
+      <section class="mod-hero"><div class="row"><span class="linebadge"><span class="num">${m.n}</span></span><span class="eyebrow">${esc(t('lineQuiz'))}</span></div><h1>${esc(t('lineQuizTitle', { n: m.n }))}</h1><p class="lead">${esc(t('lineQuizIntro', { n: qs.length }))}</p>
       ${last ? `<p><b class="tnum">${esc(t('lastScore', { pct: Math.round(last.ok / last.of * 100) }))}</b></p>` : ''}
       <div class="row"><button type="button" class="btn primary" id="mqStart">${icon('play')}${esc(draftHere ? t('resume') : t('startQuiz'))}</button></div></section>
       <div class="pager">${`<a href="#${m.id}"><span>${esc(t('backToLine'))}</span><b>${esc(tx(m.title))}</b></a>`}${nxt ? `<a class="next" href="#${nxt.id}"><span>${esc(t('nextLine'))}</span><b>${esc(tx(nxt.title))}</b></a>` : `<a class="next" href="#exam"><span>${esc(t('terminus'))}</span><b>${esc(t('examStation'))}</b></a>`}</div>
