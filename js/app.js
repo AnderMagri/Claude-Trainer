@@ -159,6 +159,7 @@
     Ext.sample = sample; Ext.tts = tts; Ext.comments = comments; Ext.downloads = downloads;
     if (tts && typeof tts.onState === 'function') {
       try { tts.onState(({ state }) => { ttsOn = !!reading || state === 'speaking' || state === 'paused'; paintListen(); }); } catch (e) { /* ignore */ }
+      if (typeof tts.onLine === 'function') { try { tts.onLine(onReadLine); } catch (e) { /* ignore */ } }
     }
     paintListen(); paintDownloads();
   }
@@ -611,21 +612,38 @@
     const r = el.getBoundingClientRect();
     if (r.top < 80 || r.bottom > window.innerHeight - 120) window.scrollTo({ top: Math.max(0, r.top + window.scrollY - 110), behavior: 'smooth' });
   }
+  // One reading for the whole lesson (one start, so the platform's limit on starts is not hit).
+  // The pause between parts is made by holding the reading for a moment each time a new part begins.
+  let readLines = [];
+  function onReadLine(e) {
+    if (!reading) return;
+    const k = e && e.id != null ? +e.id : (e && typeof e.line === 'number' ? e.line : -1);
+    const ln = readLines[k]; if (!ln) return;
+    markReading(ln.b);
+    if (k > 0 && Ext.tts.pause && Ext.tts.resume) {
+      const id = reading, prev = readLines[k - 1];
+      try { Ext.tts.pause(); } catch (err) { return; }
+      setTimeout(() => { if (reading === id) { try { Ext.tts.resume(); } catch (err) { /* ignore */ } } }, ln.head || (prev && prev.head) ? 900 : 550);
+    }
+  }
   async function readLesson(l) {
     const id = ++reading; ttsOn = true; paintListen();
+    let why = '';
     try {
-      const lines = lessonSpeech(l);
-      for (let i = 0; i < lines.length; i++) {
-        if (reading !== id) break;
-        markReading(lines[i].b);
-        await Ext.tts.speak(lines[i].text, { language: L });
-        if (reading !== id) break;
-        // a breath between parts; a longer one after a heading or when the next part is a heading
-        const next = lines[i + 1];
-        if (next) await sleep(lines[i].head || next.head ? 1100 : 650);
-      }
-    } catch (e) { if (e && e.code === 'not_granted') { Ext.tts = null; } }
-    if (reading === id) { reading = 0; ttsOn = false; markReading(null); paintListen(); }
+      readLines = lessonSpeech(l);
+      const lines = readLines.map((x, k) => ({ text: x.text, id: String(k) }));
+      markReading(readLines[0].b);
+      const first = Ext.tts.speak(lines.slice(0, 100), { language: L });
+      const rest = [];
+      for (let k = 100; k < lines.length; k += 100) rest.push(Ext.tts.add(lines.slice(k, k + 100), { language: L }));
+      await Promise.all([first].concat(rest));
+    } catch (e) {
+      const code = e && e.code, reason = e && e.reason;
+      if (code === 'not_granted' || code === 'unavailable') Ext.tts = null;
+      if (code === 'rate_limited' || reason === 'rate_limited') why = t('ttsLimit');
+      else if (code === 'upstream_error' || reason === 'upstream_error' || code === 'busy' || code === 'no_gesture') why = t('ttsFail');
+    }
+    if (reading === id) { reading = 0; ttsOn = false; markReading(null); paintListen(); if (why) toast(why); }
   }
 
   const MOUNT = {};
