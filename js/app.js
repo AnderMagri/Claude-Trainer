@@ -202,9 +202,17 @@
   function route() {
     stopTTS(); hideSelbar(); closeSheet();
     leaveExam();
+    const side = { notebook: 1, glossary: 1, prefs: 1 };
+    const was = cur, wasHash = lastHash;
     cur = parseHash();
+    lastHash = location.hash.slice(1) || 'home';
+    // remember where the reader was when they open Notebook, Words or Settings, so Back returns there
+    if (side[cur.view] && was && !side[was.view] && !side[wasHash]) ret = { hash: wasHash, y: window.scrollY };
+    const y = pendingY; pendingY = null;
     render();
+    if (y != null) { window.scrollTo(0, y); setTimeout(() => window.scrollTo(0, y), 60); }
   }
+  let lastHash = (location.hash.slice(1) || 'home'), ret = null, pendingY = null;
 
   /* -------------------------------------------------------------- chrome */
   function paintChrome() {
@@ -222,7 +230,7 @@
     back.hidden = !parent;
     back.innerHTML = icon('back', 'flip');
     back.setAttribute('aria-label', t('back'));
-    back.onclick = () => { if (parent) go(parent); };
+    back.onclick = () => { if (!parent) return; if (ret && parent === ret.hash && { notebook: 1, glossary: 1, prefs: 1 }[cur.view]) { pendingY = ret.y; ret = null; } go(parent); };
     const accentLine = cur.view === 'lesson' ? LBY[cur.arg].mod.line : (cur.view === 'module' || cur.view === 'mquiz') ? MBY[cur.arg].line : cur.view === 'exam' ? 'lx' : 'l2';
     const rs = document.documentElement.style;
     rs.setProperty('--accent', `var(--${accentLine})`); rs.setProperty('--accent-ink', `var(--${accentLine}-ink)`); rs.setProperty('--accent-soft', `var(--${accentLine}-soft)`); rs.setProperty('--on-accent', `var(--on-${accentLine})`);
@@ -246,6 +254,7 @@
   }
   function backTarget() {
     switch (cur.view) {
+      case 'notebook': case 'glossary': case 'prefs': return ret && ret.hash !== 'home' ? ret.hash : (ret ? 'home' : null);
       case 'lesson': return LBY[cur.arg].mod.id;
       case 'module': return 'home';
       case 'mquiz': return cur.arg;
@@ -330,14 +339,14 @@
     let cont = '';
     if (target) {
       const started = !!(last && last.id === target.id);
-      cont = `<div class="card continue" style="${lineVars(target.mod.line)}">
-        <span class="eyebrow">${esc(started ? t('continueWhere') : (done ? t('nextUp') : t('startHere')))}</span>
-        <h3>${esc(tx(target.title))}</h3>
-        <p class="muted">${esc(lessonLabel(target))} · ${target.minutes || 5} ${esc(t('min'))}</p>
-        <div class="row"><a class="btn primary" href="#${target.id}" data-resume="${started ? 1 : 0}">${icon('play')}${esc(started ? t('resume') : t('start'))}</a></div>
-      </div>`;
+      cont = `<a class="continue" href="#${target.id}" data-resume="${started ? 1 : 0}" style="${lineVars(target.mod.line)}">
+        <span class="c-text"><span class="c-meta">${esc(started ? t('continueWhere') : (done ? t('nextUp') : t('startHere')))}</span>
+        <span class="c-title">${esc(tx(target.title))}</span>
+        <span class="c-sub">${esc(lessonLabel(target))} · ${target.minutes || 5} ${esc(t('min'))}</span></span>
+        <span class="c-go" aria-hidden="true">${icon('next', 'flip')}</span>
+      </a>`;
     } else {
-      cont = `<div class="card continue" style="${lineVars('lx')}"><span class="eyebrow">${esc(t('allDone'))}</span><h3>${esc(t('allDoneTitle'))}</h3><div class="row"><a class="btn primary" href="#exam">${icon('exam')}${esc(t('takeExam'))}</a><a class="btn" href="#finish">${icon('award')}${esc(t('seeCompletion'))}</a></div></div>`;
+      cont = `<div class="card alldone" style="${lineVars('lx')}"><span class="eyebrow">${esc(t('allDone'))}</span><h3>${esc(t('allDoneTitle'))}</h3><div class="row"><a class="btn primary" href="#exam">${icon('exam')}${esc(t('takeExam'))}</a><a class="btn" href="#finish">${icon('award')}${esc(t('seeCompletion'))}</a></div></div>`;
     }
     const PATH = MODS.filter((m) => !m.extra), EXTRAS = MODS.filter((m) => m.extra);
     const lineHTML = (m) => `<section class="topic-group" style="${lineVars(m.line)}" aria-label="${esc(tx(m.title))}">
