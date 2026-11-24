@@ -2,7 +2,7 @@
    Figma + MCP, Paper and Orca, reviewing AI-made design, and a brand workshop.
    Tool facts checked in November 2026. Design tools change fast: verify before teaching a client. */
 CT.modules.push({
-  id: 'm4', n: 5,
+  id: 'm4', n: 5, optional: true,
   title: { en: 'Design with Claude', he: 'עיצוב עם Claude' },
   subtitle: { en: 'Design systems, tokens, Figma, Paper, Orca and MCP', he: 'מערכות עיצוב, טוקנים, Figma, ‏Paper, ‏Orca ו-MCP' },
   intro: {

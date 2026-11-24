@@ -34,6 +34,7 @@
   const lineArt = (m, cls) => { const src = artSrc(m); return src ? `<img class="${cls}" src="${src}" alt=""${cls === 'line-thumb' ? ' loading="lazy"' : ''}>` : ''; };
   const lineVars = (line) => `--c:var(--${line});--ci:var(--${line}-ink);--cs:var(--${line}-soft);--on-c:var(--on-${line});--accent:var(--${line});--accent-ink:var(--${line}-ink);--accent-soft:var(--${line}-soft);--on-accent:var(--on-${line})`;
   const MODS = CT.modules.slice().sort((a, b) => a.n - b.n);
+  MODS.forEach((m) => { if (m.optional) m.lessons.forEach((l) => { l.optional = true; }); }); // an optional line makes every lesson in it optional
   const MBY = {}; const LESSONS = []; const LBY = {};
   MODS.forEach((m) => {
     MBY[m.id] = m; m.line = LINE[m.id] || 'l1';
@@ -304,13 +305,18 @@
   function openAt(lessonId, j) { pendingJump = j; go(lessonId); }
 
   /* --------------------------------------------------------------- HOME */
+  // Extras are not part of the metro map: a plain list of topics.
+  function topicsHTML(m) {
+    return `<ul class="topics">${m.lessons.map((l) => `<li class="${S.done[l.id] ? 'done' : ''}"><a href="#${l.id}"><span class="t-dot">${S.done[l.id] ? icon('check') : ''}</span><span class="st-title">${esc(tx(l.title))}</span><span class="st-meta">${l.minutes || 5} ${esc(t('min'))}</span></a></li>`).join('')}</ul>`;
+  }
   function stationsHTML(m, curId) {
+    if (m.extra) return topicsHTML(m);
     return `<ol class="stations">${m.lessons.map((l) => {
       const done = !!S.done[l.id]; const isCur = l.id === curId;
       const marked = S.marks.some((k) => k.lesson === l.id);
       return `<li class="station${done ? ' done' : ''}${isCur ? ' current' : ''}">
         <div class="track"><span class="stop">${done ? icon('check') : ''}</span></div>
-        <a href="#${l.id}"><span class="st-title">${esc(tx(l.title))}${marked ? ` <span class="st-flag" title="${esc(t('bookmarked'))}">${icon('bookmarkOn')}</span>` : ''}</span><span class="st-meta">${l.optional ? `<span class="st-opt">${esc(t('optional'))}</span> · ` : ''}${l.minutes || 5} ${esc(t('min'))}</span></a>
+        <a href="#${l.id}"><span class="st-title">${esc(tx(l.title))}${marked ? ` <span class="st-flag" title="${esc(t('bookmarked'))}">${icon('bookmarkOn')}</span>` : ''}</span><span class="st-meta">${l.optional && !m.optional ? `<span class="st-opt">${esc(t('optional'))}</span> · ` : ''}${l.minutes || 5} ${esc(t('min'))}</span></a>
       </li>`;
     }).join('')}</ol>`;
   }
@@ -334,22 +340,20 @@
       cont = `<div class="card continue" style="${lineVars('lx')}"><span class="eyebrow">${esc(t('allDone'))}</span><h3>${esc(t('allDoneTitle'))}</h3><div class="row"><a class="btn primary" href="#exam">${icon('exam')}${esc(t('takeExam'))}</a><a class="btn" href="#finish">${icon('award')}${esc(t('seeCompletion'))}</a></div></div>`;
     }
     const PATH = MODS.filter((m) => !m.extra), EXTRAS = MODS.filter((m) => m.extra);
-    const lineHTML = (m) => `<section class="line${m.extra ? ' extra' : ''}" style="${lineVars(m.line)}" aria-label="${esc(tx(m.title))}">
-        <a class="line-head${artSrc(m) ? ' has-art' : ''}" href="#${m.id}">
-          <span class="linebadge"><span class="num">${badge(m)}</span></span>
-          <span class="lh-text"><span class="eyebrow">${esc(lineName(m))}</span><h2>${esc(tx(m.title))}</h2><span class="sub">${esc(tx(m.subtitle))}</span>
-          <span class="meta tnum"><span class="bar"><i style="width:${pctDone(m)}%"></i></span>${doneCount(m)}/${m.lessons.length} · ${Math.round(minutes(m) / 6) / 10} ${esc(t('hours'))}</span></span>
+    const lineHTML = (m) => `<section class="topic-group" style="${lineVars(m.line)}" aria-label="${esc(tx(m.title))}">
+        <a class="topic-head" href="#${m.id}">
+          <span class="lh-text"><span class="eyebrow">${esc(lineName(m))}</span><h2>${esc(tx(m.title))}</h2><span class="sub">${esc(tx(m.subtitle))}</span></span>
           ${lineArt(m, 'line-thumb')}
         </a>
-        ${stationsHTML(m, curId)}
+        ${topicsHTML(m)}
       </section>`;
-    const extras = EXTRAS.length ? `<div class="extras-head"><p class="muted">${esc(t('extrasMapNote'))}</p></div><div class="map">${EXTRAS.map(lineHTML).join('')}</div>` : '';
+    const extras = EXTRAS.length ? `<div class="extras-head"><p class="muted">${esc(t('extrasMapNote'))}</p></div>${EXTRAS.map(lineHTML).join('')}` : '';
     const lines = PATH.map((m, i) => {
       const nxt = PATH[i + 1];
       return `<section class="line" style="${lineVars(m.line)}" aria-label="${esc(tx(m.title))}">
         <a class="line-head${artSrc(m) ? ' has-art' : ''}" href="#${m.id}">
           <span class="linebadge"><span class="num">${badge(m)}</span></span>
-          <span class="lh-text"><span class="eyebrow">${esc(lineName(m))}</span><h2>${esc(tx(m.title))}</h2><span class="sub">${esc(tx(m.subtitle))}</span>
+          <span class="lh-text"><span class="eyebrow">${esc(lineName(m))}${m.optional ? ` <span class="st-opt">${esc(t('optional'))}</span>` : ''}</span><h2>${esc(tx(m.title))}</h2><span class="sub">${esc(tx(m.subtitle))}</span>
           <span class="meta tnum"><span class="bar"><i style="width:${pctDone(m)}%"></i></span>${doneCount(m)}/${m.lessons.length} · ${Math.round(minutes(m) / 6) / 10} ${esc(t('hours'))}</span></span>
           ${lineArt(m, 'line-thumb')}
         </a>
@@ -394,6 +398,7 @@
         ${lineArt(m, 'line-art')}
         <div class="row"><span class="linebadge"><span class="num">${badge(m)}</span></span><span class="eyebrow">${esc(lineName(m))} · ${m.lessons.length} ${esc(t('lessons'))} · ${Math.round(minutes(m) / 6) / 10} ${esc(t('hours'))}</span></div>
         <h1>${esc(tx(m.title))}</h1>
+        ${m.optional ? `<p class="opt-tag">${icon('flag')}<span><b>${esc(t('optional'))}</b> · ${esc(t('optionalLine'))}</span></p>` : ''}
         <p class="lead">${md(tx(m.intro || m.subtitle))}</p>
         <div><b>${esc(t('youWillBeAble'))}</b><ul class="outcomes">${(tx(m.outcomes) || []).map((o) => `<li>${md(o)}</li>`).join('')}</ul></div>
         <div class="meta tnum spread"><span class="bar" style="flex:1"><i style="width:${pctDone(m)}%"></i></span><span>${doneCount(m)}/${m.lessons.length}</span></div>

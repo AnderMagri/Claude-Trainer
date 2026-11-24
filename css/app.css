@@ -594,3 +594,19 @@ label.btn { cursor: pointer; }
 .msg.fmt { white-space: normal; display: grid; gap: 8px; }
 .msg.fmt p { margin: 0; }
 .msg.fmt ul, .msg.fmt ol { margin: 0; display: grid; gap: 4px; }
+/* Extras on the home page: plain topic lists, no metro track */
+.topic-group { margin-top: 18px; display: grid; gap: 8px; }
+.topic-head { display: grid; grid-template-columns: 1fr 96px; gap: 12px; align-items: center; text-decoration: none; color: var(--ink); }
+.topic-head h2 { font-size: 1.3rem; font-weight: 700; }
+.topic-head .lh-text { display: grid; gap: 3px; min-width: 0; }
+.topic-head .sub { font-size: .92rem; line-height: 1.45; color: var(--ink-2); }
+.topics { list-style: none; margin: 0; padding: 0; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+.topics li + li { border-top: 1px solid var(--rule); }
+.topics a { display: grid; grid-template-columns: 20px 1fr auto; gap: 10px; align-items: center; min-height: 52px; padding: 10px 14px; text-decoration: none; color: var(--ink); }
+.topics a:hover { background: var(--surface-2); }
+.topics .st-title { font-weight: 500; line-height: 1.3; }
+.topics .st-meta { font-size: .78rem; color: var(--ink-3); white-space: nowrap; }
+.topics .t-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rule); justify-self: center; display: grid; place-items: center; }
+.topics li.done .t-dot { width: 20px; height: 20px; background: var(--good-soft); color: var(--good); }
+.topics li.done .t-dot svg { width: 13px; height: 13px; }
+.eyebrow .st-opt { text-transform: none; letter-spacing: 0; margin-inline-start: 6px; vertical-align: 1px; }
