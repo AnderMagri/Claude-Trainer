@@ -362,7 +362,7 @@
       return `<section class="line" style="${lineVars(m.line)}" aria-label="${esc(tx(m.title))}">
         <a class="line-head${artSrc(m) ? ' has-art' : ''}" href="#${m.id}">
           <span class="linebadge"><span class="num">${badge(m)}</span></span>
-          <span class="lh-text"><span class="eyebrow">${esc(lineName(m))}${m.optional ? ` <span class="st-opt">${esc(t('optional'))}</span>` : ''}</span><h2>${esc(tx(m.title))}</h2><span class="sub">${esc(tx(m.subtitle))}</span>
+          <span class="lh-text"><span class="eyebrow">${esc(lineName(m))}${m.optional ? ` <span class="st-opt">${esc(t('optional'))}</span>` : ''}${m.advanced ? ` <span class="st-opt adv">${esc(t('advanced'))}</span>` : ''}</span><h2>${esc(tx(m.title))}</h2><span class="sub">${esc(tx(m.subtitle))}</span>
           <span class="meta tnum"><span class="bar"><i style="width:${pctDone(m)}%"></i></span>${doneCount(m)}/${m.lessons.length} · ${Math.round(minutes(m) / 6) / 10} ${esc(t('hours'))}</span></span>
           ${lineArt(m, 'line-thumb')}
         </a>
@@ -405,7 +405,7 @@
     return `<div class="view" style="${lineVars(m.line)}">
       <section class="mod-hero${artSrc(m) ? ' has-art' : ''}">
         ${lineArt(m, 'line-art')}
-        <div class="row"><span class="linebadge"><span class="num">${badge(m)}</span></span><span class="eyebrow">${esc(lineName(m))} · ${m.lessons.length} ${esc(t('lessons'))} · ${Math.round(minutes(m) / 6) / 10} ${esc(t('hours'))}</span></div>
+        <div class="row"><span class="linebadge"><span class="num">${badge(m)}</span></span><span class="eyebrow">${esc(lineName(m))} · ${m.lessons.length} ${esc(t('lessons'))} · ${Math.round(minutes(m) / 6) / 10} ${esc(t('hours'))}</span>${m.advanced ? `<span class="st-opt adv">${esc(t('advanced'))}</span>` : ''}</div>
         <h1>${esc(tx(m.title))}</h1>
         ${m.optional ? `<p class="opt-tag">${icon('flag')}<span><b>${esc(t('optional'))}</b> · ${esc(t('optionalLine'))}</span></p>` : ''}
         <p class="lead">${md(tx(m.intro || m.subtitle))}</p>

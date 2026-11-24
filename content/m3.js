@@ -1,6 +1,6 @@
 /* Line 3 — FDE basics: terminal, Git, web apps, the Claude API, deployment, trustworthy solutions, capstone. */
 CT.modules.push({
-  id: 'm3', n: 4,
+  id: 'm3', n: 4, advanced: true,
   title: { en: 'FDE basics', he: 'יסודות FDE' },
   subtitle: { en: 'Terminal, Git, web apps, the API and deployment', he: 'טרמינל, Git, אפליקציות רשת, API והעלאה לאוויר' },
   intro: {

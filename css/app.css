@@ -619,3 +619,4 @@ label.btn { cursor: pointer; }
 .topics li.done .t-dot { width: 20px; height: 20px; background: var(--good-soft); color: var(--good); }
 .topics li.done .t-dot svg { width: 13px; height: 13px; }
 .eyebrow .st-opt { text-transform: none; letter-spacing: 0; margin-inline-start: 6px; vertical-align: 1px; }
+.st-opt.adv { border-color: var(--c, var(--accent)); color: var(--ci, var(--accent-ink)); }
