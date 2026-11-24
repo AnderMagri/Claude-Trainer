@@ -15,7 +15,7 @@ CT.domains = [
 
 CT.ui = {
   en: {
-    appName: 'Claude Trainer', optional: 'Optional', optionalNote: 'Advanced extra. You can skip it; it is not needed for the exam.', heroArtAlt: 'A small friendly robot waving hello',
+    appName: 'Claude Trainer', optional: 'Optional', optionalNote: 'Advanced extra. You can skip it; it is not needed for the exam.', heroArtAlt: 'A smiling learner chatting with a small friendly robot',
     extrasName: 'Extras', extraRef: 'Extra {n}', extraNote: 'A real-world build. A bonus: not part of the course path or the exam.', extrasMapNote: 'Bonus stations after the course: real solutions you can build and copy. They do not count toward your progress.', backToMap: 'Back to the journey',
     tabJourney: 'Journey', tabNotebook: 'Notebook', tabExam: 'Exam', tabGlossary: 'Words', tabPrefs: 'Settings', back: 'Back',
     lineN: 'Line {n}', lessonN: 'Lesson {n}', lessonXofY: 'Lesson {x} of {y}', min: 'min', hours: 'h', lessons: 'lessons',

@@ -29,7 +29,8 @@
   const LINE_ART = { m1: 'learn', m2: 'power', m6: 'agents', m3: 'build', m4: 'design', m7: 'work', m5: 'exam', m8: 'extras' };
   // English edition: the robot on its own (assets/stickers/robot/)
   const ROBOT_ART = { m1: 'learn', m2: 'power', m6: 'agents', m3: 'build', m4: 'design', m7: 'work', m5: 'exam', m8: 'maker' };
-  const artSrc = (m) => (L === 'he' ? (LINE_ART[m.id] ? `assets/stickers/lines/${LINE_ART[m.id]}.webp` : '') : (ROBOT_ART[m.id] ? `assets/stickers/robot/${ROBOT_ART[m.id]}.webp` : ''));
+  // Both languages use the character stickers (the robot-only set stays in assets/stickers/robot/).
+  const artSrc = (m) => (LINE_ART[m.id] ? `assets/stickers/lines/${LINE_ART[m.id]}.webp` : '');
   const lineArt = (m, cls) => { const src = artSrc(m); return src ? `<img class="${cls}" src="${src}" alt=""${cls === 'line-thumb' ? ' loading="lazy"' : ''}>` : ''; };
   const lineVars = (line) => `--c:var(--${line});--ci:var(--${line}-ink);--cs:var(--${line}-soft);--on-c:var(--on-${line});--accent:var(--${line});--accent-ink:var(--${line}-ink);--accent-soft:var(--${line}-soft);--on-accent:var(--on-${line})`;
   const MODS = CT.modules.slice().sort((a, b) => a.n - b.n);
@@ -357,7 +358,7 @@
     }).join('');
     return `<div class="view">
       <section class="hero">
-        ${L === 'he' ? `<img class="hero-art" src="assets/stickers/chat-robot.webp" width="720" height="589" alt="${esc(t('heroArtAlt'))}">` : `<img class="hero-art robot" src="assets/stickers/robot/hello.webp" width="527" height="720" alt="${esc(t('heroArtAlt'))}">`}
+        <img class="hero-art" src="assets/stickers/chat-robot.webp" width="720" height="589" alt="${esc(t('heroArtAlt'))}">
         <span class="eyebrow">${esc(t('homeEyebrow'))}</span>
         <h1>${esc(t('homeTitle'))}</h1>
         <p>${md(t('homeIntro'))}</p>
