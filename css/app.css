@@ -621,3 +621,4 @@ label.btn { cursor: pointer; }
 .eyebrow .st-opt { text-transform: none; letter-spacing: 0; margin-inline-start: 6px; vertical-align: 1px; }
 .st-opt.adv { border-color: var(--c, var(--accent)); color: var(--ci, var(--accent-ink)); }
 .topic-head:not(:has(img)) { grid-template-columns: 1fr; }
+.cover { display: block; width: 100%; max-width: 460px; height: auto; border-radius: var(--radius); margin: 0 auto 6px; }

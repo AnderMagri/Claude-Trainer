@@ -373,7 +373,7 @@
     }).join('');
     return `<div class="view">
       <section class="hero">
-        ${SHOW_ART ? `<img class="hero-art" src="assets/stickers/chat-robot.webp" width="720" height="589" alt="${esc(t('heroArtAlt'))}">` : ''}
+        <img class="cover" src="assets/cover.webp" width="1200" height="917" alt="${esc(t('coverAlt'))}">
         <span class="eyebrow">${esc(t('homeEyebrow'))}</span>
         <h1>${esc(t('homeTitle'))}</h1>
         <p>${md(t('homeIntro'))}</p>
