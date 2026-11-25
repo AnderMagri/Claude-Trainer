@@ -194,7 +194,7 @@ Change them in both the light block and the two dark blocks, and keep text contr
 
 ## Accuracy notes
 
-Model names, prices and product features were checked in November 2026. The exam domains and weights come from public
+Model names, prices and product features were checked in November 2026. The redesigned Projects (one conversation with threads, beta since September 2026) and the Ultra plan were added on 25 November 2026 from code.claude.com/docs and support.claude.com. The exam domains and weights come from public
 2026 study guides (Prompting 14%, Output Evaluation 21%, Solution Design 16%, Model Selection 12%, Configuration 12%,
 Responsible Use 15%, Troubleshooting 10%). Check Anthropic's official certification page and docs
 (platform.claude.com/docs) before relying on them.

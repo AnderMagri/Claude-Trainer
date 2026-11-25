@@ -15,7 +15,7 @@ CT.domains = [
 
 CT.ui = {
   en: {
-    appName: 'Claude Trainer', optional: 'Optional', advanced: 'Advanced', optionalLine: 'This whole line is optional. Take it if design is part of your work; otherwise you can skip to the next line.', optionalNote: 'Advanced extra. You can skip it; it is not needed for the exam.', heroArtAlt: 'A smiling learner chatting with a small friendly robot',
+    appName: 'Claude Trainer', optional: 'Optional', advanced: 'Advanced', optionalLine: 'This whole line is optional. Take it if design is part of your work; otherwise you can skip to the next line.', optionalNote: 'Advanced extra. You can skip it; it is not needed for the exam.', coverAlt: 'A friendly robot holding a mug and giving a thumbs up', heroArtAlt: 'A smiling learner chatting with a small friendly robot',
     extrasName: 'Extras', extraRef: 'Extra {n}', extraNote: 'A real-world build. A bonus: not part of the course path or the exam.', extrasMapNote: 'Bonus stations after the course: real solutions you can build and copy. They do not count toward your progress.', backToMap: 'Back to the journey',
     tabJourney: 'Journey', tabNotebook: 'Notebook', tabExam: 'Exam', tabGlossary: 'Words', tabPrefs: 'Settings', back: 'Back',
     lineN: 'Line {n}', lessonN: 'Lesson {n}', lessonXofY: 'Lesson {x} of {y}', min: 'min', hours: 'h', lessons: 'lessons',
@@ -108,7 +108,7 @@ CT.ui = {
     ]
   },
   he: {
-    appName: 'מאמן Claude', optional: 'רשות', advanced: 'מתקדם', optionalLine: 'כל הקו הזה הוא רשות. מתאים למי שעיצוב הוא חלק מהעבודה שלו; אחרת אפשר לדלג לקו הבא.', optionalNote: 'תוכן מתקדם נוסף. אפשר לדלג עליו, הוא לא נדרש למבחן.', heroArtAlt: 'לומדת מחייכת משוחחת עם רובוט קטן וחביב',
+    appName: 'מאמן Claude', optional: 'רשות', advanced: 'מתקדם', optionalLine: 'כל הקו הזה הוא רשות. מתאים למי שעיצוב הוא חלק מהעבודה שלו; אחרת אפשר לדלג לקו הבא.', optionalNote: 'תוכן מתקדם נוסף. אפשר לדלג עליו, הוא לא נדרש למבחן.', coverAlt: 'רובוט חביב מחזיק ספל ומרים אגודל', heroArtAlt: 'לומדת מחייכת משוחחת עם רובוט קטן וחביב',
     extrasName: 'בונוס', extraRef: 'בונוס {n}', extraNote: 'פרויקט מהעולם האמיתי. בונוס: לא חלק ממסלול הקורס ולא נדרש למבחן.', extrasMapNote: 'תחנות בונוס אחרי הקורס: פתרונות אמיתיים שאפשר לבנות ולהעתיק. הן לא נספרות בהתקדמות.', backToMap: 'חזרה למסלול',
     tabJourney: 'המסלול', tabNotebook: 'מחברת', tabExam: 'מבחן', tabGlossary: 'מילון', tabPrefs: 'הגדרות', back: 'חזרה',
     lineN: 'קו {n}', lessonN: 'שיעור {n}', lessonXofY: 'שיעור {x} מתוך {y}', min: 'דק׳', hours: 'שע׳', lessons: 'שיעורים',
