@@ -30,8 +30,9 @@
   // English edition: the robot on its own (assets/stickers/robot/)
   const ROBOT_ART = { m1: 'learn', m2: 'power', m6: 'agents', m3: 'build', m4: 'design', m7: 'work', m5: 'exam', m8: 'maker' };
   // Both languages use the character stickers (the robot-only set stays in assets/stickers/robot/).
-  const SHOW_ART = false; // illustrations are hidden for now; set to true to bring them back
-  const artSrc = (m) => (SHOW_ART && LINE_ART[m.id] ? `assets/stickers/lines/${LINE_ART[m.id]}.webp` : '');
+  // Stickers are hidden by default. A secret switch in Settings (tap the About title 7 times) turns them on.
+  const showArt = () => !!S.stickers;
+  const artSrc = (m) => (showArt() && LINE_ART[m.id] ? `assets/stickers/lines/${LINE_ART[m.id]}.webp` : '');
   const lineArt = (m, cls) => { const src = artSrc(m); return src ? `<img class="${cls}" src="${src}" alt=""${cls === 'line-thumb' ? ' loading="lazy"' : ''}>` : ''; };
   const lineVars = (line) => `--c:var(--${line});--ci:var(--${line}-ink);--cs:var(--${line}-soft);--on-c:var(--on-${line});--accent:var(--${line});--accent-ink:var(--${line}-ink);--accent-soft:var(--${line}-soft);--on-accent:var(--on-${line})`;
   const MODS = CT.modules.slice().sort((a, b) => a.n - b.n);
@@ -236,10 +237,13 @@
     const rs = document.documentElement.style;
     rs.setProperty('--accent', `var(--${accentLine})`); rs.setProperty('--accent-ink', `var(--${accentLine}-ink)`); rs.setProperty('--accent-soft', `var(--${accentLine}-soft)`); rs.setProperty('--on-accent', `var(--on-${accentLine})`);
   }
+  const PALETTES = ['sunset', 'ocean', 'forest'];
   function applyTheme() {
     const th = S.theme || 'dark';
     if (th === 'auto') document.documentElement.removeAttribute('data-theme');
     else document.documentElement.setAttribute('data-theme', th);
+    const pal = PALETTES.indexOf(S.palette) > 0 ? S.palette : '';
+    if (pal) document.documentElement.setAttribute('data-palette', pal); else document.documentElement.removeAttribute('data-palette');
     const b = $('#themeBtn');
     if (b) {
       const dark = isDark();
@@ -373,7 +377,7 @@
     }).join('');
     return `<div class="view">
       <section class="hero">
-        <img class="cover" src="assets/cover.webp" width="1200" height="917" alt="${esc(t('coverAlt'))}">
+        ${showArt() ? `<img class="hero-art" src="assets/stickers/chat-robot.webp" width="720" height="589" alt="${esc(t('heroArtAlt'))}">` : ''}<img${showArt() ? ' hidden' : ''} class="cover" src="assets/cover.webp" width="1200" height="917" alt="${esc(t('coverAlt'))}">
         <span class="eyebrow">${esc(t('homeEyebrow'))}</span>
         <h1>${esc(t('homeTitle'))}</h1>
         <p>${md(t('homeIntro'))}</p>
@@ -1465,16 +1469,44 @@
       }
     }));
   }
+  /* Content status: last check and the next monthly check (3rd of each month, 13:35 Vancouver ≈ 21:35 UTC) */
+  function nextCheck(from) {
+    const d = new Date(from);
+    let n = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 3, 21, 35));
+    if (n <= d) n = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 3, 21, 35));
+    return n;
+  }
+  function statusCardHTML() {
+    const meta = CT.meta || {};
+    const last = meta.lastUpdate ? new Date(meta.lastUpdate + 'T12:00:00Z') : null;
+    const now = Date.now();
+    const next = nextCheck(now);
+    // up to date when the last check is newer than the check before the next one (+ a few days to review)
+    const prevDue = new Date(Date.UTC(next.getUTCFullYear(), next.getUTCMonth() - 1, 3)).getTime() + 7 * 864e5;
+    const fresh = last && (last.getTime() >= prevDue - 40 * 864e5 && now - last.getTime() < 40 * 864e5);
+    const f = (d) => d.toLocaleDateString(L === 'he' ? 'he-IL' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    return `<section class="card status-card ${fresh ? 'ok' : 'due'}">
+      <span class="st-badge">${icon(fresh ? 'check' : 'clock')}<span>${esc(t(fresh ? 'statusFresh' : 'statusDue'))}</span></span>
+      <dl><div><dt>${esc(t('lastUpdate'))}</dt><dd>${last ? esc(f(last)) : '—'}</dd></div><div><dt>${esc(t('nextUpdate'))}</dt><dd>${esc(f(next))}</dd></div></dl>
+      <p class="muted" style="font-size:.88rem">${esc(t('statusD'))}</p></section>`;
+  }
   function viewPrefs() {
     const sizes = [[0.9, 'A−'], [1, 'A'], [1.12, 'A+'], [1.25, 'A++']];
     return `<div class="view">
       <section class="hero"><span class="eyebrow">${esc(t('tabPrefs'))}</span><h1>${esc(t('prefsTitle'))}</h1></section>
+      ${statusCardHTML()}
       <section class="card" style="display:grid;gap:12px"><b>${esc(t('language'))}</b><p class="muted" style="font-size:.94rem">${esc(t('languageD'))}</p>
         <div class="toggles"><button type="button" data-setlang="en" aria-pressed="${L === 'en'}">English</button><button type="button" data-setlang="he" aria-pressed="${L === 'he'}" lang="he">עברית — פשוט וברור</button></div></section>
       <section class="card" style="display:grid;gap:12px"><b>${esc(t('textSize'))}</b>
         <div class="toggles">${sizes.map(([v, lab]) => `<button type="button" data-scale="${v}" aria-pressed="${Math.abs((S.scale || 1) - v) < 0.01}">${lab}</button>`).join('')}</div></section>
-      <section class="card" style="display:grid;gap:12px"><b>${esc(t('theme'))}</b><p class="muted" style="font-size:.94rem">${esc(t('themeD'))}</p>
-        <div class="toggles">${[['dark', 'themeDark'], ['light', 'themeLight'], ['auto', 'themeAuto']].map(([v, k]) => `<button type="button" data-theme-set="${v}" aria-pressed="${(S.theme || 'dark') === v}">${esc(t(k))}</button>`).join('')}</div></section>
+      <section class="card" style="display:grid;gap:14px"><b>${esc(t('theme'))}</b>
+        <div class="radios" role="radiogroup" aria-label="${esc(t('theme'))}">${[['dark', 'themeDark', 'moon'], ['light', 'themeLight', 'sun'], ['auto', 'themeAuto', 'device']].map(([v, k, ic]) => `<label class="radio"><input type="radio" name="theme" value="${v}" ${(S.theme || 'dark') === v ? 'checked' : ''}><span class="dot"></span>${icon(ic)}<span>${esc(t(k))}</span></label>`).join('')}</div></section>
+      <section class="card" style="display:grid;gap:14px"><b>${esc(t('paletteTitle'))}</b><p class="muted" style="font-size:.94rem">${esc(t('paletteD'))}</p>
+        <div class="palettes" role="radiogroup" aria-label="${esc(t('paletteTitle'))}">${PALETTES.map((p) => `<label class="pal" data-pal="${p}"><input type="radio" name="palette" value="${p}" ${(S.palette || 'sunset') === p ? 'checked' : ''}>
+          <span class="pal-top"><span class="dot"></span><b>${esc(t('pal_' + p))}</b></span>
+          <span class="swatches" aria-hidden="true">${['l1', 'l2', 'l3', 'l4', 'l5', 'l6', 'lx'].map((k) => `<i style="background:var(--${k})"></i>`).join('')}</span>
+          <span class="pal-sample" aria-hidden="true"><span class="linebadge" style="background:var(--l2);color:var(--on-l2)">1</span><span style="color:var(--l3-ink);background:var(--l3-soft)">Aa</span><span style="color:var(--lx-ink);background:var(--lx-soft)">Aa</span></span>
+        </label>`).join('')}</div></section>
       <section class="card" style="display:grid;gap:12px" id="bkCard"><b>${esc(t('bkSaveTitle'))}</b><p class="muted" style="font-size:.94rem">${esc(t('bkSaveD'))}</p>
         <label class="field" for="bkName">${esc(t('bkName'))}<input type="text" id="bkName" dir="auto" maxlength="60" autocomplete="off" placeholder="${esc(t('bkNamePh'))}"></label>
         <div class="row"><button type="button" class="btn primary" id="bkSave">${icon('check')}${esc(t('bkSave'))}</button>${canDownload() ? `<button type="button" class="btn" id="bkDownload">${icon('download')}${esc(t('bkDownload'))}</button>` : ''}</div>
@@ -1487,7 +1519,7 @@
         <div class="row"><button type="button" class="btn" id="bkRestore">${icon('upload')}${esc(t('restore'))}</button><label class="btn" for="bkFileIn">${icon('upload')}${esc(t('restoreFile'))}</label><input type="file" id="bkFileIn" accept=".json,application/json,.txt" class="sr"></div><div id="bkMsg"></div></section>
       <section class="card" style="display:grid;gap:12px"><b>${esc(t('tourAgain'))}</b><div class="row"><button type="button" class="btn" id="tourBtn">${icon('map')}${esc(t('showTour'))}</button><a class="btn" href="#finish">${icon('award')}${esc(t('seeCompletion'))}</a></div></section>
       <section class="card" style="display:grid;gap:12px;border-color:var(--bad)"><b>${esc(t('resetTitle'))}</b><p class="muted" style="font-size:.94rem">${esc(t('resetD'))}</p><div id="resetZone"><button type="button" class="btn" id="resetBtn" style="color:var(--bad)">${icon('trash')}${esc(t('resetBtn'))}</button></div></section>
-      <section class="card" style="display:grid;gap:8px"><b>${esc(t('aboutTitle'))}</b>${(CT.ui[L].about || CT.ui.en.about).map((p) => `<p class="muted" style="font-size:.94rem">${md(p)}</p>`).join('')}</section>
+      <section class="card" style="display:grid;gap:8px"><b id="aboutTitle" class="secret">${esc(t('aboutTitle'))}</b>${(CT.ui[L].about || CT.ui.en.about).map((p) => `<p class="muted" style="font-size:.94rem">${md(p)}</p>`).join('')}</section>
     </div>`;
   }
   MOUNT.prefs = (root) => {
@@ -1504,7 +1536,15 @@
       file.text().then((txt) => askRestore(readBackupText(txt), msg)).catch(() => { msg.innerHTML = `<p style="color:var(--bad)">${esc(t('restoreBad'))}</p>`; });
       ev.target.value = '';
     });
-    $$('[data-theme-set]', root).forEach((btn) => btn.addEventListener('click', () => { S.theme = btn.dataset.themeSet; persist(); applyTheme(); render({ keepScroll: true }); }));
+    $$('input[name="theme"]', root).forEach((r) => r.addEventListener('change', () => { S.theme = r.value; persist(); applyTheme(); }));
+    $$('input[name="palette"]', root).forEach((r) => r.addEventListener('change', () => { S.palette = r.value; persist(); applyTheme(); }));
+    // secret switch: tap the About title 7 times to show or hide the stickers
+    let taps = 0, tapT = 0;
+    $('#aboutTitle', root).addEventListener('click', () => {
+      clearTimeout(tapT); tapT = setTimeout(() => { taps = 0; }, 2500);
+      if (++taps < 7) return;
+      taps = 0; S.stickers = !S.stickers; persist(); toast(t(S.stickers ? 'stickersOn' : 'stickersOff'));
+    });
     const nameIn = $('#bkName', root);
     const bkName = () => (nameIn.value || '').trim() || t('bkDefaultName', { date: fmtDate(Date.now()) });
     $('#bkSave', root).addEventListener('click', async (ev) => {
@@ -1554,10 +1594,6 @@
     render({ keepScroll: cur.view !== 'lesson' });
   }
   $$('.langswitch button').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));
-  $('#themeBtn').addEventListener('click', () => {
-    S.theme = isDark() ? 'light' : 'dark'; persist(); applyTheme();
-    if (cur.view === 'prefs') render({ keepScroll: true });
-  });
   window.addEventListener('hashchange', route);
   window.addEventListener('pagehide', () => { leaveExam(); try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* ignore */ } Cloud.flush(); });
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* ignore */ } Cloud.flush(); } });

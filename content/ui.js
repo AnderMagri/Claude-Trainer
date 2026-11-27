@@ -3,6 +3,9 @@
    Hebrew is written to be simpler and shorter than the English on purpose. */
 window.CT = window.CT || { modules: [], exam: [], glossary: [] };
 
+// When the content was last checked. The monthly check updates this date.
+CT.meta = { lastUpdate: '2026-11-25' };
+
 CT.domains = [
   { id: 'd1', w: 14, en: 'Prompting and Task Execution', he: 'ניסוח פרומפטים וביצוע משימות', short: { en: 'Prompting', he: 'פרומפטים' } },
   { id: 'd2', w: 21, en: 'Output Evaluation and Validation', he: 'הערכה ובדיקה של תוצרים', short: { en: 'Evaluating output', he: 'בדיקת תוצרים' } },
@@ -34,6 +37,7 @@ CT.ui = {
     keyIdea: 'Key idea', saved: 'Saved', saveToNotebook: 'Save', copy: 'Copy', examplePrompt: 'Example prompt', tryInClaude: 'Try in Claude', weaker: 'Weaker', stronger: 'Stronger', pauseThink: 'Pause and think',
     nextLesson: 'Next lesson', examDomain: 'Exam domain', domainShort: 'D{n}', completed: 'Completed',
     ttsLimit: 'Reading aloud reached its limit for now. Try again in a few minutes.', ttsFail: 'The reading stopped. Press Listen to start again.',
+    paletteTitle: 'Colour palette', paletteD: 'The colours of the lines. Each palette is checked for readable contrast in dark and light mode.', pal_sunset: 'Sunset', pal_ocean: 'Ocean', pal_forest: 'Forest', statusFresh: 'Up to date', statusDue: 'Update check due', lastUpdate: 'Last update', nextUpdate: 'Next check', statusD: 'Facts about Claude are checked against official sources once a month.', stickersOn: 'Stickers on', stickersOff: 'Stickers off',
     contents: 'Contents', askClaude: 'Ask Claude', askIntro: 'Ask anything about this lesson. Answers come from Claude on your own account, and can be wrong: check important facts.', askNoChat: 'The chat works when you open this course inside Claude. Here, your question opens in a new Claude chat.', askPh: 'Ask about this lesson…', askSend: 'Send', askChip1: 'Explain it more simply', askChip2: 'Give me an everyday example', askChip3: 'Why does this matter at work?', askChip4: 'Quiz me with 3 questions', askFail: 'Claude could not answer just now. Please try again.', askBusy: 'Too many questions in a short time. Wait a minute and try again.', askOpenPrefix: 'I am studying the lesson “{title}” in a beginner course about Claude.',
     bookmarkHere: 'Bookmark', listen: 'Listen', stopListening: 'Stop', myNotebook: 'Notebook',
     inShort: 'In short', goalsTitle: 'In this lesson you will', termsTitle: 'English words you will meet', quickCheck: 'Quick check', questionN: 'Question {n} of {of}',
@@ -81,7 +85,7 @@ CT.ui = {
     savingD: 'Clearing your browser data, or using a private window, can erase progress saved in the browser. Use a backup code to be safe or to move to another device.',
     backupTitle: 'Backup and move to another device', backupD: 'Copy your backup code and keep it somewhere safe (an email to yourself works). Paste it here on any device to restore everything.', backupCopy: 'Copy backup code', backupCopied: 'Backup code copied',
     restoreLabel: 'Paste a backup code', restore: 'Restore', restoreConfirm: 'This backup has {n} completed lessons. How do you want to restore it?', restoreMerge: 'Merge with what I have', restoreReplace: 'Replace everything', restored: 'Restored', restoreBad: 'That backup did not work. Use a backup file from this course, or copy the whole code, starting with CT1.', restoreFile: 'Restore from a file',
-    theme: 'Colours', themeD: 'Dark is black and grey. Light is clean ghost white. Both use sunset colours for the lines. You can also switch with the sun or moon button at the top.', toLight: 'Switch to light', toDark: 'Switch to dark', themeDark: 'Dark', themeLight: 'Light', themeAuto: 'Like my device',
+    theme: 'Colours', themeD: 'Dark, light, or the same as your device.', toLight: 'Switch to light', toDark: 'Switch to dark', themeDark: 'Dark', themeLight: 'Light', themeAuto: 'Like my device',
     bkSaveTitle: 'Save your progress', bkSaveD: 'Type a name and save a snapshot of everything: finished lessons, notes, highlights, quiz and exam results. You can go back to it any time.',
     bkName: 'Backup name', bkNamePh: 'For example: before the exam', bkSave: 'Save backup', bkDownload: 'Download as file', bkFileShort: 'File',
     bkWhereCloud: 'Backups are saved in your Claude account, so you can open them on any device. Only you can see them.', bkWhereLocal: 'Backups are saved in this browser only. Download a file too, to keep it safe.',
@@ -127,6 +131,7 @@ CT.ui = {
     keyIdea: 'רעיון מרכזי', saved: 'נשמר', saveToNotebook: 'שמור', copy: 'העתק', examplePrompt: 'פרומפט לדוגמה', tryInClaude: 'נסו ב-Claude', weaker: 'פחות טוב', stronger: 'יותר טוב', pauseThink: 'עצרו וחשבו',
     nextLesson: 'השיעור הבא', examDomain: 'נושא במבחן', domainShort: 'נושא {n}', completed: 'הושלם',
     ttsLimit: 'ההקראה הגיעה למגבלה כרגע. נסו שוב בעוד כמה דקות.', ttsFail: 'ההקראה נעצרה. לחצו שוב על הקראה.',
+    paletteTitle: 'ערכת צבעים', paletteD: 'הצבעים של הקווים. כל ערכה נבדקה לניגודיות קריאה במצב כהה ובהיר.', pal_sunset: 'שקיעה', pal_ocean: 'ים', pal_forest: 'יער', statusFresh: 'מעודכן', statusDue: 'הגיע הזמן לבדיקה', lastUpdate: 'עדכון אחרון', nextUpdate: 'הבדיקה הבאה', statusD: 'העובדות על Claude נבדקות מול מקורות רשמיים פעם בחודש.', stickersOn: 'המדבקות הופעלו', stickersOff: 'המדבקות כובו',
     contents: 'תוכן', askClaude: 'לשאול את Claude', askIntro: 'שואלים כל דבר על השיעור הזה. התשובות מגיעות מ-Claude בחשבון שלכם, והן יכולות לטעות: בודקים עובדות חשובות.', askNoChat: 'הצ׳אט עובד כשפותחים את הקורס בתוך Claude. כאן, השאלה תיפתח בשיחה חדשה ב-Claude.', askPh: 'שאלו על השיעור…', askSend: 'שליחה', askChip1: 'תסביר יותר פשוט', askChip2: 'תן דוגמה מהיום-יום', askChip3: 'למה זה חשוב בעבודה?', askChip4: 'תבחן אותי ב-3 שאלות', askFail: 'Claude לא הצליח לענות כרגע. נסו שוב.', askBusy: 'יותר מדי שאלות בזמן קצר. חכו דקה ונסו שוב.', askOpenPrefix: 'אני לומד/ת את השיעור „{title}” בקורס למתחילים על Claude.',
     bookmarkHere: 'סימנייה', listen: 'הקראה', stopListening: 'עצור', myNotebook: 'מחברת',
     inShort: 'בקיצור', goalsTitle: 'בשיעור הזה', termsTitle: 'מילון קטן: מילים באנגלית שתפגשו', quickCheck: 'בדיקה קצרה', questionN: 'שאלה {n} מתוך {of}',
@@ -174,7 +179,7 @@ CT.ui = {
     savingD: 'ניקוי נתוני הדפדפן או חלון גלישה פרטי יכולים למחוק את מה שנשמר בדפדפן. כדאי לשמור קוד גיבוי — גם כדי לעבור למכשיר אחר.',
     backupTitle: 'גיבוי ומעבר למכשיר אחר', backupD: 'מעתיקים את קוד הגיבוי ושומרים במקום בטוח (מייל לעצמכם זה מצוין). מדביקים אותו כאן בכל מכשיר — והכול חוזר.', backupCopy: 'העתק קוד גיבוי', backupCopied: 'קוד הגיבוי הועתק',
     restoreLabel: 'הדביקו קוד גיבוי', restore: 'שחזר', restoreConfirm: 'בגיבוי הזה יש {n} שיעורים שהושלמו. איך לשחזר?', restoreMerge: 'לאחד עם מה שיש לי', restoreReplace: 'להחליף הכול', restored: 'שוחזר', restoreBad: 'הגיבוי לא עבד. השתמשו בקובץ גיבוי של הקורס, או העתיקו את כל הקוד, החל מ-CT1.', restoreFile: 'שחזור מקובץ',
-    theme: 'צבעים', themeD: 'כהה = שחור ואפור. בהיר = לבן נקי. בשניהם הקווים בצבעי שקיעה. אפשר להחליף גם בכפתור השמש או הירח למעלה.', toLight: 'מעבר למצב בהיר', toDark: 'מעבר למצב כהה', themeDark: 'כהה', themeLight: 'בהיר', themeAuto: 'כמו במכשיר',
+    theme: 'צבעים', themeD: 'כהה, בהיר, או כמו במכשיר.', toLight: 'מעבר למצב בהיר', toDark: 'מעבר למצב כהה', themeDark: 'כהה', themeLight: 'בהיר', themeAuto: 'כמו במכשיר',
     bkSaveTitle: 'שמירת ההתקדמות', bkSaveD: 'כותבים שם ושומרים תמונת מצב של הכול: שיעורים שסיימתם, הערות, הדגשות ותוצאות של בחנים ומבחנים. אפשר לחזור אליה מתי שרוצים.',
     bkName: 'שם הגיבוי', bkNamePh: 'למשל: לפני המבחן', bkSave: 'שמירת גיבוי', bkDownload: 'הורדה כקובץ', bkFileShort: 'קובץ',
     bkWhereCloud: 'הגיבויים נשמרים בחשבון Claude שלכם, ואפשר לפתוח אותם בכל מכשיר. רק אתם רואים אותם.', bkWhereLocal: 'הגיבויים נשמרים רק בדפדפן הזה. כדאי גם להוריד קובץ, ליתר ביטחון.',

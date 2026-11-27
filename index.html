@@ -5,8 +5,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Overpass:wght@600;700;800;900&family=Rubik:wght@500;600;700;800&display=swap">
 <link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/palettes.css">
 <link rel="stylesheet" href="css/app.css">
-<script>try { var ctS = JSON.parse(localStorage.getItem("claude-trainer.state.v1") || "{}"); if (ctS.theme !== "auto") document.documentElement.setAttribute("data-theme", ctS.theme === "light" ? "light" : "dark"); } catch (e) { document.documentElement.setAttribute("data-theme", "dark"); }</script>
+<script>try { var ctS = JSON.parse(localStorage.getItem("claude-trainer.state.v1") || "{}"); if (ctS.theme !== "auto") document.documentElement.setAttribute("data-theme", ctS.theme === "light" ? "light" : "dark"); if (ctS.palette === "ocean" || ctS.palette === "forest") document.documentElement.setAttribute("data-palette", ctS.palette); } catch (e) { document.documentElement.setAttribute("data-theme", "dark"); }</script>
 
 <header class="topbar">
   <div class="topbar-in">
@@ -14,7 +15,6 @@
     <a class="brand" href="#home" id="brandLink">
       <span class="brand-name" id="brandName">Claude Trainer</span>
     </a>
-    <button class="iconbtn" id="themeBtn" type="button" aria-label="Colours"></button>
     <div class="langswitch" role="group" aria-label="Language">
       <button type="button" data-lang="en" aria-pressed="true">EN</button>
       <button type="button" data-lang="he" aria-pressed="false" lang="he">עב</button>
