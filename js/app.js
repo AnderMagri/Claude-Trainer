@@ -1513,7 +1513,7 @@
         <p class="muted" style="font-size:.88rem" id="bkWhere">${esc(t(Backups.where === 'cloud' ? 'bkWhereCloud' : 'bkWhereLocal'))}</p>
         <div><b style="font-size:.95rem">${esc(t('bkListTitle'))}</b><div id="bkList">${backupListHTML()}</div></div></section>
       <section class="card" style="display:grid;gap:10px"><b>${esc(t('savingTitle'))}</b><p id="syncStatus">${syncLabel()}</p><p class="muted" style="font-size:.92rem">${esc(t('savingD'))}</p></section>
-      <section class="card" style="display:grid;gap:12px"><b>${esc(t('backupTitle'))}</b><p class="muted" style="font-size:.94rem">${esc(t('backupD'))}</p>
+      <section class="card" style="display:grid;gap:12px" hidden><b>${esc(t('backupTitle'))}</b><p class="muted" style="font-size:.94rem">${esc(t('backupD'))}</p>
         <div class="row"><button type="button" class="btn" id="bkCopy">${icon('copy')}${esc(t('backupCopy'))}</button></div>
         <label class="field" for="bkIn">${esc(t('restoreLabel'))}<textarea id="bkIn" dir="ltr" placeholder="CT1.…" style="font-family:var(--f-mono);font-size:.8rem;min-height:70px"></textarea></label>
         <div class="row"><button type="button" class="btn" id="bkRestore">${icon('upload')}${esc(t('restore'))}</button><label class="btn" for="bkFileIn">${icon('upload')}${esc(t('restoreFile'))}</label><input type="file" id="bkFileIn" accept=".json,application/json,.txt" class="sr"></div><div id="bkMsg"></div></section>
